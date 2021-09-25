@@ -1,0 +1,40 @@
+{
+  "name": "avplayer",
+  "version": "1.0.0",
+  "description": "Astro Video Player based on React Player",
+  "keywords": [
+    "astro",
+    "astro-video-player",
+    "astro-react-player"
+  ],
+  "author": "aFuzzyBear <drgaud@hotmail.com>",
+  "homepage": "https://github.com/aFuzzyBear/astro-ui/tree/main/components/AVPlayer#readme",
+  "license": "MIT",
+  "main": "lib/AVPlayer.js",
+  "directories": {
+    
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.yarnpkg.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aFuzzyBear/astro-ui.git"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "publish": "lerna publish &&  npm publish",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/aFuzzyBear/astro-ui/issues"
+  },
+  "dependencies": {
+    "astro": "^0.20.7",
+    "react-player": "^2.9.0"
+  }
+}
