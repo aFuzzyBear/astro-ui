@@ -1,7 +1,52 @@
 ---
 import RPlyr from '../components/RPlyr.jsx'
+// const {content} = Astro.props
+const {
+    url,
+    playing,
+    loop,
+    controls,
+    light,
+    volume,
+    muted,
+    playbackRate,
+    width,
+    height,
+    style,
+    progressInterval,
+    playsinline,
+    pip,
+    stopOnUnmount,
+    fallback,
+    wrapper,
+    playIcon,
+    previewTabIndex,
+    config,
+}=Astro.props
 ---
     <div>
         imported
-        <RPlyr client:idle/>
+        <RPlyr 
+            url = {url ? url : ReferenceError('Sorry, no URL was provided')} 
+            playing = {playing ?? playing}
+            loop = {loop ?? loop}
+            controls = {controls ?? controls}
+            light = {light ?? light}
+            volume = {volume ?? volume}
+            muted = {muted ?? muted}
+            playbackRate = {playbackRate ?? playbackRate}
+            width = {width ?? width}
+            height = {height ?? height}
+            style = {style ?? style}
+            progressInterval = {progressInterval ?? progressInterval}
+            playsinline= {playsinline ?? playsinline}
+            pip = {pip ?? pip}
+            stopOnUnmount = {stopOnUnmount ?? stopOnUnmount}
+            fallback = {fallback ?? fallback}
+            wrapper = {wrapper ?? wrapper} 
+            playIcon = {playIcon ?? playIcon}
+            previewTabIndex = {previewTabIndex ?? previewTabIndex}
+            config = {config ?? config}
+            client:visible
+            />
     </div>
