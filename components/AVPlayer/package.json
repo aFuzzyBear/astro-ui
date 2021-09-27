@@ -11,8 +11,10 @@
   "homepage": "https://github.com/aFuzzyBear/astro-ui/tree/main/components/AVPlayer#readme",
   "license": "MIT",
   "main": "lib/AVPlayer.js",
-  "directories": {},
-  "exports": [
+  "directories": {
+    
+  },
+  "exports":[
     "./dist/types/@types/astro"
   ],
   "files": [
@@ -35,7 +37,7 @@
     "url": "https://github.com/aFuzzyBear/astro-ui/issues"
   },
   "dependencies": {
-    "astro": "^0.0.0-compiler-2021824171345",
+    "astro": "^0.20.7",
     "react-player": "^2.9.0"
   }
 }
