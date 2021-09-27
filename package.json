@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Allow the creation and distribution of Astro Components for fellow Astronauts",
   "main": "index.js",
-  "private":"true",
+  "private": "true",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,9 +26,9 @@
     "lerna": "^4.0.0"
   },
   "devDependencies": {
-    "astro": "^0.20.7"
+    "astro": "^0.0.0-compiler-2021824171345"
   },
-  "workspaces":[
+  "workspaces": [
     "components/*"
   ]
 }
