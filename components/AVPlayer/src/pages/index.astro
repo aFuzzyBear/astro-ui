@@ -2,7 +2,6 @@
 import AVPlayer from '../components/AVPlayer.astro'
 ---
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,9 +14,15 @@ import AVPlayer from '../components/AVPlayer.astro'
     <h1>
        Sup 😎 !
     </h1>
-    <AVPlayer url={"https://www.youtube.com/watch?v=dsTXcSeAZq8&ab_channel=Fireship"}
-    controls={true}
-    pip
+    <AVPlayer 
+      url={"https://www.youtube.com/watch?v=dsTXcSeAZq8&ab_channel=Fireship"}
+      controls={true}
+      pip
+      config={{
+        youtube:{
+          playerVars:{showinfo:1}
+        }
+      }}
     />
 </body>
 </html>

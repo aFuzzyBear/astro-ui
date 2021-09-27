@@ -1,4 +1,4 @@
-import { Component  } from 'react'
+import React, { Component,JSX,Suspense  } from 'react'
 import ReactPlayer from 'react-player'
 import type ReactPlayerProps from 'react-player'
 // import { JsxItem } from 'astro/dist/types/@types/astro'
@@ -7,7 +7,7 @@ interface SourceProps {
     src: string
     type: string
   }
-export declare interface RPlyrProps{
+export  interface RPlyrProps{
     url?: string | string[] | SourceProps[] | MediaStream
     playing?: boolean
     loop?: boolean
@@ -20,7 +20,7 @@ export declare interface RPlyrProps{
     style?: CSSStyleDeclaration
     progressInterval?: number
     playsinline?: boolean
-    playIcon?: JsxItem
+    playIcon?: JSX.Element
     previewTabIndex?: number
     pip?: boolean
     stopOnUnmount?: boolean
@@ -28,6 +28,26 @@ export declare interface RPlyrProps{
     fallback?: JsxItem
     wrapper?: any
     config?:any
+    onReady?: (player: ReactPlayer) => void
+    onStart?: () => void
+    onPlay?: () => void
+    onPause?: () => void
+    onBuffer?: () => void
+    onBufferEnd?: () => void
+    onEnded?: () => void
+    onClickPreview?: (event: any) => void
+    onEnablePIP?: () => void
+    onDisablePIP?: () => void
+    onError?: (error: any, data?: any, hlsInstance?: any, hlsGlobal?: any) => void
+    onDuration?: (duration: number) => void
+    onSeek?: (seconds: number) => void
+    onProgress?: (state: {
+      played: number
+      playedSeconds: number
+      loaded: number
+      loadedSeconds: number
+    }) => void
+    [otherProps: string]: any
 }
 
 const RPlyr = ({...props}:RPlyrProps):ReactPlayer => {
@@ -51,11 +71,23 @@ const RPlyr = ({...props}:RPlyrProps):ReactPlayer => {
         wrapper,
         playIcon,
         previewTabIndex,
-        config
+        config,
+        onReady,
+        onStart,
+        onPlay,
+        onProgress,
+        onDuration,
+        onPause,
+        onBuffer,
+        onSeek,
+        onEnded,
+        onError,
+        onClickPreview,
+        onEnablePIP,
+        onDisablePIP
     }=props
-    console.log(url)
+    console.log(config)
     return(
-        <div>
             <ReactPlayer 
                 url = {url ? url : ReferenceError('Sorry, no URL was provided')} 
                 playing = {playing ?? playing}
@@ -77,9 +109,20 @@ const RPlyr = ({...props}:RPlyrProps):ReactPlayer => {
                 playIcon = {playIcon ?? playIcon}
                 previewTabIndex = {previewTabIndex ?? previewTabIndex}
                 config = {config ?? config}
+                onReady =  {onReady ?? onReady}
+                onStart = {onStart ?? onStart}
+                onPlay = {onPlay ?? onPlay}
+                onProgress = {onProgress ?? onProgress} 
+                onDuration = {onDuration ?? onDuration}
+                onPause = {onPause ?? onPause}
+                onBuffer = {onBuffer ?? onBuffer}
+                onSeek = {onSeek ?? onSeek}
+                onEnded = {onEnded ?? onEnded}
+                onError = {onError ?? onError}
+                onClickPreview = {onClickPreview ?? onClickPreview}
+                onEnablePIP = {onEnablePIP ?? onEnablePIP}
+                onDisablePIP = {onDisablePIP ?? onDisablePIP}
             />
-            
-        </div>
 
     )
 }

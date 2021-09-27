@@ -1,6 +1,5 @@
 ---
 import RPlyr from '../components/RPlyr.jsx'
-// const {content} = Astro.props
 const {
     url,
     playing,
@@ -22,10 +21,23 @@ const {
     playIcon,
     previewTabIndex,
     config,
+    onReady,
+    onStart,
+    onPlay,
+    onProgress,
+    onDuration,
+    onPause,
+    onBuffer,
+    onSeek,
+    onEnded,
+    onError,
+    onClickPreview,
+    onEnablePIP,
+    onDisablePIP
+
 }=Astro.props
 ---
     <div>
-        imported
         <RPlyr 
             url = {url ? url : ReferenceError('Sorry, no URL was provided')} 
             playing = {playing ?? playing}
@@ -39,7 +51,7 @@ const {
             height = {height ?? height}
             style = {style ?? style}
             progressInterval = {progressInterval ?? progressInterval}
-            playsinline= {playsinline ?? playsinline}
+            playsinline = {playsinline ?? playsinline}
             pip = {pip ?? pip}
             stopOnUnmount = {stopOnUnmount ?? stopOnUnmount}
             fallback = {fallback ?? fallback}
@@ -47,6 +59,19 @@ const {
             playIcon = {playIcon ?? playIcon}
             previewTabIndex = {previewTabIndex ?? previewTabIndex}
             config = {config ?? config}
+            onReady =  {onReady ?? onReady}
+            onStart = {onStart ?? onStart}
+            onPlay = {onPlay ?? onPlay}
+            onProgress = {onProgress ?? onProgress} 
+            onDuration = {onDuration ?? onDuration}
+            onPause = {onPause ?? onPause}
+            onBuffer = {onBuffer ?? onBuffer}
+            onSeek = {onSeek ?? onSeek}
+            onEnded = {onEnded ?? onEnded}
+            onError = {onError ?? onError}
+            onClickPreview = {onClickPreview ?? onClickPreview}
+            onEnablePIP = {onEnablePIP ?? onEnablePIP}
+            onDisablePIP = {onDisablePIP ?? onDisablePIP}
             client:visible
             />
     </div>
