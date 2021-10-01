@@ -1,0 +1,73 @@
+---
+const {
+	'@is': tag = null,
+	'@ref': ref = null,
+	'@ref:idle': refIdle = null,
+	'@ref:media': refMTMQ = null,
+	'@ref:visible': refShow = null,
+	...attrs
+} = Astro.props
+
+type Tag = keyof HTMLElementTagNameMap | (string & {})
+
+const XElement: string = tag === null ? 'span' : tag
+
+/** Formats the given value so that it can be placed into an attribute. */
+const toAttributeString = (value: any) => String(value).replace(/&/g, '&#38;').replace(/"/g, '&#34;')
+
+const listeners = Object.keys(attrs).reduce(
+	(listeners, name) => {
+		if (name.startsWith('@')) {
+			const data = attrs[name]
+
+			if (typeof data === 'function') {
+				listeners.push(`previousSibling.addEventListener(${toAttributeString(`"${name.slice(1)}"`)},${toAttributeString(data)});`)
+
+				delete attrs[name]
+			}
+		}
+
+		return listeners
+	},
+	[]
+).join('')
+
+const onLoadString: string = listeners || typeof ref === 'function' ? `let{previousSibling}=this;this.remove();${
+	listeners.length
+		? `${listeners};`
+	: ''
+}${
+	typeof ref === 'function'
+		? refIdle
+			? `requestIdleCallback(()=>(${toAttributeString(ref)})(previousSibling))`
+		: refMTMQ
+			? `matchMedia(${toAttributeString(JSON.stringify(refMTMQ))}).onchange=e=>e.matches&&!(e.target.onchange=null)&&(${toAttributeString(ref)})(previousSibling)`
+		: refShow
+			? `new IntersectionObserver((e,o)=>e[0].isIntersecting&&!o.disconnect()&&(${toAttributeString(ref)})(previousSibling)).observe(previousSibling)`
+		: `(${toAttributeString(ref)})(previousSibling)`
+	: ''
+}` : null
+
+export interface Props {
+	/** A string indicating the type of element being created. */
+	'@is'?: Tag
+
+	/** A function used to reference the DOM Node for this element. */
+	'@ref'?: (
+		/** DOM Node representing this element. */
+		element?: HTMLElement
+	) => void
+
+	/** Indicates `ref` should be run when the main thread is free. */
+	'@ref:idle'?: boolean
+
+	/** Indicates `ref` should be run when the media query is matched. */
+	'@ref:media'?: boolean
+
+	/** Indicates `ref` should be run when the element is visible. */
+	'@ref:visible'?: boolean
+}
+---
+<XElement {...attrs}><slot /></XElement>{
+	onLoadString && <script type="module" src="data:text/javascript," onload={onLoadString} />
+}

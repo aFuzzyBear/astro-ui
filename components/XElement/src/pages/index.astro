@@ -1,0 +1,47 @@
+---
+import XElement from '../components/XElement.astro'
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <XElement
+        @is='div'
+        @ref={element => console.log(element)}
+        @click={arg=>console.log("you clicked me", arg)}  
+    >
+        <!-- Ref out the element -->
+        <!-- Click logs out the event -->
+        <!-- Click logs out the event -->
+    
+        <XElement 
+            @is='h1'
+            style="font-size: x-large; color:green"
+        >
+            Hello World
+        </XElement>
+    </XElement>
+    <!-- Use Case switching text color -->
+    <XElement
+        @is='div'
+        @ref={element => console.log(element)}
+        @click={e=>e.target.style.color='red'}  
+    >
+        <!-- Ref out the element -->
+        <!-- to Reference the element, you have to refer to the event.target -->
+    
+        <XElement 
+            @is='h1'
+            style="font-size: x-large; color:green"
+        >
+            Hello World
+        </XElement>
+    </XElement>
+</body>
+</html>
