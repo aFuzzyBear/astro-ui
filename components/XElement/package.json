@@ -1,0 +1,40 @@
+{
+  "name": "astro-xelement",
+  "version": "1.0.0",
+  "description": "Astro Web Element Component,",
+  "keywords": [
+    "astro",
+    "astro-component",
+    "astro-ui",
+    "astro-island"
+  ],
+  "author": "aFuzzyBear <drgaud@hotmail.com>",
+  "homepage": "https://github.com/aFuzzyBear/astro-ui/tree/main/components/XElement#readme",
+  "license": "MIT",
+  "main": "src/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.yarnpkg.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aFuzzyBear/astro-ui.git"
+  },
+  "scripts": {
+    "dev":"astro dev",
+    "build":"astro build",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/aFuzzyBear/astro-ui/issues"
+  },
+  "dependencies": {
+    "astro": "^0.20.8"
+  }
+}
