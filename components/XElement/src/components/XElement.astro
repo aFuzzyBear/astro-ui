@@ -1,10 +1,6 @@
 ---
 const {
 	'@is': tag = null,
-	'@ref': ref = null,
-	'@ref:idle': refIdle = null,
-	'@ref:media': refMTMQ = null,
-	'@ref:visible': refShow = null,
 	...attrs
 } = Astro.props
 
@@ -15,57 +11,83 @@ const XElement: string = tag === null ? 'span' : tag
 /** Formats the given value so that it can be placed into an attribute. */
 const toAttributeString = (value: any) => String(value).replace(/&/g, '&#38;').replace(/"/g, '&#34;')
 
-const listeners = Object.keys(attrs).reduce(
-	(listeners, name) => {
-		if (name.startsWith('@')) {
-			const data = attrs[name]
+/** Listeners attached to the event. */
+let listenerString = ''
 
-			if (typeof data === 'function') {
-				listeners.push(`previousSibling.addEventListener(${toAttributeString(`"${name.slice(1)}"`)},${toAttributeString(data)});`)
+/** Event fired once before the document is displayed, deferred using `type="module". */
+let listenerOfOnce = ''
 
-				delete attrs[name]
+for (const name in attrs) {
+	if (name.startsWith('@')) {
+		const data = attrs[name]
+
+		if (typeof data === 'function') {
+			delete attrs[name]
+
+			/** Normalized type of the event. */
+			let type = name.slice(1)
+
+			/** Options extracted from the type. */
+			let opts: { [key: string]: boolean } = {}
+
+			/** Values extracted from the type to populate Options. */
+			let read: RegExpExecArray
+
+			while ((read = /:\w+$/.exec(type))) {
+				opts[type.slice(read.index + 1)] = true
+
+				type = type.slice(0, read.index)
+			}
+
+			switch (type) {
+				case 'once':
+					listenerOfOnce = `(${toAttributeString(data)})($);`
+					break
+
+				case 'resize':
+					listenerString += `new ResizeObserver((e,o)=>${
+						opts.once
+							? `!o.disconnect()&&`
+						: ``
+					}(${toAttributeString(data)})(e[0])).observe($);`
+					break
+
+				case 'visible':
+					listenerString += `new IntersectionObserver((e,o)=>e[0].isIntersecting${
+						opts.once
+							? `&&!o.disconnect()`
+						: ``
+					}&&(${toAttributeString(data)})(e[0])).observe($);`
+					break
+
+				default:
+					listenerString += `$.addEventListener(${toAttributeString(`"${type}"`)},${
+						opts.prevent
+							? `e=>{e.preventDefault();(${toAttributeString(data)})(e)}`
+						: toAttributeString(data)
+					}${
+						opts.once ? ',{once:true}' : ''
+					});`
 			}
 		}
+	}
+}
 
-		return listeners
-	},
-	[]
-).join('')
-
-const onLoadString: string = listeners || typeof ref === 'function' ? `let{previousSibling}=this;this.remove();${
-	listeners.length
-		? `${listeners};`
-	: ''
+const onLoadString: string = listenerString || listenerOfOnce ? `(function(){let $=this;${
+	listenerString
 }${
-	typeof ref === 'function'
-		? refIdle
-			? `requestIdleCallback(()=>(${toAttributeString(ref)})(previousSibling))`
-		: refMTMQ
-			? `matchMedia(${toAttributeString(JSON.stringify(refMTMQ))}).onchange=e=>e.matches&&!(e.target.onchange=null)&&(${toAttributeString(ref)})(previousSibling)`
-		: refShow
-			? `new IntersectionObserver((e,o)=>e[0].isIntersecting&&!o.disconnect()&&(${toAttributeString(ref)})(previousSibling)).observe(previousSibling)`
-		: `(${toAttributeString(ref)})(previousSibling)`
-	: ''
-}` : null
+	listenerOfOnce
+}}).call(this.previousSibling,this.remove())` : null
 
 export interface Props {
 	/** A string indicating the type of element being created. */
 	'@is'?: Tag
 
 	/** A function used to reference the DOM Node for this element. */
-	'@ref'?: (
+	'@once'?: (
 		/** DOM Node representing this element. */
 		element?: HTMLElement
 	) => void
-
-	/** Indicates `ref` should be run when the main thread is free. */
-	'@ref:idle'?: boolean
-
-	/** Indicates `ref` should be run when the media query is matched. */
-	'@ref:media'?: boolean
-
-	/** Indicates `ref` should be run when the element is visible. */
-	'@ref:visible'?: boolean
 }
 ---
 <XElement {...attrs}><slot /></XElement>{
