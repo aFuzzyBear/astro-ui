@@ -89,11 +89,11 @@ const log = (e) => console.log(e);
     let count = 0
 
     this.onclick = () => {
-      this.nextElementSibling.textContent = ++count
+      counter_output.textContent = ++count
     }
   }}>Increment</XElement>
   &nbsp;
-  <span>1</span>
+  <span id="counter_output">1</span>
 </XElement>
 </body>
 </html>
