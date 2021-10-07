@@ -11,10 +11,13 @@
   "author": "aFuzzyBear <drgaud@hotmail.com>",
   "homepage": "https://github.com/aFuzzyBear/astro-ui/tree/main/components/XHooks#readme",
   "license": "MIT",
-  "main": "lib/XHooks.js",
+  "main": "src/index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
+  },
+  "exports": {
+    "default": "./src/index.js"
   },
   "files": [
     "lib"
@@ -27,12 +30,20 @@
     "url": "git+https://github.com/aFuzzyBear/astro-ui.git"
   },
   "scripts": {
+    "dev": "tsc -w",
+    "build:tsc": "tsc ",
+    "build:rollup": "rollup --config",
+    "build": "build:tsc && build:rollup",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
     "url": "https://github.com/aFuzzyBear/astro-ui/issues"
   },
   "dependencies": {
-    "astro": "^0.20.9"
+    "astro": "^0.20.9",
+    "typescript": "^4.4.3"
+  },
+  "devDependencies": {
+    "rollup": "^2.58.0"
   }
 }
