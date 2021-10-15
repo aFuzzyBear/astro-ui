@@ -1,0 +1,130 @@
+---
+/**
+ *  @function handleError
+ *  @params err? - defaults to "No Stylesheets have been included"
+ *  @throw Error to STDERR 
+ */
+function handelError(err='No Stylesheets have been included!'){
+    throw new Error(err)
+}
+/**
+ *  @params path - used as source for the href  
+ *  @returns HTMLLinkElement,  
+ * 
+ **/
+const returnLink = (path:string,media?:string):HTMLLinkElement => 
+<link rel="stylesheet" type="text/css" href={path} media={media && media}/>
+
+export declare type SanitizeList =
+        "all" |
+        "bare"|
+        "forms"|
+        "assets"|
+        "typography"|
+        "reducedMotion"|
+        "sysUI"|
+        "monoUI"
+    
+export interface Props{
+    attributes: linkAttributes[]
+    sanitize?:SanitizeList
+}
+export declare type linkAttributes = {
+    href: "npm:" | string ,
+    media?:string
+}
+
+const sanitizerURLS = {
+    default:"https://cdn.skypack.dev/sanitize.css",
+    forms:"https://unpkg.com/sanitize.css/forms.css",
+    assets:"https://unpkg.com/sanitize.css/assets.css",
+    typography:"https://unpkg.com/sanitize.css/typography.css",
+    reducedMotion:"https://unpkg.com/sanitize.css/reduce-motion.css",
+    sysUI:"https://unpkg.com/sanitize.css/system-ui.css",
+    monoUI:"https://unpkg.com/sanitize.css/ui-monospace.css"
+}
+
+// Acquiring values from props
+const {attributes}= Astro.props as {attributes:linkAttributes}
+const {sanitize} = Astro.props as {sanitize:SanitizeList}
+
+if(!Array.isArray(attributes) || attributes.length === 0){
+    handelError()
+}
+
+const linkCSS = (attributes).map(
+    (attribute) =>{
+        const {href,media} = attribute
+        let src = href.startsWith('npm:') && href.endsWith('.css')
+                    ? 'https://cdn.skypack.dev/' + href.slice(4) 
+                    : href
+         return returnLink(src,media)
+    }
+)
+
+/**Global to place the sanitized links into */
+let sanitizedArray = []
+
+/**
+ * Assister function to help push the right sanitized links to the array
+ */
+const getSanitizeLinks = async (name) =>{
+    if(name ==='all'){
+       Object.entries(sanitizerURLS).forEach(link=>{
+        sanitizedArray.push(
+            returnLink(link[1])
+        )
+    })
+    }
+    else if(name === 'bare'){
+        sanitizedArray.push(
+            returnLink(sanitizerURLS['default'])
+        )
+    }
+    else{
+        sanitizedArray.push(
+            returnLink(sanitizerURLS['default'])
+        )
+        sanitizedArray.push(
+            returnLink(sanitizerURLS[`${name}`])
+        )
+    }
+}
+
+/**
+ * Normalise the sanitize behaviour
+ */
+const linkSanitizeHTML = (
+    sanitize === 'all' 
+        ? getSanitizeLinks('all')
+    : sanitize === 'bare' 
+        ? getSanitizeLinks('bare')
+    : sanitize === 'forms' 
+        ? getSanitizeLinks('forms')
+    : sanitize === 'assets' 
+        ? getSanitizeLinks('assets')
+    : sanitize === 'typography' 
+        ? getSanitizeLinks('typography')
+    : sanitize === 'reducedMotion' 
+        ? getSanitizeLinks('reducedMotion')
+    : sanitize === 'sysUI' 
+        ? getSanitizeLinks('sysUI')
+    : sanitize === 'monoUI' 
+        ? getSanitizeLinks('monoUI')
+    : handelError('An incorrect sanitizer value has been provided as Props')
+
+)
+
+/**
+ * Function to populate the list of sanitized links 
+ */
+const populateSanitizer = async() =>{
+    //  await getSanitizeLinks(sanitize) //This is strange, it runs this twice, no idea why
+    const worker = await linkSanitizeHTML
+    return sanitizedArray
+}
+
+---
+    <!-- Populate the generated Stylesheet Links onto the DOM -->
+    {linkCSS}
+    {await populateSanitizer()}
