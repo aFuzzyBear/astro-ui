@@ -15,7 +15,7 @@ function handelError(err='No Stylesheets have been included!'){
 const returnLink = (path:string,media?:string):HTMLLinkElement => 
 <link rel="stylesheet" type="text/css" href={path} media={media && media}/>
 
-export declare type SanitizeList =
+export type SanitizeList =
         "all" |
         "bare"|
         "forms"|
@@ -25,13 +25,14 @@ export declare type SanitizeList =
         "sysUI"|
         "monoUI"
     
-export interface Props{
-    attributes: linkAttributes[]
-    sanitize?:SanitizeList
+export declare type PropsAttributes = {
+    href?: "npm:" | string ,
+    media?: string
 }
-export declare type linkAttributes = {
-    href: "npm:" | string ,
-    media?:string
+
+export interface Props extends PropsAttributes {
+    list?: PropsAttributes[]
+    sanitize?: SanitizeList
 }
 
 const sanitizerURLS = {
@@ -45,14 +46,18 @@ const sanitizerURLS = {
 }
 
 // Acquiring values from props
-const {attributes}= Astro.props as {attributes:linkAttributes}
-const {sanitize} = Astro.props as {sanitize:SanitizeList}
+const {list, sanitize, href: hrefValue, media: mediaValue} = Astro.props as Props
+const attributesList = list || []
 
-if(!Array.isArray(attributes) || attributes.length === 0){
+if(!hrefValue && (!Array.isArray(list) || list.length === 0)){
     handelError()
 }
 
-const linkCSS = (attributes).map(
+if (hrefValue) {
+    attributesList.push({href: hrefValue, media: mediaValue})
+}
+
+const linkCSS = attributesList.map(
     (attribute) =>{
         const {href,media} = attribute
         let src = href.startsWith('npm:') && href.endsWith('.css')
@@ -119,7 +124,6 @@ const linkSanitizeHTML = (
  * Function to populate the list of sanitized links 
  */
 const populateSanitizer = async() =>{
-    //  await getSanitizeLinks(sanitize) //This is strange, it runs this twice, no idea why
     const worker = await linkSanitizeHTML
     return sanitizedArray
 }
