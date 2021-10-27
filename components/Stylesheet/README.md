@@ -8,7 +8,7 @@ To use simply:
 npm i astro-ui-stylesheet -D
 ```
 
-Within your `./src/layouts/*.astro` layout file, apply the following:
+Within your `./src/layouts/**.astro` layout file or `./src/pages/**.astro`, apply the following:
 
 ```astro
 ---
@@ -17,12 +17,18 @@ import Stylesheet from 'astro-ui-stylesheet'
 ---
 <html>
   <head>
+  <!-- Example of Single use of component -->
     <Stylesheet 
-        attributes: Array<Object> = {
+        href:string = "./styles/global.css" 
+        media?:string = "screen"
+    />
+    <!-- Example for managing multiple stylesheets -->
+    <Stylesheet 
+        list: Array<Object> = {
           [
             {
               href:string = "./styles/global.css", 
-              media:string = "screen "
+              media:string = "screen"
             },
             {
               href:string = Astro.resolve('./src/components/print.css'),
@@ -42,34 +48,35 @@ import Stylesheet from 'astro-ui-stylesheet'
 
 ```
 
-This would then populate all the relevant `<link rel='stylesheet' href='' type='text/css' media=''>` required in the `<head>` of the Layout file.
+The `<Stylesheet/>` component would then populate all the relevant `<link rel='stylesheet' href='' type='text/css' media=''>` required in the `<head>` of the `page.astro` or `layout.astro` file.
 
+This component allows you to either enter a single Stylesheet to reference, or you can group you stylesheets together into a `list` as demonstrated above.
 ## Props `:Props`
 
-The `props` interface is a really straight forward to use. It follows this shape,
+The `props` interface is a really straight forward to use. It follows these shapes,
 
 ```ts
-export interface Props{
-    attributes: linkAttributes[]
-    sanitize?:SanitizeList
+export declare type PropsAttributes = {
+    href: "npm:" | string ,
+    media?: string
 }
+
 ```
 
- 
-## Props.attributes `:linkAttributes[]`
+## Props.list `:PropsAttributes[]`
 
-The Props `attributes` is a JSX array of objects as represented by the type `linkAttributes`
+The Props `list` is a JSX array of objects as represented by the type `PropsAttributes`
 
 ```ts
-export declare type linkAttributes = {
-    href: "npm:" | string,
-    media?:string
+export interface Props extends PropsAttributes {
+    list?: PropsAttributes[]
+    sanitize?: SanitizeList
 }
 ```
 
 ### `href:string`
 
-Within the object the `href` attribute, captures the hyperlink reference to the CSS file. This could be stored either within the `public` directory i.e:`./public/styles.css` and referenced as `./styles.css`. Or alternatively use `Astro.resolve()` to resolve files located within the `./src/*` directory.
+The `href` attribute, captures the hyperlink reference to the CSS file. This could be stored either within the `public` directory i.e:`./public/styles.css` and referenced as `./styles.css`. Or alternatively use `Astro.resolve()` to resolve files located within the `./src/*` directory.
 
 The `href` also allows to link to any `https://` or CDN to obtain the desired CSS file.
 
@@ -112,8 +119,10 @@ type SanitizeList =
 
 This would then apply the relevant set of Sanitizer links to the document.
 
-This project is firmly of the back of this great project. Please look to support the projects by giving them a star on github, it would really mean the world to them.
+### ChangeLog:
+
+27/10/21 - Added Single use of component provided by [Olyno](https://github.com/Olyno)
 
 ## Credits
 
-This project was largely inspired and assisted by [jonathantneal](https://github.com/jonathantneal) from [csstools/sanitize.css](https://github.com/csstools/sanitize.css)
+This project was largely inspired and assisted by [jonathantneal](https://github.com/jonathantneal) from [csstools/sanitize.css](https://github.com/csstools/sanitize.css). Please look to support their project by giving them a star on github, it would really mean the world to them.
