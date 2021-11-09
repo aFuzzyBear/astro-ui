@@ -1,38 +1,25 @@
 {
   "name": "astro-xelement",
   "version": "1.0.0",
-  "description": "Astro Web Element Component,",
+  "description": "XElement is a powerful Astro Web Component generator. Create your own HTML web elements with additional Client-Side JS directly coupled to the Element. Create your own Astro Web Components using XElement, or specialised HTML elements with sprinkled JS interactivity",
   "keywords": [
+    "XElement",
     "astro",
     "astro-component",
-    "astro-ui",
-    "astro-island"
+    "astro-xelement",
+    "astro-ui"
   ],
-  "author": "aFuzzyBear <drgaud@hotmail.com>",
+  "contributors": ["johnathantneal <jonathantneal@hotmail.com>(https://github.com/jonathantneal)","aFuzzyBear <drgaud@hotmail.com>(https://github.com/aFuzzyBear)"],
   "homepage": "https://github.com/aFuzzyBear/astro-ui/tree/main/components/XElement#readme",
   "license": "MIT",
-  "main": "src/index.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
+  "exports": "./index.js",
   "files": [
-    "lib"
+    "./index.js",
+    "./XElement.astro"
   ],
-  "publishConfig": {
-    "registry": "https://registry.yarnpkg.com"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aFuzzyBear/astro-ui.git"
-  },
-  "scripts": {
-    "dev":"astro dev",
-    "build":"astro build",
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
-  "bugs": {
-    "url": "https://github.com/aFuzzyBear/astro-ui/issues"
   },
   "dependencies": {
     "astro": "^0.20.8"
