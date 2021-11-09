@@ -4,8 +4,10 @@ const {
 	...attrs
 } = Astro.props
 
+/** @typedef Tag - Valid HTML Tag names */
 type Tag = keyof HTMLElementTagNameMap | (string & {})
 
+/** Generates the HTML Tag for the Element */
 const XElement: string = tag === null ? 'span' : tag
 
 /** Formats the given value so that it can be placed into an attribute. */
@@ -51,6 +53,14 @@ for (const name in attrs) {
 						: ``
 					}(${toAttributeString(data)})(e[0])).observe($);`
 					break
+				
+				case 'observer':
+					listenerString += `new MutationObserver((e,o)=>${
+						opts.once
+							? `!o.disconnect()&&`
+						: ``
+					}(${toAttributeString(data)})(e[0])).observe($,{attributes: true, childList: true, subtree: true, characterData: true});`
+					break
 
 				case 'visible':
 					listenerString += `new IntersectionObserver((e,o)=>e[0].isIntersecting${
@@ -69,6 +79,15 @@ for (const name in attrs) {
 						opts.once ? ',{once:true}' : ''
 					});`
 			}
+		} else if (name === '@keyframes' && data && typeof data === 'object') {
+			const [ keyframes, options ] = [ 
+				attrs['@keyframes'],
+				attrs['@keyframeOptions']
+			]
+			delete attrs['@keyframes']
+			delete attrs['@keyframeOptions']
+
+			listenerString += `$.animate(${toAttributeString(JSON.stringify(keyframes))},${toAttributeString(JSON.stringify(options))});`
 		}
 	}
 }
@@ -79,17 +98,8 @@ const onLoadString: string = listenerString || listenerOfOnce ? `(function(){let
 	listenerOfOnce
 }}).call(this.previousSibling,this.remove())` : null
 
-export interface Props {
-	/** A string indicating the type of element being created. */
-	'@is'?: Tag
 
-	/** A function used to reference the DOM Node for this element. */
-	'@once'?: (
-		/** DOM Node representing this element. */
-		element?: HTMLElement
-	) => void
-}
 ---
 <XElement {...attrs}><slot /></XElement>{
-	onLoadString && <script type="module" src="data:text/javascript," onload={onLoadString} />
+	onLoadString && <script type="module" src="data:text/javascript," onload={onLoadString}></script>
 }
