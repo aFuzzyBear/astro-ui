@@ -1,6 +1,8 @@
 # XElement
 
-**XElement** is created to allow you to generate any element within Astro from a single interface. You can choose *when* to run JS on the Client-side, whether it be when the document is ready or on any given event.
+**XElement** allows you to generate any type of specialised Web Component from within Astro from a single interface. 
+
+You can choose *when* to run JS on the Client-side, whether it be when the document is ready or on any given event.
 
 Respecting Astro's unique approach to Island's Architecture, **XElement** expands this concept with some innovative ways to work with your standard Elements, with some really surprising results.
 
@@ -112,7 +114,7 @@ export interface Props {
 }
 ```
 
-### `Tag`: HTMLElementTagName
+### `Tag` : HTMLElementTagName
 
 Here we allow you to generate spec-compliant semantic HTML tag names for your Web Element. This is provided from TS `index.d.ts` type bindings. A full list can be found [here](https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.htmlelementtagnamemap.html)
 
@@ -126,7 +128,7 @@ The `@is` property accepts a string indicating the type of element being created
 
 This is a necessary property to allow `XElement` to generate the HTML Element that you wish to consume for you component. For further information on HTML Elements and their representations, please visit [MDN-Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)
 
-### `attr`: HTMLAttributes
+### `attr` : HTMLAttributes
 
 Can utilize as many of the [HTML Element Attributes](https://developer.mozilla.org/en-US/docs/Web/API/Element/attributes) that are registered for the element created by the `@is` property. You can use  `aria-` and `data-` attributes, specify the elements `id` and apply `class` and inline `style` attributes.
 
@@ -218,7 +220,7 @@ The `@observe` property runs whenever there is a DOM Mutation change to the Elem
 }}
 ```
 
-### `@observe:all`:void
+### `@observe:all` : void
 
 This allows to observe any changes that are made to the Elements: Attributes, Children, Modifications made to the Components Subtree and also its data.
 
@@ -228,7 +230,7 @@ This allows to observe any changes that are made to the Elements: Attributes, Ch
 }}
 ```
 
-### `@observe:attr`:void
+### `@observe:attr` : void
 
 This allows to observe any changes that are **only** made to the Elements Attributes
 
@@ -238,7 +240,7 @@ This allows to observe any changes that are **only** made to the Elements Attrib
 }}
 ```
 
-### `@observe:children`:void
+### `@observe:children` : void
 
 This allows to observe any changes that are **only** made to the Elements children
 
@@ -248,7 +250,7 @@ This allows to observe any changes that are **only** made to the Elements childr
 }}
 ```
 
-### `@observe:sub`:void
+### `@observe:sub` : void
 
 This allows to observe any changes that are **only** made to the Elements subtree
 
@@ -258,7 +260,7 @@ This allows to observe any changes that are **only** made to the Elements subtre
 }}
 ```
 
-### `@observe:data`:void
+### `@observe:data` : void
 
 This allows to observe any changes that are **only** made to the Elements character data
 
@@ -270,7 +272,7 @@ This allows to observe any changes that are **only** made to the Elements charac
 
 
 --------------------------------------------------------------------
-### `@ANY_EVENT`:EventTarget
+### `@ANY_EVENT` : EventTarget
 
 The `@event` property followed by an event name indicates that the given function should listen to the given event name.
 
