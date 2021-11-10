@@ -1,11 +1,17 @@
 ---
-const {
-	'@is': tag = null,
-	...attrs
-} = Astro.props
-
 /** @typedef Tag - Valid HTML Tag names */
 type Tag = keyof HTMLElementTagNameMap | (string & {})
+
+export interface Props {
+	'@is': Tag
+	attr?: any
+}
+
+const {
+	'@is': tag:Tag = null,
+	...attrs
+} = Astro.props as Props
+
 
 /** Generates the HTML Tag for the Element */
 const XElement: string = tag === null ? 'span' : tag
@@ -42,8 +48,8 @@ for (const name in attrs) {
 			}
 
 			switch (type) {
-				case 'once':
-					listenerOfOnce = `(${toAttributeString(data)})($);`
+				case 'load':
+					listenerOfOnce = `(${toAttributeString(data)})($);\n`
 					break
 
 				case 'resize':
@@ -51,15 +57,27 @@ for (const name in attrs) {
 						opts.once
 							? `!o.disconnect()&&`
 						: ``
-					}(${toAttributeString(data)})(e[0])).observe($);`
+					}(${toAttributeString(data)})(e[0])).observe($);\n`
 					break
 				
-				case 'observer':
+				case 'observe':
 					listenerString += `new MutationObserver((e,o)=>${
 						opts.once
 							? `!o.disconnect()&&`
 						: ``
-					}(${toAttributeString(data)})(e[0])).observe($,{attributes: true, childList: true, subtree: true, characterData: true});`
+					}(${toAttributeString(data)})(e[0])).observe($,${
+						opts.all ? 
+								`attributes: true, childList: true, subtree: true, characterData: true`
+						: opts.attr ? 
+							`attributes: true`
+						: opts.children ?
+							`childList: true`
+						: opts.sub ?
+							`subtree: true`
+						: opts.data ?
+							`charcterData:true`
+						: `attributes: true, childList: false, subtree: false, characterData: false`
+						});\n`
 					break
 
 				case 'visible':
@@ -67,7 +85,7 @@ for (const name in attrs) {
 						opts.once
 							? `&&!o.disconnect()`
 						: ``
-					}&&(${toAttributeString(data)})(e[0])).observe($);`
+					}&&(${toAttributeString(data)})(e[0])).observe($);\n`
 					break
 
 				default:
@@ -76,16 +94,20 @@ for (const name in attrs) {
 							? `e=>{e.preventDefault();(${toAttributeString(data)})(e)}`
 						: toAttributeString(data)
 					}${
-						opts.once ? ',{once:true}' : ''
-					});`
+						opts.once 
+						? ',{once:true}' 
+						: opts.useCapture
+						  ? `,{useCapture:true}` 
+						: ''
+					});\n`
 			}
-		} else if (name === '@keyframes' && data && typeof data === 'object') {
+		} else if (name.includes('@animate') && data && typeof data === 'object') {
 			const [ keyframes, options ] = [ 
-				attrs['@keyframes'],
-				attrs['@keyframeOptions']
+				attrs['@animate'],
+				attrs['@animateOptions']
 			]
-			delete attrs['@keyframes']
-			delete attrs['@keyframeOptions']
+			delete attrs['@animate']
+			delete attrs['@animateOptions']
 
 			listenerString += `$.animate(${toAttributeString(JSON.stringify(keyframes))},${toAttributeString(JSON.stringify(options))});`
 		}
