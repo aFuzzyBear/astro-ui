@@ -1,6 +1,6 @@
 # XElement
 
-**XElement** allows you to generate any type of specialised Web Component from within Astro from a single interface. 
+**XElement** allows you to generate any type of specialised Web Component from within Astro from a single interface.
 
 You can choose *when* to run JS on the Client-side, whether it be when the document is ready or on any given event.
 
@@ -47,11 +47,11 @@ In this example, we are representing a article heading as a page title via JS.
 ---
 import XElement from './XElement.astro'
 ---
-<XElement @is="h1" 
-    @once={element => { 
-      document.title = `${element.textContent} - Pushed to the Page Title via JS`  
+<XElement @is="h1"
+    @once={element => {
+      document.title = `${element.textContent} - Pushed to the Page Title via JS`
       }} >
-    Some Article Title 
+    Some Article Title
     </XElement>
 <!-- Output -->
 <title>Some Article Title - Pushed to the Page Title via JS</title>
@@ -63,8 +63,8 @@ As another example, it can be used to handle a click event in JS on the Element.
 ---
 import XElement from './XElement.astro'
 ---
-<XElement 
-  @is="button" 
+<XElement
+  @is="button"
   @click={element => { console.log('clicked')}}>
     Button: Clickable
 </XElement>
@@ -78,12 +78,12 @@ The next example is the pinnacle of all framework examples, setting up a counter
 ---
 import XElement from "./XElement.astro";
 ---
-   
+
 <XElement @is="div">
-  <XElement @is="button" 
+  <XElement @is="button"
     @once={() => {
       //JS in Here
-      let count = 0 
+      let count = 0
       this.onclick = () => {
         counter_output.textContent = ++count
       }
