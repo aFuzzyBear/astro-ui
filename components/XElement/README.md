@@ -3,7 +3,7 @@
 
 **XElement** allows you to generate any type of specialised Web Component from within Astro from a single interface.
 
-You can choose *when* to run JS on the Client-side, whether it be when the document is ready or on any given event.
+You can choose *when* to run JS on the client-side, whether it be when the document is ready or on any given event.
 
 Respecting Astro's unique approach to Island's Architecture, **XElement** expands this concept with some innovative ways to work with your standard Elements, with some really surprising results.
 
@@ -42,7 +42,7 @@ import XElement from '../components/XElement.astro'
 <h1 class="joy">Here Comes A Title<h1>
 ```
 
-In this example, we are representing a article heading as a page title via JS.
+In this example, we are representing an article heading as a page title via JS.
 
 ```astro
 ---
@@ -58,7 +58,7 @@ import XElement from './XElement.astro'
 <title>Some Article Title - Pushed to the Page Title via JS</title>
 ```
 
-As another example, it can be used to handle a click event in JS on the Element.
+Another example, here it can be used to handle a click event in JS on the Element.
 
 ```astro
 ---
