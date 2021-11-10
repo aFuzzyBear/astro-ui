@@ -1,11 +1,37 @@
 ---
+/**
+ *							                      
+ * 
+ *   __  __ _____  _                                _   
+ *   \ \/ /| ____|| |  ___  _ __ ___    ___  _ __  | |_ 
+ *    \  / |  _|  | | / _ \| '_ ` _ \  / _ \| '_ \ | __|
+ *    /  \ | |___ | ||  __/| | | | | ||  __/| | | || |_ 
+ *   /_/\_\|_____||_| \___||_| |_| |_| \___||_| |_| \__|
+ *               
+ * 			Web Component Generator For Astro
+ *
+ * @description XElement is a lightweight Web component generator for Astro 
+ * which allows you to specify which HMTL compliant you wish to generate. It
+ * also allows for specialised delivery of JS to the Client, respecting 
+ * Astro's Islands ethos. 
+ * 
+ * @copyright 2021 
+ * @license GNU3 General Public License version 3
+ * @author jonathantneal - https://github.com/jonathantneal
+ * @author aFuzzyBear - https://github.com/aFuzzyBear
+ * 
+ */
+
+//Type Definitions
+
 /** @typedef Tag - Valid HTML Tag names */
 type Tag = keyof HTMLElementTagNameMap | (string & {})
 
 export interface Props {
 	'@is': Tag
-	attr?: any
+	attrs?: any
 }
+
 
 const {
 	'@is': tag:Tag = null,
@@ -25,6 +51,7 @@ let listenerString = ''
 /** Event fired once before the document is displayed, deferred using `type="module". */
 let listenerOfOnce = ''
 
+/** Parse the Attributes */
 for (const name in attrs) {
 	if (name.startsWith('@')) {
 		const data = attrs[name]
@@ -46,7 +73,7 @@ for (const name in attrs) {
 
 				type = type.slice(0, read.index)
 			}
-
+			/** Apply the Hydration selectors*/
 			switch (type) {
 				case 'load':
 					listenerOfOnce = `(${toAttributeString(data)})($);\n`
@@ -75,7 +102,7 @@ for (const name in attrs) {
 						: opts.sub ?
 							`subtree: true`
 						: opts.data ?
-							`charcterData:true`
+							`characterData:true`
 						: `attributes: true, childList: false, subtree: false, characterData: false`
 						});\n`
 					break
@@ -97,11 +124,12 @@ for (const name in attrs) {
 						opts.once 
 						? ',{once:true}' 
 						: opts.useCapture
-						  ? `,{useCapture:true}` 
+						? `,{useCapture:true}` 
 						: ''
 					});\n`
 			}
 		} else if (name.includes('@animate') && data && typeof data === 'object') {
+			/** Applying Web Animate API to the Element */
 			const [ keyframes, options ] = [ 
 				attrs['@animate'],
 				attrs['@animateOptions']
@@ -109,7 +137,7 @@ for (const name in attrs) {
 			delete attrs['@animate']
 			delete attrs['@animateOptions']
 
-			listenerString += `$.animate(${toAttributeString(JSON.stringify(keyframes))},${toAttributeString(JSON.stringify(options))});`
+			listenerString += `$.animate(${toAttributeString(JSON.stringify(keyframes))},${toAttributeString(JSON.stringify(options))});\n`
 		}
 	}
 }
@@ -122,6 +150,9 @@ const onLoadString: string = listenerString || listenerOfOnce ? `(function(){let
 
 
 ---
-<XElement {...attrs}><slot /></XElement>{
+
+<XElement {...attrs}>
+	<slot />
+</XElement>{
 	onLoadString && <script type="module" src="data:text/javascript," onload={onLoadString}></script>
 }
