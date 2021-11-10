@@ -1,16 +1,16 @@
-# XElement
+![XElement](https://see.fontimg.com/api/renderfont4/lax5/eyJyIjoiZnMiLCJoIjoxMjEsInciOjEwMDAsImZzIjoxMjEsImZnYyI6IiMzODJENjkiLCJiZ2MiOiIjRkZGRkZGIiwidCI6MX0/WEVsZW1lbnQ/atures-700-personal-use-only.png)
 
-**XElement** allows you to generate any type of specialised Web Component from within Astro from a single interface. 
+**XElement** allows you to generate any type of Web Component within Astro from a single intuitive interface.
 
 You can choose *when* to run JS on the Client-side, whether it be when the document is ready or on any given event.
 
-Respecting Astro's unique approach to Island's Architecture, **XElement** expands this concept with some innovative ways to work with your standard Elements, with some really surprising results.
+Respecting Astro's unique approach to Island's Architecture, **XElement** expands this concept in some innovative ways to create and interact with different components, with some really surprising results.
 
 --------------------------------------------------------------------
 
 ## Getting Started
 
-Import **XElement** from from npm:
+Import **XElement** from from npm using your favourite package manager:
 
 ```bash
 npm i astro-xelement -D
@@ -41,14 +41,14 @@ import XElement from '../components/XElement.astro'
 <h1 class="joy">Here Comes A Title<h1>
 ```
 
-In this example, we are representing a article heading as a page title via JS.
+In this example, we are representing an top-level heading element as a page title via JS.
 
 ```astro
 ---
 import XElement from './XElement.astro'
 ---
 <XElement @is="h1" 
-    @once={element => { 
+    @load={element => { 
       document.title = `${element.textContent} - Pushed to the Page Title via JS`  
       }} >
     Some Article Title 
@@ -72,7 +72,7 @@ import XElement from './XElement.astro'
 "Clicked"
 ```
 
-The next example is the pinnacle of all framework examples, setting up a counter.
+The next example is the pinnacle of all framework examples, setting up a **counter**.
 
 ```astro
 ---
@@ -81,16 +81,16 @@ import XElement from "./XElement.astro";
    
 <XElement @is="div">
   <XElement @is="button" 
-    @once={() => {
+    @load={() => {
       //JS in Here
       let count = 0 
       this.onclick = () => {
         counter_output.textContent = ++count
-      }
-    }}>
-    Increment
+    }}}> 
+      Increment
   </XElement>
-    &nbsp; <!-- HTML In Here -->
+   <!-- HTML In Here -->
+    &nbsp; 
   <span id="counter_output"></span>
 </XElement>
 
@@ -116,7 +116,9 @@ export interface Props {
 
 ### `Tag` : HTMLElementTagName
 
-Here we allow you to generate spec-compliant semantic HTML tag names for your Web Element. This is provided from TS `index.d.ts` type bindings. A full list can be found [here](https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.htmlelementtagnamemap.html)
+Here we allow you to generate spec-compliant semantic HTML tag names for your Web Element.
+
+This is provided from TS `index.d.ts` type bindings. A full list can be found [here](https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.htmlelementtagnamemap.html)
 
 ### `@is` : Tag
 
@@ -126,7 +128,9 @@ The `@is` property accepts a string indicating the type of element being created
  @is = "div" | "p" | "a" | "audio" | "img" | "video" ...
 ```
 
-This is a necessary property to allow `XElement` to generate the HTML Element that you wish to consume for you component. For further information on HTML Elements and their representations, please visit [MDN-Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)
+This is a necessary property to allow `XElement` to generate the HTML Element that you wish to utilise for your component.
+
+For further information on HTML Elements and their representations, please visit [MDN-Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)
 
 ### `attr` : HTMLAttributes
 
@@ -138,17 +142,17 @@ Can utilize as many of the [HTML Element Attributes](https://developer.mozilla.o
 
 Now the purpose of `XElement` is to help facilitate generating and consuming Astro compliant, Web standard HTML Elements.
 
-In order to respect Astro's Island's ethos, and hydration policies `XElement` has been structured in such a way that the JS sent to the client is packaged as modules and only attached to the element in question, and any children it may inherit.
+In order to respect Astro's Island's ethos, the hydration policies for `XElement` has been structured in such a way that the JS sent after the page load on the client. It is packaged as modules only attached to the element in question and any children it may inherit.
 
 Since the JS is scoped directly to each `HTMLElement` in a way not previously possible it allows you to specify when you wish to run your script, and how.
 
 This can be done either on an event handler or by providing a payload to run on certain conditions.
 
-These are the following methods to apply client-side JS using `XElement`:
+These are the following methods you can use to apply client-side JS using `XElement`:
 
 --------------------------------------------------------------------
 
-### `@once` : void
+### `@load` : void
 
 The `@load` property accepts a function which runs when the element has loaded and document is ready.
 
@@ -272,15 +276,15 @@ This allows to observe any changes that are **only** made to the Elements charac
 
 
 --------------------------------------------------------------------
-### `@ANY_EVENT` : EventTarget
+### `@ANY_EVENT` : EventTarget(callback)
 
-The `@event` property followed by an event name indicates that the given function should listen to the given event name.
+The `@event` property followed by an event name indicates that the given function should listen to that given event.
 
 ```js
 @click | @fullscreenchange | @mouseenter ...
 ```
 
-### `@ANY_EVENT:once`
+### `@ANY_EVENT:once` : void
 
 The `@event` property followed by an event name that the given function should listen to the given event name and fire only once, removing itself when done.
 
@@ -288,14 +292,14 @@ The `@event` property followed by an event name that the given function should l
 @click:once={()=>console.log('Im a one time deal')}
 ```
 
-### `@ANY_EVENT:prevent`
+### `@ANY_EVENT:prevent` : void
 
 The `@event:prevent` property followed by an event name indicates that the given function should listen to the given event name, preventing its default behaviour.
 
 ```js
 @click:prevent={()=>console.log('prevent default behaviour in full effect')}
 ```
-### `@ANY_EVENT:useCapture`
+### `@ANY_EVENT:useCapture` : void
 
 The `@event:useCapture` property followed by an event name indicates that the given function should listen to the given event name, preventing its default behaviour.
 
