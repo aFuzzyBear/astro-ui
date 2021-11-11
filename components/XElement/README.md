@@ -49,7 +49,7 @@ In this example, we are representing an article heading as a page title via JS.
 import XElement from './XElement.astro'
 ---
 <XElement @is="h1"
-    @once={element => {
+    @load={element => {
       document.title = `${element.textContent} - Pushed to the Page Title via JS`
       }} >
     Some Article Title
@@ -82,7 +82,7 @@ import XElement from "./XElement.astro";
 
 <XElement @is="div">
   <XElement @is="button"
-    @once={() => {
+    @load={() => {
       //JS in Here
       let count = 0
       this.onclick = () => {
@@ -149,7 +149,7 @@ These are the following methods to apply client-side JS using `XElement`:
 
 --------------------------------------------------------------------
 
-### `@once` : void
+### `@load` : void
 
 The `@load` property accepts a function which runs when the element has loaded and document is ready.
 
@@ -271,8 +271,8 @@ This allows to observe any changes that are **only** made to the Elements charac
 }}
 ```
 
-
 --------------------------------------------------------------------
+
 ### `@ANY_EVENT` : EventTarget
 
 The `@event` property followed by an event name indicates that the given function should listen to the given event name.
@@ -296,6 +296,7 @@ The `@event:prevent` property followed by an event name indicates that the given
 ```js
 @click:prevent={()=>console.log('prevent default behaviour in full effect')}
 ```
+
 ### `@ANY_EVENT:useCapture`
 
 The `@event:useCapture` property followed by an event name indicates that the given function should listen to the given event name, preventing its default behaviour.
