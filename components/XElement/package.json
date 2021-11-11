@@ -1,7 +1,7 @@
 {
   "name": "astro-xelement",
-  "version": "1.0.0",
-  "description": "XElement is a powerful Astro Web Component generator. Create your own HTML web elements with additional Client-Side JS directly coupled to the Element. Create your own Astro Web Components using XElement, or specialised HTML elements with sprinkled JS interactivity",
+  "version": "1.🎉2.0",
+  "description": "XElement is a powerful Astro Web Component generator. Create your own  Astro Web Components using HTML Elements with additional Client-Side JS interactivity sprinkled into the Element.",
   "keywords": [
     "XElement",
     "astro",
@@ -9,19 +9,16 @@
     "astro-xelement",
     "astro-ui"
   ],
-  "contributors": ["johnathantneal <jonathantneal@hotmail.com>(https://github.com/jonathantneal)","aFuzzyBear <drgaud@hotmail.com>(https://github.com/aFuzzyBear)"],
+  "contributors": ["jonathantneal <jonathantneal@hotmail.com>(https://github.com/jonathantneal)","aFuzzyBear <drgaud@hotmail.com>(https://github.com/aFuzzyBear)"],
   "homepage": "https://github.com/aFuzzyBear/astro-ui/tree/main/components/XElement#readme",
-  "license": "MIT",
-  "exports": "./index.js",
-  "files": [
-    "./index.js",
-    "./XElement.astro"
-  ],
+  "license": "GPN3",
+  "type": "module",
+  "exports":{
+    ".":"./XElement.astro"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aFuzzyBear/astro-ui.git"
-  },
-  "dependencies": {
-    "astro": "^0.20.8"
   }
+
 }

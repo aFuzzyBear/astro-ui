@@ -1,25 +1,25 @@
 ---
 /**
- *							                      
- * 
- *   __  __ _____  _                                _   
- *   \ \/ /| ____|| |  ___  _ __ ___    ___  _ __  | |_ 
+ *
+ *
+ *   __  __ _____  _                                _
+ *   \ \/ /| ____|| |  ___  _ __ ___    ___  _ __  | |_
  *    \  / |  _|  | | / _ \| '_ ` _ \  / _ \| '_ \ | __|
- *    /  \ | |___ | ||  __/| | | | | ||  __/| | | || |_ 
+ *    /  \ | |___ | ||  __/| | | | | ||  __/| | | || |_
  *   /_/\_\|_____||_| \___||_| |_| |_| \___||_| |_| \__|
- *               
+ *
  * 			Web Component Generator For Astro
  *
- * @description XElement is a lightweight Web component generator for Astro 
+ * @description XElement is a lightweight Web component generator for Astro
  * which allows you to specify which HMTL compliant you wish to generate. It
- * also allows for specialised delivery of JS to the Client, respecting 
- * Astro's Islands ethos. 
- * 
- * @copyright 2021 
+ * also allows for specialised delivery of JS to the Client, respecting
+ * Astro's Islands ethos.
+ *
+ * @copyright 2021
  * @license GNU3 General Public License version 3
  * @author jonathantneal - https://github.com/jonathantneal
  * @author aFuzzyBear - https://github.com/aFuzzyBear
- * 
+ *
  */
 
 //Type Definitions
@@ -34,7 +34,7 @@ export interface Props {
 
 
 const {
-	'@is': tag:Tag = null,
+	'@is': tag = null,
 	...attrs
 } = Astro.props as Props
 
@@ -86,16 +86,16 @@ for (const name in attrs) {
 						: ``
 					}(${toAttributeString(data)})(e[0])).observe($);\n`
 					break
-				
+
 				case 'observe':
 					listenerString += `new MutationObserver((e,o)=>${
 						opts.once
 							? `!o.disconnect()&&`
 						: ``
 					}(${toAttributeString(data)})(e[0])).observe($,${
-						opts.all ? 
+						opts.all ?
 								`attributes: true, childList: true, subtree: true, characterData: true`
-						: opts.attr ? 
+						: opts.attr ?
 							`attributes: true`
 						: opts.children ?
 							`childList: true`
@@ -121,23 +121,23 @@ for (const name in attrs) {
 							? `e=>{e.preventDefault();(${toAttributeString(data)})(e)}`
 						: toAttributeString(data)
 					}${
-						opts.once 
-						? ',{once:true}' 
+						opts.once
+						? ',{once:true}'
 						: opts.useCapture
-						? `,{useCapture:true}` 
+						? `,{useCapture:true}`
 						: ''
 					});\n`
 			}
 		} else if (name.includes('@animate') && data && typeof data === 'object') {
 			/** Applying Web Animate API to the Element */
-			const [ keyframes, options ] = [ 
+			const [ keyframes, options ] = [
 				attrs['@animate'],
 				attrs['@animateOptions']
 			]
 			delete attrs['@animate']
 			delete attrs['@animateOptions']
 
-			listenerString += `$.animate(${toAttributeString(JSON.stringify(keyframes))},${toAttributeString(JSON.stringify(options))});\n`
+			listenerString += `$.animate(${toAttributeString(JSON.stringify(keyframes))},${toAttributeString(JSON.stringify({...options, fill:"both"}))}).addEventListener('finish',()=>{$.commitStyles();$.cancel()});\n`
 		}
 	}
 }
