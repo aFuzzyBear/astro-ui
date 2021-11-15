@@ -1,14 +1,22 @@
 ![# XElement](https://see.fontimg.com/api/renderfont4/GD6D/eyJyIjoiZnMiLCJoIjoxMTcsInciOjEwMDAsImZzIjoxMTcsImZnYyI6IiMzRjMxOEUiLCJiZ2MiOiIjRkZGRkZGIiwidCI6MX0/WEVsZW1lbnQ/atures-500-personal-use-only.png)
 
+> ⚠️ `XElement` is still considered to be in beta and test, there is new features being explored and added. 
 
-**XElement** allows you to generate any type of specialised Web Component from within Astro from a single interface.
+**XElement** allows you to generate any type of specialised Web Component from within [Astro](https://astro.build) from a single interface.
 
 You can choose *when* to run JS on the client-side, whether it be when the document is ready or on any given event.
 
-Respecting Astro's unique approach to Island's Architecture, **XElement** expands this concept with some innovative ways to work with your standard Elements, with some really surprising results.
+Respecting [Astro](https://astro.build)'s unique approach to Island's Architecture, **XElement** expands this concept with some innovative ways to work with your standard Elements, with some really surprising results.
 
 --------------------------------------------------------------------
 
+## Compatibility 
+
+This version of `XElement` is supported on all versions of [Astro](https://astro.build) upto `v0.20.12`. 
+
+For the `v0.21` and onwards, there would be a seperate version of `XElement` released to work alongside the new version of [Astro](https://astro.build). 
+
+--------------------------------------------------------------------
 ## Getting Started
 
 Import **XElement** from from npm:
@@ -17,7 +25,7 @@ Import **XElement** from from npm:
 npm i astro-xelement -D
 ```
 
-Import into your Astro file:
+Import into your [Astro](https://astro.build) file:
 
 ```astro
 ---
@@ -25,7 +33,7 @@ Import into your Astro file:
 ---
 ```
 
-There is no additional dependencies that are required to operate XElement. This is fully Astro compliant.
+There is no additional dependencies that are required to operate XElement. This is fully [Astro](https://astro.build) compliant.
 
 --------------------------------------------------------------------
 
@@ -338,9 +346,9 @@ The `@event:useCapture` property followed by an event name indicates that the gi
 
 --------------------------------------------------------------------
 
-## `fetch` : Promise<T>
+## `fetch` with XElement
 
-`XElement` also supports client-side's native `fetch()` API. This will allow you to call and send data dynamically from the Element itself.
+`XElement` also supports client-side's native [`fetch()` API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). This will allow you to call and send data dynamically from the Element itself.
 
 ```astro
 <XElement @is="button"

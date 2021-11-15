@@ -146,7 +146,7 @@ for (const name in attrs) {
 	}
 }
 
-const onLoadString: string = listenerString || listenerOfOnce ? `(function(){let $=this,$$=(await import("${dataURI}")).default, fetch = window.fetch;${
+const onLoadString: string = listenerString || listenerOfOnce ? `(function(){let $=this,$$=(await import(\'${dataURI}\')).default, fetch = window.fetch;${
 	listenerString
 };${
 	listenerOfOnce
