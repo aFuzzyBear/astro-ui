@@ -45,7 +45,7 @@ const XElement: string = tag === null ? 'span' : tag
 /** Formats the given value so that it can be placed into an attribute. */
 const toAttributeString = (value: any) => String(value).replace(/&/g, '&#38;').replace(/"/g, '&#34;')
 
-/** Listeners attached to the event. */
+/** Listeners to attach onto the event. */
 let listenerString = ''
 
 /** Event fired once before the document is displayed, deferred using `type="module". */
@@ -75,8 +75,8 @@ for (const name in attrs) {
 			}
 			/** Apply the Hydration selectors*/
 			switch (type) {
-				case 'load':
-					listenerOfOnce = `(${toAttributeString(data)})($);\n`
+				case 'do':
+					listenerOfOnce = `(${toAttributeString(data)})($);`
 					break
 
 				case 'resize':
@@ -84,7 +84,7 @@ for (const name in attrs) {
 						opts.once
 							? `!o.disconnect()&&`
 						: ``
-					}(${toAttributeString(data)})(e[0])).observe($);\n`
+					}(${toAttributeString(data)})(e[0])).observe($);`
 					break
 
 				case 'observe':
@@ -104,7 +104,7 @@ for (const name in attrs) {
 						: opts.data ?
 							`characterData:true`
 						: `attributes: true, childList: false, subtree: false, characterData: false`
-						});\n`
+						});`
 					break
 
 				case 'visible':
@@ -112,7 +112,7 @@ for (const name in attrs) {
 						opts.once
 							? `&&!o.disconnect()`
 						: ``
-					}&&(${toAttributeString(data)})(e[0])).observe($);\n`
+					}&&(${toAttributeString(data)})(e[0])).observe($);`
 					break
 
 				default:
@@ -126,33 +126,30 @@ for (const name in attrs) {
 						: opts.useCapture
 						? `,{useCapture:true}`
 						: ''
-					});\n`
+					});`
 			}
 		} else if (name.includes('@animate') && data && typeof data === 'object') {
 			/** Applying Web Animate API to the Element */
-			const [ keyframes, options ] = [
+			const [ keyFrames, options ] = [
 				attrs['@animate'],
 				attrs['@animateOptions']
 			]
 			delete attrs['@animate']
 			delete attrs['@animateOptions']
 
-			listenerString += `$.animate(${toAttributeString(JSON.stringify(keyframes))},${toAttributeString(JSON.stringify({...options, fill:"both"}))}).addEventListener('finish',()=>{$.commitStyles();$.cancel()});\n`
+			listenerString += `$.animate(${toAttributeString(JSON.stringify(keyFrames))},${toAttributeString(JSON.stringify({...options}))});`
 		}
 	}
 }
 
 const onLoadString: string = listenerString || listenerOfOnce ? `(function(){let $=this;${
 	listenerString
-}${
+};${
 	listenerOfOnce
 }}).call(this.previousSibling,this.remove())` : null
 
-
 ---
 
-<XElement {...attrs}>
-	<slot />
-</XElement>{
+<XElement {...attrs}><slot /></XElement>{
 	onLoadString && <script type="module" src="data:text/javascript," onload={onLoadString}></script>
 }
