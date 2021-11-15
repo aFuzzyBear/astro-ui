@@ -14,7 +14,7 @@
   "license": "GPN3",
   "type": "module",
   "exports":{
-    ".":"./XElement.astro"
+    ".":"./XElement.js"
   },
   "repository": {
     "type": "git",
