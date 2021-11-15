@@ -1,11 +1,13 @@
+
 ![# XElement](https://see.fontimg.com/api/renderfont4/GD6D/eyJyIjoiZnMiLCJoIjoxMTcsInciOjEwMDAsImZzIjoxMTcsImZnYyI6IiMzRjMxOEUiLCJiZ2MiOiIjRkZGRkZGIiwidCI6MX0/WEVsZW1lbnQ/atures-500-personal-use-only.png)
 
+> ⚠️ XElement is still a WIP, currently it is in its Testing phase. It is currently stable to use, any issues or feedback is welcomed.
 
-**XElement** allows you to generate any type of specialised Web Component from within Astro from a single interface.
+**XElement** allows you to generate any type of specialised Web Component within Astro from a single interface.
 
 You can choose *when* to run JS on the client-side, whether it be when the document is ready or on any given event.
 
-Respecting Astro's unique approach to Island's Architecture, **XElement** expands this concept with some innovative ways to work with your standard Elements, with some really surprising results.
+Respecting Astro's unique approach to Island's Architecture, **XElement** expands this concept in some innovative ways to work with your collection of Web Elements, with some really surprising results.
 
 --------------------------------------------------------------------
 
@@ -25,7 +27,7 @@ Import into your Astro file:
 ---
 ```
 
-There is no additional dependencies that are required to operate XElement. This is fully Astro compliant.
+With XElement there is no additional dependencies associated dependencies required to utilize this component. This is fully Astro compliant.
 
 --------------------------------------------------------------------
 
@@ -49,7 +51,7 @@ In this example, we are representing an article heading as a page title via JS.
 import XElement from './XElement.astro'
 ---
 <XElement @is="h1"
-    @load={element => {
+    @do={element => {
       document.title = `${element.textContent} - Pushed to the Page Title via JS`
       }} >
     Some Article Title
@@ -82,7 +84,7 @@ import XElement from "./XElement.astro";
 
 <XElement @is="div">
   <XElement @is="button"
-    @load={() => {
+    @do={() => {
       //JS in Here
       let count = 0
       this.onclick = () => {
@@ -107,11 +109,11 @@ This is the shape of the `XElement` props:
 
 ```ts
 /** @typedef Tag - Valid HTML Tag names */
-type Tag = keyof HTMLElementTagNameMap | (string & {})
+type Tag = keyof HTMLElementTagNameMap
 
 export interface Props {
-	'@is': Tag
-	...attr?: any
+'@is': Tag
+...attr?: any
 }
 ```
 
@@ -131,15 +133,15 @@ This is a necessary property to allow `XElement` to generate the HTML Element th
 
 ### `attr` : HTMLAttributes
 
-Can utilize as many of the [HTML Element Attributes](https://developer.mozilla.org/en-US/docs/Web/API/Element/attributes) that are registered for the element created by the `@is` property. You can use  `aria-` and `data-` attributes, specify the elements `id` and apply `class` and inline `style` attributes.
+Can utilize as many of the [HTML Element Attributes](https://developer.mozilla.org/en-US/docs/Web/API/Element/attributes) that are registered for the element created by the `@is` property. You can use the full compliment of associated `aria-` attributes, access and modify the `data-` attributes, specify the elements `id` and apply `class` and inline `style` attributes.
 
 --------------------------------------------------------------------
 
 ## `XElement` Client-Side JS
 
-Now the purpose of `XElement` is to help facilitate generating and consuming Astro compliant, Web standard HTML Elements.
+Now the purpose of `XElement` is to help facilitate generating and consuming Astro compliant, Web standard HTML Elements, that need JS without the use of an external framework.
 
-In order to respect Astro's Island's ethos, and hydration policies `XElement` has been structured in such a way that the JS sent to the client is packaged as modules and only attached to the element in question, and any children it may inherit.
+In order to respect Astro's Island's ethos, and hydration policies `XElement` has been structured in such a way that the JS sent to the client is packaged as modules, attached only to the element in question, and any children it may inherit.
 
 Since the JS is scoped directly to each `HTMLElement` in a way not previously possible it allows you to specify when you wish to run your script, and how.
 
@@ -149,12 +151,12 @@ These are the following methods to apply client-side JS using `XElement`:
 
 --------------------------------------------------------------------
 
-### `@load` : void
+### `@do` : void
 
-The `@load` property accepts a function which runs when the element has loaded and document is ready.
+The `@do` property accepts a function which runs when the element has loaded and document is ready.
 
 ```js
-@load = {(element)=>{
+@do = {(element)=>{
   console.log(element)
 }}
 ```
@@ -246,7 +248,7 @@ This allows to observe any changes that are **only** made to the Elements Attrib
 This allows to observe any changes that are **only** made to the Elements children
 
 ```js
-@observe:attr={()=>{
+@observe:children={()=>{
   console.log("Something's Changed with the element's children")
 }}
 ```
@@ -256,7 +258,7 @@ This allows to observe any changes that are **only** made to the Elements childr
 This allows to observe any changes that are **only** made to the Elements subtree
 
 ```js
-@observe:attr={()=>{
+@observe:sub={()=>{
   console.log("Something's Changed with the element's subtree")
 }}
 ```
@@ -299,7 +301,7 @@ The `@event:prevent` property followed by an event name indicates that the given
 
 ### `@ANY_EVENT:useCapture`
 
-The `@event:useCapture` property followed by an event name indicates that the given function should listen to the given event name, preventing its default behaviour.
+The `@event:useCapture` property followed by an event name indicates that the given function should listen to the given event name, capturing the bubbling behaviour of that event to the element.
 
 ```js
 @click:prevent={()=>console.log('Initiate Capture of the Event')}

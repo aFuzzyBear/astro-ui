@@ -1,49 +1,27 @@
 ---
 /**
- *
- *
- *   __  __ _____  _                                _
- *   \ \/ /| ____|| |  ___  _ __ ___    ___  _ __  | |_
- *    \  / |  _|  | | / _ \| '_ ` _ \  / _ \| '_ \ | __|
- *    /  \ | |___ | ||  __/| | | | | ||  __/| | | || |_
- *   /_/\_\|_____||_| \___||_| |_| |_| \___||_| |_| \__|
- *
- * 			Web Component Generator For Astro
- *
- * @description XElement is a lightweight Web component generator for Astro
- * which allows you to specify which HMTL compliant you wish to generate. It
- * also allows for specialised delivery of JS to the Client, respecting
- * Astro's Islands ethos.
- *
- * @copyright 2021
- * @license GNU3 General Public License version 3
- * @author jonathantneal - https://github.com/jonathantneal
- * @author aFuzzyBear - https://github.com/aFuzzyBear
- *
+ * This only works on v0.21, due to the saitizer being brought into Astro =)
+ * contains; 
+ * - Data Binding,
+ * - Fetch
+ * - Fixed Animation glitch
+ * - Added Web-components to this 🤯 Pure Jonathan magic, 
  */
 
-//Type Definitions
 
-/** @typedef Tag - Valid HTML Tag names */
-type Tag = keyof HTMLElementTagNameMap | (string & {})
 
-export interface Props {
-	'@is': Tag
-	attrs?: any
-}
-
+const dataURI = `data:text/javascript,export default {}`
 
 const {
 	'@is': tag = null,
 	...attrs
 } = Astro.props as Props
 
-
 /** Generates the HTML Tag for the Element */
 const XElement: string = tag === null ? 'span' : tag
 
 /** Formats the given value so that it can be placed into an attribute. */
-const toAttributeString = (value: any) => String(value).replace(/&/g, '&#38;').replace(/"/g, '&#34;')
+const toAttributeString = (value: any) => String(value)
 
 /** Listeners to attach onto the event. */
 let listenerString = ''
@@ -76,7 +54,7 @@ for (const name in attrs) {
 			/** Apply the Hydration selectors*/
 			switch (type) {
 				case 'do':
-					listenerOfOnce = `(${toAttributeString(data)})($);`
+					listenerOfOnce = `(${toAttributeString(data)})($,$$);`
 					break
 
 				case 'resize':
@@ -84,7 +62,7 @@ for (const name in attrs) {
 						opts.once
 							? `!o.disconnect()&&`
 						: ``
-					}(${toAttributeString(data)})(e[0])).observe($);`
+					}(${toAttributeString(data)})(e[0],$$)).observe($);`
 					break
 
 				case 'observe':
@@ -112,14 +90,12 @@ for (const name in attrs) {
 						opts.once
 							? `&&!o.disconnect()`
 						: ``
-					}&&(${toAttributeString(data)})(e[0])).observe($);`
+					}&&(${toAttributeString(data)})(e[0],$$)).observe($);`
 					break
 
 				default:
-					listenerString += `$.addEventListener(${toAttributeString(`"${type}"`)},${
-						opts.prevent
-							? `e=>{e.preventDefault();(${toAttributeString(data)})(e)}`
-						: toAttributeString(data)
+					listenerString += `$.addEventListener(${toAttributeString(JSON.stringify(type))},${
+            `e=>{${opts.prevent ? `e.preventDefault();` : ''}(${toAttributeString(data)})(e,$$)}`
 					}${
 						opts.once
 						? ',{once:true}'
@@ -142,14 +118,12 @@ for (const name in attrs) {
 	}
 }
 
-const onLoadString: string = listenerString || listenerOfOnce ? `(function(){let $=this;${
+const onLoadString: string = listenerString || listenerOfOnce ? `(async function(){let $=this,$$=(await import("${dataURI}")).default;const fetch = window.fetch;${
 	listenerString
 };${
 	listenerOfOnce
 }}).call(this.previousSibling,this.remove())` : null
-
 ---
-
 <XElement {...attrs}><slot /></XElement>{
-	onLoadString && <script type="module" src="data:text/javascript," onload={onLoadString}></script>
+	onLoadString && <script type="module" src={dataURI} onload={onLoadString}></script>
 }
