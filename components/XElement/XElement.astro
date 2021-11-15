@@ -22,16 +22,19 @@
  *
  */
 
-//Type Definitions
 
+//Type Definitions
 /** @typedef Tag - Valid HTML Tag names */
 type Tag = keyof HTMLElementTagNameMap | (string & {})
 
 export interface Props {
+	/** Specifies the HTML Web Component */
 	'@is': Tag
 	attrs?: any
 }
 
+//Variables 
+/** Pass through a Data Object to the module */
 const dataURI = `data:text/javascript,export default {}`
 
 const {
@@ -74,7 +77,7 @@ for (const name in attrs) {
 
 				type = type.slice(0, read.index)
 			}
-			/** Apply the Hydration selectors*/
+			/** Apply the JS payload delivery*/
 			switch (type) {
 				case 'do':
 					listenerOfOnce = `(${toAttributeString(data)})($,$$);`
@@ -117,7 +120,7 @@ for (const name in attrs) {
 					break
 
 				default:
-					listenerString += `$.addEventListener(${toAttributeString(`"${type}"`)},${
+					listenerString += `$.${opts.remove ? 'removeEventListener': 'addEventListener'}(${toAttributeString(`"${type}"`)},${
 						opts.prevent
 							? `e=>{e.preventDefault();(${toAttributeString(data)})(e,$$)}`
 						: toAttributeString(data)
