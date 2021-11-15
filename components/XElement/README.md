@@ -49,7 +49,7 @@ In this example, we are representing an article heading as a page title via JS.
 import XElement from './XElement.astro'
 ---
 <XElement @is="h1"
-    @load={element => {
+    @do={element => {
       document.title = `${element.textContent} - Pushed to the Page Title via JS`
       }} >
     Some Article Title
@@ -82,7 +82,7 @@ import XElement from "./XElement.astro";
 
 <XElement @is="div">
   <XElement @is="button"
-    @load={() => {
+    @do={() => {
       //JS in Here
       let count = 0
       this.onclick = () => {
@@ -149,12 +149,12 @@ These are the following methods to apply client-side JS using `XElement`:
 
 --------------------------------------------------------------------
 
-### `@load` : void
+### `@do` : void
 
-The `@load` property accepts a function which runs when the element has loaded and document is ready.
+The `@do` property accepts a function which runs when the element has loaded and document is ready.
 
 ```js
-@load = {(element)=>{
+@do = {(element)=>{
   console.log(element)
 }}
 ```
@@ -281,9 +281,17 @@ The `@event` property followed by an event name indicates that the given functio
 @click | @fullscreenchange | @mouseenter ...
 ```
 
+### `@ANY_EVENT:remove`
+
+The `@event:remove` property is the removal of event listeners of a given type from an element.
+
+```js
+@click:remove={()=>console.log("Removed the click event!")}
+```
+
 ### `@ANY_EVENT:once`
 
-The `@event` property followed by an event name that the given function should listen to the given event name and fire only once, removing itself when done.
+The `@event:once` property that the given function should listen to the given event name and fire only once, removing itself when done.
 
 ```js
 @click:once={()=>console.log('Im a one time deal')}
@@ -291,15 +299,15 @@ The `@event` property followed by an event name that the given function should l
 
 ### `@ANY_EVENT:prevent`
 
-The `@event:prevent` property followed by an event name indicates that the given function should listen to the given event name, preventing its default behaviour.
+The `@event:prevent` property followed by an event name indicates that the given function should prevent the default behaviour of that particular event listeners effects.
 
 ```js
-@click:prevent={()=>console.log('prevent default behaviour in full effect')}
+@click:prevent={()=>console.log('Prevent default behaviour in full effect')}
 ```
 
 ### `@ANY_EVENT:useCapture`
 
-The `@event:useCapture` property followed by an event name indicates that the given function should listen to the given event name, preventing its default behaviour.
+The `@event:useCapture` property followed by an event name indicates that the given function  will run on that event and it would prevent it bubbling upwards.
 
 ```js
 @click:prevent={()=>console.log('Initiate Capture of the Event')}
@@ -330,6 +338,21 @@ The `@event:useCapture` property followed by an event name indicates that the gi
 
 --------------------------------------------------------------------
 
+## `fetch` : Promise<T>
+
+`XElement` also supports client-side's native `fetch()` API. This will allow you to call and send data dynamically from the Element itself.
+
+```astro
+<XElement @is="button"
+  @click={()=>{
+   fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response => response.json())
+  .then(json => console.log("Here is the Fetched Data", json))
+  }}
+>
+```
+
+--------------------------------------------------------------------
 ## Credits
 
 This project owes a tremendous amount of gratitude and thanks to [jonathantneal](https://github.com/jonathantneal) for supporting and guiding this whimsical fantasy into creation.
