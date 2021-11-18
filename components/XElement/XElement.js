@@ -2,7 +2,7 @@ import XElement from './XElement.astro';
 
 export default new Proxy(XElement, {
   get(target, name) {
-    // pass thru any existing properties or asynchronous `.then` check
+    // pass through any existing properties or asynchronous `.then` check
     if (name in target || name === 'then') return target[name];
 
     return Object.assign(
@@ -16,6 +16,7 @@ export default new Proxy(XElement, {
           },
           slots
         ),
+      // identify this function as an astro component
       {
         isAstroComponentFactory: true,
       }
