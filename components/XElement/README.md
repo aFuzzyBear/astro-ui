@@ -1,33 +1,42 @@
+![Galaxy fonts](https://see.fontimg.com/api/renderfont4/GD6D/eyJyIjoiZnMiLCJoIjo3MSwidyI6MTAwMCwiZnMiOjcxLCJmZ2MiOiIjMkYyNzY2IiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/WEVsZW1lbnQtbmV4dA/atures-500-personal-use-only.png)
 
-![# XElement](https://see.fontimg.com/api/renderfont4/GD6D/eyJyIjoiZnMiLCJoIjoxMTcsInciOjEwMDAsImZzIjoxMTcsImZnYyI6IiMzRjMxOEUiLCJiZ2MiOiIjRkZGRkZGIiwidCI6MX0/WEVsZW1lbnQ/atures-500-personal-use-only.png)
+> ⚠️ XElement-next is still a in early beta and welcome to testing. Its own stability ties itself to the `astro@next` branch and seeks to be ready for the release of Astro `v0.21`.
 
-> ⚠️ XElement is still a WIP, currently it is in its Testing phase. It is currently stable to use, any issues or feedback is welcomed.
+`XElement` is an Astro only, **HTML Web Component Generator**.
 
-**XElement** allows you to generate any type of specialised Web Component within Astro from a single interface.
+It lets you to create any type of Custom HTML Web Components to use within Astro, from a single interface.
 
-You can choose *when* to run JS on the client-side, whether it be when the document is ready or on any given event.
+`XElement` lets you choose *when* to run JS on the client-side, whether it be when the document is ready or on any given event, or observer.
 
-Respecting Astro's unique approach to Island's Architecture, **XElement** expands this concept in some innovative ways to work with your collection of Web Elements, with some really surprising results.
+It can allow for **Data** to be passed between parent and children, vice versa.
+
+Supports native features such as; Browser `fetch` API, and the web `animation` API. If its on the `window` you can use it. 
+
+You can even directly render content within the  **Shadow DOM** and more.
+
+Respecting Astro's unique approach to Island's Architecture, `XElement` expands this concept in some innovative ways to work with your collection of web components, with some really surprising results.
 
 --------------------------------------------------------------------
 
 ## Getting Started
 
-Import **XElement** from from npm:
+Import `XElement` from from npm:
 
 ```bash
-npm i astro-xelement -D
+npm i astro-xelement-next -D
 ```
 
 Import into your Astro file:
 
 ```astro
 ---
-  import XElement from 'astro-xelement'
+  import XElement from 'astro-xelement-next'
 ---
 ```
 
-With XElement there is no additional dependencies associated dependencies required to utilize this component. This is fully Astro compliant.
+`XElement` components are *polymorphic* in the way its implemented.
+
+This means that you can specify in a number of different ways how to use `XElement` for creating and designing your own components.
 
 --------------------------------------------------------------------
 
@@ -37,7 +46,7 @@ XElement directly ties in JS to your HTML Element directly, this gives you compl
 
 ```astro
 ---
-import XElement from '../components/XElement.astro'
+  import XElement from 'astro-xelement-next'
 ---
 <XElement @is="h1" class="joy">Here Comes A Title</XElement>
 <!-- Outputs -->
@@ -48,15 +57,17 @@ In this example, we are representing an article heading as a page title via JS.
 
 ```astro
 ---
-import XElement from './XElement.astro'
+  import XElement from 'astro-xelement-next'
 ---
 <XElement @is="h1"
-    @do={element => {
-      document.title = `${element.textContent} - Pushed to the Page Title via JS`
-      }} >
-    Some Article Title
-    </XElement>
-<!-- Output -->
+  @do={element => {
+    document.title = `${element.textContent} - Pushed to the Page Title via JS`}} >
+      Some Article Title
+</XElement>
+
+<!-- Outputs -->
+<h1>Some Article Title</h1>
+<!-- JS Outputs -->
 <title>Some Article Title - Pushed to the Page Title via JS</title>
 ```
 
@@ -64,26 +75,28 @@ Another example, here it can be used to handle a click event in JS on the Elemen
 
 ```astro
 ---
-import XElement from './XElement.astro'
+  import XElement from 'astro-xelement-next'
 ---
-<XElement
-  @is="button"
+<XElement.button
   @click={element => { console.log('clicked')}}>
     Button: Clickable
-</XElement>
+</XElement.button>
+<!-- Outputs -->
+<button>Button: Clickable</button>
 <!-- Outputs to Console -->
 "Clicked"
 ```
 
-The next example is the pinnacle of all framework examples, setting up a counter.
+The next example is the pinnacle of all framework examples, setting up a 'Counter' HTML Web Component.
 
 ```astro
 ---
-import XElement from "./XElement.astro";
+  import XElement from 'astro-xelement-next'
+  const {Counter} = XElement //Creating an reference 
 ---
 
-<XElement @is="div">
-  <XElement @is="button"
+<Counter>
+  <XElement.button
     @do={() => {
       //JS in Here
       let count = 0
@@ -95,11 +108,18 @@ import XElement from "./XElement.astro";
   </XElement>
     &nbsp; <!-- HTML In Here -->
   <span id="counter_output"></span>
-</XElement>
+</Counter>
 
+<!-- Outputs -->
+
+<counter>
+  <button>Increment</button>
+  &nbsp;
+  <span><span id="counter_output"> 0 </span>
+</counter>
 ```
 
-👆 This works 🤯
+👆 A Working HTML Counter Web Component 🤯
 
 --------------------------------------------------------------------
 
@@ -109,17 +129,20 @@ This is the shape of the `XElement` props:
 
 ```ts
 /** @typedef Tag - Valid HTML Tag names */
-type Tag = keyof HTMLElementTagNameMap
+type Tag = keyof HTMLElementTagNameMap | (string & {})
 
 export interface Props {
-'@is': Tag
-...attr?: any
+   '@is': Tag,
+   shadowroot: 'shadow' | 'closed'
+...attrs?: any
 }
 ```
 
 ### `Tag` : HTMLElementTagName
 
 Here we allow you to generate spec-compliant semantic HTML tag names for your Web Element. This is provided from TS `index.d.ts` type bindings. A full list can be found [here](https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.htmlelementtagnamemap.html)
+
+The `Tag` can be extended to incorporate custom Tags, allowing you to specify and create HTML compliant Web Components, that render to the DOM.
 
 ### `@is` : Tag
 
@@ -129,11 +152,32 @@ The `@is` property accepts a string indicating the type of element being created
  @is = "div" | "p" | "a" | "audio" | "img" | "video" ...
 ```
 
-This is a necessary property to allow `XElement` to generate the HTML Element that you wish to consume for you component. For further information on HTML Elements and their representations, please visit [MDN-Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)
+This is a necessary property to allow `XElement` to generate the HTML Element that you wish to consume for you component.
 
-### `attr` : HTMLAttributes
+Since `XElement` is polymorphic in its nature, it does need to know what type of Element it is to generate. There are three ways to inform `XElement` of the *type of element* its to create.
 
-Can utilize as many of the [HTML Element Attributes](https://developer.mozilla.org/en-US/docs/Web/API/Element/attributes) that are registered for the element created by the `@is` property. You can use the full compliment of associated `aria-` attributes, access and modify the `data-` attributes, specify the elements `id` and apply `class` and inline `style` attributes.
+```astro
+
+<!-- (1) using `@is`-->
+ <XElement @is="div">
+
+<!-- (2) using `.` notation-->
+ <XElement.button>
+
+<!-- (3) using a `named` reference -->
+---
+const {Container} = XElement
+---
+<Container>
+```
+
+For further information on HTML Elements and their representations, please visit [MDN-Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)
+
+### `attrs` : HTMLAttributes
+
+Can utilize as many of the [HTML Element Attributes](https://developer.mozilla.org/en-US/docs/Web/API/Element/attributes) that are registered for the element specified.
+
+You can use the full compliment of associated `aria-` attributes, access and modify the `data-` attributes, specify the elements `id` and apply `class` and inline `style` attributes.
 
 --------------------------------------------------------------------
 
