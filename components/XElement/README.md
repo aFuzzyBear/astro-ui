@@ -1,6 +1,6 @@
 ![Galaxy fonts](https://see.fontimg.com/api/renderfont4/GD6D/eyJyIjoiZnMiLCJoIjo3MSwidyI6MTAwMCwiZnMiOjcxLCJmZ2MiOiIjMkYyNzY2IiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/WEVsZW1lbnQtbmV4dA/atures-500-personal-use-only.png)
 
-> ⚠️ XElement-next is still a in early beta and welcome to testing. Its own stability ties itself to the `astro@next` branch and seeks to be ready for the release of Astro `v0.21`.
+> ⚠️ XElement-next is still a in early beta and welcome to testing. 
 
 `XElement` is an Astro only, **HTML Web Component Generator**.
 
@@ -15,6 +15,14 @@ Supports native features such as; Browser `fetch` API, and the web `animation` A
 You can even directly render content within the  **Shadow DOM** and more.
 
 Respecting Astro's unique approach to Island's Architecture, `XElement` expands this concept in some innovative ways to work with your collection of web components, with some really surprising results.
+
+--------------------------------------------------------------------
+
+## Compatability
+
+`XElement-next` is supported on Astro version `v0.21`
+
+This particular version of XElement will not be supported on Astro versions <`0.20.12`.
 
 --------------------------------------------------------------------
 
@@ -42,7 +50,11 @@ This means that you can specify in a number of different ways how to use `XEleme
 
 ## How to use
 
-XElement directly ties in JS to your HTML Element directly, this gives you complete granular control over the Element with JS directly from a single interface. And it is really simple to use, take a look over some of these examples.
+`XElement` lets you generate simple HTML Elements and complex Web-Components with JS from a single place. This provides the component with a form of *Element encapsulation* for fine-grained interactivity and dynamism.
+
+It'll let you choose how to directly tie in JS to your HTML Element.
+
+And it is really simple to use, take a look over some of these examples.
 
 ```astro
 ---
@@ -92,7 +104,7 @@ The next example is the pinnacle of all framework examples, setting up a 'Counte
 ```astro
 ---
   import XElement from 'astro-xelement-next'
-  const {Counter} = XElement //Creating an reference 
+  const {Counter} = XElement //Creating a named Web Component
 ---
 
 <Counter>
@@ -138,13 +150,13 @@ export interface Props {
 }
 ```
 
-### `Tag` : HTMLElementTagName
+### type `Tag` : HTMLElementTagName | string
 
 Here we allow you to generate spec-compliant semantic HTML tag names for your Web Element. This is provided from TS `index.d.ts` type bindings. A full list can be found [here](https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.htmlelementtagnamemap.html)
 
 The `Tag` can be extended to incorporate custom Tags, allowing you to specify and create HTML compliant Web Components, that render to the DOM.
 
-### `@is` : Tag
+### type `@is` : Tag
 
 The `@is` property accepts a string indicating the type of element being created. By default, it is a `span`.
 
@@ -159,21 +171,21 @@ Since `XElement` is polymorphic in its nature, it does need to know what type of
 ```astro
 
 <!-- (1) using `@is`-->
- <XElement @is="div">
+ <XElement @is="div"></XElement>
 
 <!-- (2) using `.` notation-->
- <XElement.button>
+ <XElement.button></XElement.button>
 
 <!-- (3) using a `named` reference -->
 ---
 const {Container} = XElement
 ---
-<Container>
+<Container></Container>
 ```
 
 For further information on HTML Elements and their representations, please visit [MDN-Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)
 
-### `attrs` : HTMLAttributes
+### type `attrs` : HTMLAttributes
 
 Can utilize as many of the [HTML Element Attributes](https://developer.mozilla.org/en-US/docs/Web/API/Element/attributes) that are registered for the element specified.
 
@@ -259,21 +271,11 @@ The `@resize:once` property only runs **once** when the element has been resized
 
 ### `@observe` : void
 
-The `@observe` property runs whenever there is a DOM Mutation change to the Element or its sub-components.
+The `@observe` property runs whenever there is a DOM Mutation change to the Element or its sub-components, such as: Attributes, Children, Modifications made to the Components Subtree and also its data.
 
 ```js
 @observe={()=>{
-  console.log("Something's Changed")
-}}
-```
-
-### `@observe:all` : void
-
-This allows to observe any changes that are made to the Elements: Attributes, Children, Modifications made to the Components Subtree and also its data.
-
-```js
-@observe:all={()=>{
-  console.log("Something's Changed with the element's properties")
+    console.log("Something's Changed with the element's properties")
 }}
 ```
 
@@ -348,7 +350,14 @@ The `@event:prevent` property followed by an event name indicates that the given
 The `@event:useCapture` property followed by an event name indicates that the given function should listen to the given event name, capturing the bubbling behaviour of that event to the element.
 
 ```js
-@click:prevent={()=>console.log('Initiate Capture of the Event')}
+@click:useCapture={()=>console.log('Initiate Capture of the Event')}
+```
+### `@ANY_EVENT:remove`
+
+The `@event:remove` property followed by an event name to remove the registered event listener of that type,
+
+```js
+@click:remove={()=>console.log('Initiate Capture of the Event')}
 ```
 
 --------------------------------------------------------------------
@@ -363,12 +372,12 @@ The `@event:useCapture` property followed by an event name indicates that the gi
     // keyframes
   { transform: 'translateX(0px)' },
   { transform: 'translateX(300px)' }
-]}
-  @animateOptions={
+  ]}
+  @animateOptions={{
     // timing options
     duration: 1000,
-    iterations: Infinity
-  }
+    iterations: 'Infinity'
+  }}
   >
   See, I'm a Text in motion
 </XElement>
@@ -376,6 +385,57 @@ The `@event:useCapture` property followed by an event name indicates that the gi
 
 --------------------------------------------------------------------
 
+
+## `fetch` with XElement
+
+XElement also supports client-side's native fetch() API. This will allow you to call and send data dynamically from the Element itself.
+
+```astro
+
+<XElement 
+  @is="button"
+  @click={()=>{
+   fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response => response.json())
+  .then(json => console.log("Here is the Fetched Data", json))
+  }}
+>
+```
+
+## `@ext:source` : string
+
+This feature allows you to call ESM compatible scripts to run in the browser from anywhere online,
+
+```astro
+<Confetti class=".confetti"
+        @ext:source={"https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"}
+>
+  <ConfettiButton @is='button' class=".btn"
+      @click={()=>confetti()}
+  >
+      Confetti
+  </ConfettiButton>
+</Confetti>
+
+```
+## `@ext:integrity` : string
+
+This feature allows you to attach the external files, Sub-resource Integrity `sha` digest
+
+```astro
+<Confetti class=".confetti"
+        @ext:source={"https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"}
+>
+  <ConfettiButton @is='button' class=".btn"
+      @click={()=>confetti()}
+  >
+      Confetti
+  </ConfettiButton>
+</Confetti>
+
+```
+
+
 ## Credits
 
-This project owes a tremendous amount of gratitude and thanks to [jonathantneal](https://github.com/jonathantneal) for supporting and guiding this whimsical fantasy into creation.
+This project owes a tremendous amount of gratitude and thanks to [jonathantneal](https://github.com/jonathantneal) for supporting and hacking away at this idea, helping to guide this whimsical fantasy into creation.
