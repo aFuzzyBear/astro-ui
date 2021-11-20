@@ -1,9 +1,33 @@
 ---
+/**
+ *
+ *
+ *   __  __ _____  _                                _
+ *   \ \/ /| ____|| |  ___  _ __ ___    ___  _ __  | |_
+ *    \  / |  _|  | | / _ \| '_ ` _ \  / _ \| '_ \ | __|
+ *    /  \ | |___ | ||  __/| | | | | ||  __/| | | || |_
+ *   /_/\_\|_____||_| \___||_| |_| |_| \___||_| |_| \__|
+ *
+ * 			Web Component Generator For Astro v0.21
+ *
+ * @description XElement is a lightweight Web component generator for Astro
+ * which allows you to specify which HMTL compliant you wish to generate. It
+ * also allows for specialised delivery of JS to the Client, respecting
+ * Astro's Islands ethos.
+ *
+ * @copyright 2021
+ * @license GNU3 General Public License version 3
+ * @author jonathantneal - https://github.com/jonathantneal
+ * @author aFuzzyBear - https://github.com/aFuzzyBear
+ *
+ */
 import { Fragment } from 'astro/internal'
 
 const {
 	'@is': tag = null,
 	shadowroot,
+	'@ext:source': EXT_Source = null,
+	'@ext:integrity': EXT_SRI_KEY = null,
 	...attrs
 } = Astro.props as Props
 
@@ -61,9 +85,7 @@ for (const name in attrs) {
 							? `!o.disconnect()&&`
 						: ``
 					}(${toAttributeString(data)})(e[0])).observe($,${
-						opts.all ?
-								`attributes: true, childList: true, subtree: true, characterData: true`
-						: opts.attr ?
+						opts.attr ?
 							`attributes: true`
 						: opts.children ?
 							`childList: true`
@@ -71,7 +93,7 @@ for (const name in attrs) {
 							`subtree: true`
 						: opts.data ?
 							`characterData:true`
-						: `attributes: true, childList: false, subtree: false, characterData: false`
+						: `attributes: true, childList: true, subtree: true, characterData: true`
 						});`
 					break
 
@@ -82,10 +104,10 @@ for (const name in attrs) {
 						: ``
 					}&&(${toAttributeString(data)})(e[0],$$)).observe($);`
 					break
-
+				
 				default:
-					listenerString += `$.addEventListener(${toAttributeString(JSON.stringify(type))},${
-            `e=>{${opts.prevent ? `e.preventDefault();` : ''}(${toAttributeString(data)})(e,$$)}`
+					// Add Event Listeners
+					listenerString += `$.${opts.remove ?`removeEventListener` : `addEventListener`}(${toAttributeString(JSON.stringify(type))},${`e=>{${opts.prevent ? `e.preventDefault();` : ''}(${toAttributeString(data)})(e,$$)}`
 					}${
 						opts.once
 						? ',{once:true}'
@@ -112,7 +134,7 @@ const onLoadString: string = listenerString || listenerOfOnce ? `(async function
 	listenerString
 };${
 	listenerOfOnce
-}}).call(this.previousSibling,this.remove()||this)` : null
+}}).call(this.previousSibling,this.remove()||this)` : `(async function($$,$){$=this,$$=await import($$.src).default;}).call(this.previousSibling,this.remove()||this)`
 
 const Template = 'template'
 ---
@@ -121,5 +143,12 @@ const Template = 'template'
 		? <slot>&#8203;</slot>
 	: <Template shadowroot="open"><slot>&#8203;</slot></Template>
 	}</XElement>{
-	onLoadString && <script type="module" src="data:text/javascript,export default {}" onload={onLoadString}></script>
+	onLoadString || EXT_Source ? 
+        <script 
+            type="module" 
+            src={EXT_Source ?? `data:text/javascript,export default {}`}
+            integrity={EXT_SRI_KEY ?? null} 
+            crossorigin={EXT_SRI_KEY ? 'anonymous' : null} 
+            referrerpolicy={EXT_Source ? 'origin' : null} 
+            onload={onLoadString}></script> : null
 }
