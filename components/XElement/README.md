@@ -271,7 +271,7 @@ The `@resize:once` property only runs **once** when the element has been resized
 
 ### `@observe` : void
 
-The `@observe` property runs whenever there is a DOM Mutation change to the Element or its sub-components, such as: Attributes, Children, Modifications made to the Components Subtree and also its data.
+The `@observe` property runs whenever there is a DOM Mutation change to the Element or its sub-components, such as: Attributes, Children, Modifications made to the Components Subtree and also its data. By default it would observe all the aforementioned attributes unless specified.
 
 ```js
 @observe={()=>{
@@ -352,6 +352,7 @@ The `@event:useCapture` property followed by an event name indicates that the gi
 ```js
 @click:useCapture={()=>console.log('Initiate Capture of the Event')}
 ```
+
 ### `@ANY_EVENT:remove`
 
 The `@event:remove` property followed by an event name to remove the registered event listener of that type,
@@ -385,10 +386,9 @@ The `@event:remove` property followed by an event name to remove the registered 
 
 --------------------------------------------------------------------
 
-
 ## `fetch` with XElement
 
-XElement also supports client-side's native fetch() API. This will allow you to call and send data dynamically from the Element itself.
+XElement also supports client-side's native `fetch()` API. Letting you to `GET` data from the internet, letting you `POST` your form's and data back to your servers, all directly from the Element itself.
 
 ```astro
 
@@ -402,13 +402,70 @@ XElement also supports client-side's native fetch() API. This will allow you to 
 >
 ```
 
-## `@ext:source` : string
+--------------------------------------------------------------------
 
-This feature allows you to call ESM compatible scripts to run in the browser from anywhere online,
+## Importing scripts
+
+XElement allows you to **import** scripts from the file system using `Astro.resolve('path/to/file.mjs)`. Since `XElement` utilises `modules`, it lets you use other module script files `.mjs`.
+
+This allows you to perform `import` and `export` statements to work within the browser, for more information on [`.js` vs `.mjs`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#aside_%E2%80%94_.mjs_versus_.js).
+
+You can also **import third party modules** from around the ecosystem providing they are `esm` compliant, this allows you to have a form of *package-manager-less* type of development.
+
+Not needing to install packages to use with your `XElement`, just pull using an URL from sources such as:  [Skypack](https://www.skypack.dev/), [jspm.io](https://jspm.org/), [jsDelivr](https://www.jsdelivr.com/) or [esm.sh.](https://esm.sh/).
+
+### `@import` : URL
+
+You can import any exported module, object, function or variable from any file located on the file system or externally. If the module is **not** a stated `default export` of that module, if so use `@import:default`.
+
+```jsx
+// Import from an external location
+@import={"https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"}
+// Import from the `./src/functions` directory
+@import={Astro.resolve('../functions/module.mjs')}
+
+```
+
+Any Imported functionality can be called directly from their `namespace` or as an alternative there are a couple of more ways to call upon your imports. Either as a second parameter to your callback function of your JS payload handler; `@do` `@event` etc.
+
+```
+@do={(element,resource)}
+```
+
+Using either `resource['randomFunction']`,`resource.randomFunction`, or there is a shorthand used to refer to imported data within your `XElement` JS parameter: `$$` this would also work, but it is highly discouraged.
+
+### `@import:default` : URL
+
+To import the default export from your imported module file you have prefix the attribute with the `:default`. This would bring in the import to the module's block scope letting you to then call the import directly, without needing to specify an extra parameter within your JS payload.
+
+```jsx
+@import:default={Astro.resolve('../functions/module.mjs)}
+// Is the called as
+await import(Astro.resolve('../functions/module.mjs')).default 
+```
+
+## `@import:key` : string
+
+This allows you to attach any external scripts Sub-Resource Integrity Tag to the `<script>` tag as an attribute. This has to comply with the `sha` specifications for handling [SRI](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) keys.
+
+```jsx
+@import:key="sha256-2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+<!-- renders -->
+<script src="https://cdn.com/some/file.js" 
+    integrity="sha256-2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+    crossorigin="anonymous"
+    referrerpolicy="origin"
+    >
+
+```
+
+### Confetti Example
+
+This example encapsulates `XElement` within a Confetti Web Component, here we are calling the `canvas-confetti` module via a URL import. We then can call the `confetti()` directly within the `@click` event handler.
 
 ```astro
 <Confetti class=".confetti"
-        @ext:source={"https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"}
+        @import={"https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"}
 >
   <ConfettiButton @is='button' class=".btn"
       @click={()=>confetti()}
@@ -418,24 +475,21 @@ This feature allows you to call ESM compatible scripts to run in the browser fro
 </Confetti>
 
 ```
-## `@ext:integrity` : string
 
-This feature allows you to attach the external files, Sub-resource Integrity `sha` digest
+--------------------------------------------------------------------
 
-```astro
-<Confetti class=".confetti"
-        @ext:source={"https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"}
->
-  <ConfettiButton @is='button' class=".btn"
-      @click={()=>confetti()}
-  >
-      Confetti
-  </ConfettiButton>
-</Confetti>
+## Data-binding
 
+`XElement` also allows for data to be bound to the Element so long as there is no `@import` token being used. This would override the use of the `data {}` for that module.
+
+To utilise the `data` object, call it as a second parameter in your JS payload, this would then provides you with an `Object` that you can then set values and attributes to. This can be accessed by any other `XElement` children within you component. 
+
+```jsx
+@do={(element,data)=> data.answer = 42}
 ```
 
+--------------------------------------------------------------------
 
 ## Credits
 
-This project owes a tremendous amount of gratitude and thanks to [jonathantneal](https://github.com/jonathantneal) for supporting and hacking away at this idea, helping to guide this whimsical fantasy into creation.
+This project owes a tremendous amount of gratitude and thanks to [jonathantneal](https://github.com/jonathantneal) for supporting and hacking away, helping to guide this whimsical fantasy into creation.

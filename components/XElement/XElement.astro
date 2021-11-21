@@ -151,6 +151,6 @@ const Template = 'template'
             src={EXT_Source ?? `data:text/javascript,export default {}`}
             integrity={EXT_SRI_KEY ?? null} 
             crossorigin={EXT_SRI_KEY ? 'anonymous' : null} 
-            referrerpolicy={EXT_Source ? 'origin' : null} 
+            referrerpolicy={EXT_SRI_KEY ? 'origin' : null} 
             onload={onLoadString}></script> : null
 }
