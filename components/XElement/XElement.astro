@@ -22,12 +22,14 @@
  *
  */
 import { Fragment } from 'astro/internal'
-
+🍰
 const {
 	'@is': tag = null,
+	'@import': EXT_Source = null,
+	'@import:default': EXT_Def = null,
+	'@import:key': EXT_SRI_KEY = null,
+	EXT_ROOT = EXT_Source ?? EXT_Def,
 	shadowroot,
-	'@ext:source': EXT_Source = null,
-	'@ext:integrity': EXT_SRI_KEY = null,
 	...attrs
 } = Astro.props as Props
 
@@ -130,11 +132,11 @@ for (const name in attrs) {
 	}
 }
 
-const onLoadString: string = listenerString || listenerOfOnce ? `(async function($$,$){$=this;$$=(await import($$.src)).default;const fetch=window.fetch;${
+const onLoadString: string = listenerString || listenerOfOnce ? `(async function($$,$){$=this;$$=${EXT_Def ? `(await import($$.src)).default` : `(await import($$.src))`};const fetch=window.fetch;${
 	listenerString
 };${
 	listenerOfOnce
-}}).call(this.previousSibling,this.remove()||this)` : `(async function($$,$){$=this,$$=await import($$.src).default;}).call(this.previousSibling,this.remove()||this)`
+}}).call(this.previousSibling,this.remove()||this)` : `(async function($$,$){$=this,$$=${EXT_Def ? `(await import($$.src)).default` : `(await import($$.src))`};}).call(this.previousSibling,this.remove()||this)`
 
 const Template = 'template'
 ---
