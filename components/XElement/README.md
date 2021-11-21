@@ -444,7 +444,7 @@ To import the default export from your imported module file you have prefix the 
 await import(Astro.resolve('../functions/module.mjs')).default 
 ```
 
-## `@import:key` : string
+### `@import:key` : string
 
 This allows you to attach any external scripts Sub-Resource Integrity Tag to the `<script>` tag as an attribute. This has to comply with the `sha` specifications for handling [SRI](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) keys.
 
