@@ -25,10 +25,8 @@ import { Fragment } from 'astro/internal'
 
 const {
 	'@is': tag = null,
-	'@import': EXT_Source = null,
-	'@import:default': EXT_Def = null,
+	'@import:http': EXT_Source = null,
 	'@import:key': EXT_SRI_KEY = null,
-	EXT_ROOT = EXT_Source ?? EXT_Def,
 	shadowroot,
 	...attrs
 } = Astro.props as Props
@@ -40,10 +38,12 @@ const XElement: string = tag === null || tag === '#text' ? Fragment : tag
 const toAttributeString = (value: any) => String(value)
 
 /** Listeners to attach onto the event. */
-let listenerString = ''
+let listenerString:string = ''
 
 /** Event fired once before the document is displayed, deferred using `type="module". */
-let listenerOfOnce = ''
+let listenerOfOnce:string = ''
+
+let importString:string
 
 /** Parse the Attributes */
 for (const name in attrs) {
@@ -129,28 +129,59 @@ for (const name in attrs) {
 
 			listenerString += `$.animate(${toAttributeString(JSON.stringify(keyFrames))},${toAttributeString(JSON.stringify({...options}))});`
 		}
+		 else if(name.includes('@imports') && data){
+			/** Import modules and external files into the Element */
+			let buffer = []
+
+			const importStatement = (name,src,importName,type=null) => `${name}=(await import("${src}"))${type === 'default' ?`.default` : `["${importName}"]`}`
+
+			const importStatements = (statements) => `const ${statements.map(
+  					statement => importStatement(statement.constName,statement.src, statement.importName, statement?.type )).join(',')};`
+			
+			for (let [names, path] of Object.entries(data)) {
+				names.split(',').map(name=>{
+					if (name.includes(':default')){
+						let o = name.replace(':default','')
+						return buffer.push({
+							constName:o,
+							importName:o,
+							src: path,
+							type:'default',
+						})
+					}
+					return buffer.push({
+						constName:name,
+						importName:name,
+						src: path,
+					})
+
+				})
+			}
+			importString = importStatements(buffer)
+		}
 	}
 }
 
-const onLoadString: string = listenerString || listenerOfOnce ? `(async function($$,$){$=this;$$=${EXT_Def ? `(await import($$.src)).default` : `(await import($$.src))`};const fetch=window.fetch;${
+const onLoadString: string = listenerString || listenerOfOnce ? `(async function($$,$){$=this;$$=(await import($$.src)).default;${importString ?? ''};${
 	listenerString
 };${
 	listenerOfOnce
-}}).call(this.previousSibling,this.remove()||this)` : `(async function($$,$){$=this,$$=${EXT_Def ? `(await import($$.src)).default` : `(await import($$.src))`};}).call(this.previousSibling,this.remove()||this)`
+}}).call(this.previousSibling,this.remove()||this)` :`(async function($$,$){$=this,$$=(await import($$.src)).default;${importString ?? ''}}).call(this.previousSibling,this.remove()||this)`
 
 const Template = 'template'
+
 ---
 <XElement {...attrs}>{
 	shadowroot == null
 		? <slot>&#8203;</slot>
 	: <Template shadowroot="open"><slot>&#8203;</slot></Template>
 	}</XElement>{
-	onLoadString || EXT_Source ? 
+	onLoadString ? 
         <script 
             type="module" 
             src={EXT_Source ?? `data:text/javascript,export default {}`}
-            integrity={EXT_SRI_KEY ?? null} 
+            integrity={EXT_SRI_KEY && EXT_Source ? EXT_SRI_KEY : null} 
             crossorigin={EXT_SRI_KEY ? 'anonymous' : null} 
-            referrerpolicy={EXT_SRI_KEY ? 'origin' : null} 
+            referrerpolicy={'origin'} 
             onload={onLoadString}></script> : null
 }
