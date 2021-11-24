@@ -45,6 +45,8 @@ let listenerOfOnce:string = ''
 
 let importString:string
 
+let fetchAPI = `const Fetch = window.fetch`
+
 /** Parse the Attributes */
 for (const name in attrs) {
 	if (name.startsWith('@')) {
@@ -148,6 +150,13 @@ for (const name in attrs) {
 							src: path,
 							type:'default',
 						})
+					}else if(name.match(/[\w:\w]/)){
+						let o = name.split(':')
+						return buffer.push({
+						constName:o[0],
+						importName:o[1],
+						src: path,
+					})
 					}
 					return buffer.push({
 						constName:name,
@@ -158,11 +167,12 @@ for (const name in attrs) {
 				})
 			}
 			importString = importStatements(buffer)
+			delete attrs['@imports']
 		}
 	}
 }
 
-const onLoadString: string = listenerString || listenerOfOnce ? `(async function($$,$){$=this;$$=(await import($$.src)).default;${importString ?? ''};${
+const onLoadString: string = listenerString || listenerOfOnce ? `(async function($$,$){$=this;$$=(await import($$.src)).default;${importString ?? ''};${fetchAPI};${
 	listenerString
 };${
 	listenerOfOnce
