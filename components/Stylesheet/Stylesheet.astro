@@ -13,9 +13,9 @@ function handelError(err='No Stylesheets have been included!'){
  * 
  **/
 const returnLink = (path:string,media?:string):HTMLLinkElement => 
-<link rel="stylesheet" type="text/css" href={path} media={media && media}/>
+`<link rel="stylesheet" type="text/css" href=${path} media=${media && media}/>`
 
-export type SanitizeList =
+type SanitizeList =
         "all" |
         "bare"|
         "forms"|
@@ -25,12 +25,12 @@ export type SanitizeList =
         "sysUI"|
         "monoUI"
     
-export declare type PropsAttributes = {
+type PropsAttributes = {
     href?: "npm:" | string ,
     media?: string
 }
 
-export interface Props extends PropsAttributes {
+interface Props extends PropsAttributes {
     list?: PropsAttributes[]
     sanitize?: SanitizeList
 }

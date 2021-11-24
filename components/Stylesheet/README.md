@@ -5,14 +5,14 @@ A simple component to help abstract the monotony of adding stylesheets to any As
 To use simply:
 
 ```bash
-npm i astro-ui-stylesheet -D
+npm i astro-stylesheet -D
 ```
 
 Within your `./src/layouts/**.astro` layout file or `./src/pages/**.astro`, apply the following:
 
 ```astro
 ---
-import Stylesheet from 'astro-ui-stylesheet'
+import Stylesheet from 'astro-stylesheet'
 
 ---
 <html>
@@ -40,7 +40,8 @@ import Stylesheet from 'astro-ui-stylesheet'
             }
           ]
         }
-        sanitize:SanitizeList =  "all" | "bare"| "forms"| "assets"| "typography"|
+       <!-- Apply sanitize.css stylesheets -->
+        sanitize: SanitizeList =  "all" | "bare"| "forms"| "assets"| "typography"|
                             "reducedMotion"| "sysUI"| "monoUI"
     />
  </head>
@@ -121,8 +122,10 @@ This would then apply the relevant set of Sanitizer links to the document.
 
 ### ChangeLog:
 
-27/10/21 - Added Single use of component provided by [Olyno](https://github.com/Olyno)
+- Added Single use of component provided by [Olyno](https://github.com/Olyno)
 
 ## Credits
 
-This project was largely inspired and assisted by [jonathantneal](https://github.com/jonathantneal) from [csstools/sanitize.css](https://github.com/csstools/sanitize.css). Please look to support their project by giving them a star on github, it would really mean the world to them.
+This project was largely inspired and assisted by [jonathantneal](https://github.com/jonathantneal) from [csstools/sanitize.css](https://github.com/csstools/sanitize.css). Please look to support their project by giving them a star on github, it would really mean the world to them. 
+
+Special Thanks to Olyno for augmenting the component with the Single use functionality.
