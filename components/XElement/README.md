@@ -1,25 +1,41 @@
-![# XElement](https://see.fontimg.com/api/renderfont4/GD6D/eyJyIjoiZnMiLCJoIjoxMTcsInciOjEwMDAsImZzIjoxMTcsImZnYyI6IiMzRjMxOEUiLCJiZ2MiOiIjRkZGRkZGIiwidCI6MX0/WEVsZW1lbnQ/atures-500-personal-use-only.png)
+![#XElement Banner Image](https://see.fontimg.com/api/renderfont4/GD6D/eyJyIjoiZnMiLCJoIjo4OCwidyI6MTAwMCwiZnMiOjg4LCJmZ2MiOiIjMkYyNzY2IiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/WEVsZW1lbnQ/atures-500-personal-use-only.png)
 
-> ⚠️ `XElement` is still considered to be in beta and test, there is new features being explored and added. 
+`XElement` is an [Astro]('https://astro.build') only, **HTML Web Component Generator**.
 
-**XElement** allows you to generate any type of specialised Web Component from within [Astro](https://astro.build) from a single interface.
+It lets you to create any type of Custom HTML Web Components to use within Astro, from a single interface.
 
-You can choose *when* to run JS on the client-side, whether it be when the document is ready or on any given event.
+`XElement` lets you choose *when* to run JS on the client-side, whether it be when the document is ready or on any given event, or on any type of observer.
 
-Respecting [Astro](https://astro.build)'s unique approach to Island's Architecture, **XElement** expands this concept with some innovative ways to work with your standard Elements, with some really surprising results.
+<!-- It can allow for **Data** to be passed between parent and children and vice versa. -->
+
+Supports all browser native features such as; Browser `fetch` API, and Web `animation` API. If its on the `window` you can use it by calling either `window || document ` within the Element.
+
+You can even directly render content within the  **Shadow DOM** and more.
+
+Respecting Astro's unique approach to Island's Architecture, `XElement` expands this concept in some innovative ways to work with your collection of web components, with some really surprising results.
+
+--------------------------------------------------------------------
+
+## Project Status
+
+> ⚠️ This project is under active development and can be considered stable as of `v2`.
+
+We will constantly be seeking to make `XElement` better with new features and improvements in due course. And will always work alongside Astro as that framework matures in time.
+
+`v2` comes of the release of Astro `v0.21` using their new GO compiler. Previous version of `XElement` that was supported on Astro versions older than this has now been [archived](https://github.com/aFuzzyBear/astro-ui/tree/v0.20-archive).
+
+### Compatability
+
+`XElement` is supported on all versions of  Astro >`v0.21`
+
+This particular version of XElement will not be supported on Astro versions <`0.20.12`.
+
 
 --------------------------------------------------------------------
 
-## Compatibility 
-
-This version of `XElement` is supported on all versions of [Astro](https://astro.build) upto `v0.20.12`. 
-
-For the `v0.21` and onwards, there would be a seperate version of `XElement` released to work alongside the new version of [Astro](https://astro.build). 
-
---------------------------------------------------------------------
 ## Getting Started
 
-Import **XElement** from from npm:
+Import `XElement` from from npm:
 
 ```bash
 npm i astro-xelement -D
@@ -33,17 +49,23 @@ Import into your [Astro](https://astro.build) file:
 ---
 ```
 
-There is no additional dependencies that are required to operate XElement. This is fully [Astro](https://astro.build) compliant.
+All `XElement` components are *polymorphic* in the way that they can be implemented.
+
+This means that you can specify in a number of different ways how to you wish to use `XElement` for creating and designing your own interactive HTML web components.
 
 --------------------------------------------------------------------
 
 ## How to use
 
-XElement directly ties in JS to your HTML Element directly, this gives you complete granular control over the Element with JS directly from a single interface. And it is really simple to use, take a look over some of these examples.
+`XElement` lets you generate simple HTML Elements and complex Web-Components with JS from a single place. This provides the component with a form of *Element encapsulation* for fine-grained interactivity and dynamism.
+
+It'll let you choose how to tie in JS into your HTML Element.
+
+And it is really simple to use, take a look over some of these examples.
 
 ```astro
 ---
-import XElement from '../components/XElement.astro'
+  import XElement from 'astro-xelement'
 ---
 <XElement @is="h1" class="joy">Here Comes A Title</XElement>
 <!-- Outputs -->
@@ -54,15 +76,17 @@ In this example, we are representing an article heading as a page title via JS.
 
 ```astro
 ---
-import XElement from './XElement.astro'
+  import XElement from 'astro-xelement'
 ---
 <XElement @is="h1"
-    @do={element => {
-      document.title = `${element.textContent} - Pushed to the Page Title via JS`
-      }} >
-    Some Article Title
-    </XElement>
-<!-- Output -->
+  @do={element => {
+    document.title = `${element.textContent} - Pushed to the Page Title via JS`}} >
+      Some Article Title
+</XElement>
+
+<!-- Outputs -->
+<h1>Some Article Title</h1>
+<!-- JS Outputs -->
 <title>Some Article Title - Pushed to the Page Title via JS</title>
 ```
 
@@ -70,26 +94,28 @@ Another example, here it can be used to handle a click event in JS on the Elemen
 
 ```astro
 ---
-import XElement from './XElement.astro'
+  import XElement from 'astro-xelement'
 ---
-<XElement
-  @is="button"
+<XElement.button
   @click={element => { console.log('clicked')}}>
     Button: Clickable
-</XElement>
+</XElement.button>
+<!-- Outputs -->
+<button>Button: Clickable</button>
 <!-- Outputs to Console -->
 "Clicked"
 ```
 
-The next example is the pinnacle of all framework examples, setting up a counter.
+The next example is the pinnacle of all framework examples, setting up a custom 'Counter' HTML Web Component.
 
 ```astro
 ---
-import XElement from "./XElement.astro";
+  import XElement from 'astro-xelement'
+  const {Counter} = XElement //Creating a named Web Component
 ---
 
-<XElement @is="div">
-  <XElement @is="button"
+<Counter>
+  <XElement.button
     @do={() => {
       //JS in Here
       let count = 0
@@ -101,11 +127,18 @@ import XElement from "./XElement.astro";
   </XElement>
     &nbsp; <!-- HTML In Here -->
   <span id="counter_output"></span>
-</XElement>
+</Counter>
 
+<!-- Outputs -->
+
+<counter>
+  <button>Increment</button>
+  &nbsp;
+  <span><span id="counter_output"> 0 </span>
+</counter>
 ```
 
-👆 This works 🤯
+👆 A Working HTML Counter Web Component 🤯
 
 --------------------------------------------------------------------
 
@@ -118,16 +151,19 @@ This is the shape of the `XElement` props:
 type Tag = keyof HTMLElementTagNameMap | (string & {})
 
 export interface Props {
-	'@is': Tag
-	...attr?: any
+   '@is': Tag,
+   shadowroot,
+...attrs?: any
 }
 ```
 
-### `Tag` : HTMLElementTagName
+### type `Tag` : HTMLElementTagName | string
 
 Here we allow you to generate spec-compliant semantic HTML tag names for your Web Element. This is provided from TS `index.d.ts` type bindings. A full list can be found [here](https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.htmlelementtagnamemap.html)
 
-### `@is` : Tag
+The `Tag` can be extended to incorporate custom Tags, allowing you to specify and create HTML compliant Web Components, that render to the DOM.
+
+### type `@is` : Tag
 
 The `@is` property accepts a string indicating the type of element being created. By default, it is a `span`.
 
@@ -135,19 +171,40 @@ The `@is` property accepts a string indicating the type of element being created
  @is = "div" | "p" | "a" | "audio" | "img" | "video" ...
 ```
 
-This is a necessary property to allow `XElement` to generate the HTML Element that you wish to consume for you component. For further information on HTML Elements and their representations, please visit [MDN-Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)
+This is a necessary property to allow `XElement` to generate the HTML Element that you wish to consume for you component.
 
-### `attr` : HTMLAttributes
+Since `XElement` is polymorphic in its nature, it does need to know what type of Element it is to generate. There are three ways to inform `XElement` of the *type of element* its to create.
 
-Can utilize as many of the [HTML Element Attributes](https://developer.mozilla.org/en-US/docs/Web/API/Element/attributes) that are registered for the element created by the `@is` property. You can use  `aria-` and `data-` attributes, specify the elements `id` and apply `class` and inline `style` attributes.
+```astro
+
+<!-- (1) using `@is`-->
+ <XElement @is="div"></XElement>
+
+<!-- (2) using `.` notation-->
+ <XElement.button></XElement.button>
+
+<!-- (3) using a `named` reference -->
+---
+const {Container} = XElement
+---
+<Container></Container>
+```
+
+For further information on HTML Elements and their representations, please visit [MDN-Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)
+
+### type `attrs` : HTMLAttributes
+
+Can utilize as many of the [HTML Element Attributes](https://developer.mozilla.org/en-US/docs/Web/API/Element/attributes) that are registered for the element specified.
+
+You can use the full compliment of associated `aria-` attributes, access and modify the `data-` attributes, specify the elements `id` and apply `class` and inline `style` attributes.
 
 --------------------------------------------------------------------
 
 ## `XElement` Client-Side JS
 
-Now the purpose of `XElement` is to help facilitate generating and consuming Astro compliant, Web standard HTML Elements.
+Now the purpose of `XElement` is to help facilitate generating and consuming Astro compliant, Web standard HTML Elements, that need JS without the use of an external framework.
 
-In order to respect Astro's Island's ethos, and hydration policies `XElement` has been structured in such a way that the JS sent to the client is packaged as modules and only attached to the element in question, and any children it may inherit.
+In order to respect Astro's Island's ethos, and hydration policies `XElement` has been structured in such a way that the JS sent to the client is packaged as modules, attached only to the element in question, and any children it may inherit.
 
 Since the JS is scoped directly to each `HTMLElement` in a way not previously possible it allows you to specify when you wish to run your script, and how.
 
@@ -221,21 +278,11 @@ The `@resize:once` property only runs **once** when the element has been resized
 
 ### `@observe` : void
 
-The `@observe` property runs whenever there is a DOM Mutation change to the Element or its sub-components.
+The `@observe` property runs whenever there is a DOM Mutation change to the Element or its sub-components, such as: Attributes, Children, Modifications made to the Components Subtree and also its data. By default it would observe all the aforementioned attributes unless specified.
 
 ```js
 @observe={()=>{
-  console.log("Something's Changed")
-}}
-```
-
-### `@observe:all` : void
-
-This allows to observe any changes that are made to the Elements: Attributes, Children, Modifications made to the Components Subtree and also its data.
-
-```js
-@observe:all={()=>{
-  console.log("Something's Changed with the element's properties")
+    console.log("Something's Changed with the element's properties")
 }}
 ```
 
@@ -254,7 +301,7 @@ This allows to observe any changes that are **only** made to the Elements Attrib
 This allows to observe any changes that are **only** made to the Elements children
 
 ```js
-@observe:attr={()=>{
+@observe:children={()=>{
   console.log("Something's Changed with the element's children")
 }}
 ```
@@ -264,7 +311,7 @@ This allows to observe any changes that are **only** made to the Elements childr
 This allows to observe any changes that are **only** made to the Elements subtree
 
 ```js
-@observe:attr={()=>{
+@observe:sub={()=>{
   console.log("Something's Changed with the element's subtree")
 }}
 ```
@@ -315,17 +362,19 @@ The `@event:prevent` property followed by an event name indicates that the given
 
 ### `@ANY_EVENT:useCapture`
 
-The `@event:useCapture` property followed by an event name indicates that the given function  will run on that event and it would prevent it bubbling upwards.
+The `@event:useCapture` property followed by an event name indicates that the given function should listen to the given event name, capturing the bubbling behaviour of that event to the element.
 
 ```js
-@click:prevent={()=>console.log('Initiate Capture of the Event')}
+@click:useCapture={()=>console.log('Initiate Capture of the Event')}
 ```
 
 --------------------------------------------------------------------
 
-## Animate `XElement`
+## `@animate` && `@animateOptions`
 
 `XElement` allows you to animate the element directly by specifying your animations and key-frames as normal when utilising the standard [Web Animation API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+
+Use the `@animate` to provide a list of keyframes to animate over. `@animateOptions` is an Object which contains the timing options for the animation. These two are used in concert with each other.
 
 ```astro
 <XElement @is="p"
@@ -333,11 +382,13 @@ The `@event:useCapture` property followed by an event name indicates that the gi
     // keyframes
   { transform: 'translateX(0px)' },
   { transform: 'translateX(300px)' }
-]}
+  ]}
   @animateOptions={
-    // timing options
-    duration: 1000,
-    iterations: Infinity
+    {
+      // timing options
+      duration: 1000,
+      iterations: 'Infinity'
+    }
   }
   >
   See, I'm a Text in motion
@@ -346,14 +397,16 @@ The `@event:useCapture` property followed by an event name indicates that the gi
 
 --------------------------------------------------------------------
 
-## `fetch` with XElement
+## `Fetch()`
 
-`XElement` also supports client-side's native [`fetch()` API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). This will allow you to call and send data dynamically from the Element itself.
+XElement also supports client-side's native `fetch()` API through `Fetch()`. Letting you to `GET` data from the internet, letting you `POST` your form's and data back to your servers, all directly from the Element itself.
 
 ```astro
-<XElement @is="button"
+
+<XElement 
+  @is="button"
   @click={()=>{
-   fetch('https://jsonplaceholder.typicode.com/todos/1')
+   Fetch('https://jsonplaceholder.typicode.com/todos/1')
   .then(response => response.json())
   .then(json => console.log("Here is the Fetched Data", json))
   }}
@@ -361,6 +414,89 @@ The `@event:useCapture` property followed by an event name indicates that the gi
 ```
 
 --------------------------------------------------------------------
+
+## Dynamic Imports
+
+XElement allows you to **dynamically import** scripts into your Element.Either from the file system using `Astro.resolve('path/to/file.mjs)`, or via a URL `http://packageRegistry.com/somePackage.{browser | esm}.js`.
+
+Since `XElement` utilises `ES Modules`, it lets you use other module script files `.mjs`. This allows you to `export` the Elements logic from one place and *dynamically* `import` them to work within the browser, for more information on [`.js` vs `.mjs`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#aside_%E2%80%94_.mjs_versus_.js).
+
+You can also **import third party modules** from around the ecosystem providing they are `esm` compliant, this allows you to have a form of *package-manager-less* type of development.
+
+Not needing to install packages to use with your `XElement`, instead just pulled using an URL from sources such as:  [Skypack](https://www.skypack.dev/), [jspm.io](https://jspm.org/), [jsDelivr](https://www.jsdelivr.com/) or [esm.sh.](https://esm.sh/).
+
+This way you can load and consume any from of packages or scripts from npm sources without installing them to `node_modules` first.
+
+### `@imports` : Record <"ImportName","path">
+
+You can import any exported module, object, function or variable from any file located on the file system or externally.
+
+`@imports` can accept as many different imports as needed. There is a few ways to specify declaring the manner in which the import occurs.
+
+```jsx
+// Imports take the following types shape
+@imports={
+  {
+    //Import defaults
+    "ImportNS:default":Astro.resolve('../functions/moduleWithDefault.mjs')
+    //Import Multiple Modules
+    "ImportNS,SecondaryImport,....": Astro.resolve('../functions/namedExportsModule.mjs'),
+    //Reassign the Import Namespace
+    "NewReference:ImportNS": Astro.resolve('../functions/namedExportsModule.mjs'),
+    //Multiple reassignments and imports from external source
+    "a:modA,b:modB,modC":"https://skypack.dev/somePkg/file.esm.js?url",
+  }
+}
+```
+
+This will then provide the imports and its referenced `namespaces` to the scope of the `XElement` that it is being consumed in.
+
+### `@import:http` : string< URL >
+
+To import directly from an external resource you can do so using its own `@` handler:
+
+```jsx
+@import:https={'https://cdn.skypack.dev/canvas-confetti'}
+```
+
+### `@import:key` : string
+
+This allows you to attach any external scripts Sub-Resource Integrity Tag to the `<script>` tag as an attribute. This has to comply with the `sha` specifications for handling [SRI](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) keys.
+
+```jsx
+@import:key="sha256-2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+<!-- renders -->
+<script src="https://cdn.com/some/file.js" 
+    integrity="sha256-2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+    crossorigin="anonymous"
+    referrerpolicy="origin"
+    >
+
+```
+
+### Confetti Example
+
+This example encapsulates `XElement` within a Confetti Web Component, here we are calling the `canvas-confetti` module via a URL import. We then can call the `confetti()` directly within the `@click` event handler.
+
+```astro
+<Confetti class=".confetti"
+        @imports:={"confetti": "https://cdn.skypack.dev/canvas-confetti"}
+>
+  <ConfettiButton @is='button' class=".btn"
+      @click={()=>confetti()}
+  >
+      Confetti
+  </ConfettiButton>
+</Confetti>
+
+```
+
+<!-- TODO:Write up about SHADOWROOT  -->
+
+<!-- TODO:Write up about Data Binding  -->
+
 ## Credits
 
-This project owes a tremendous amount of gratitude and thanks to [jonathantneal](https://github.com/jonathantneal) for supporting and guiding this whimsical fantasy into creation.
+This project owes a tremendous amount of gratitude and thanks to [jonathantneal](https://github.com/jonathantneal) for supporting and hacking away, helping to guide this whimsical fantasy into creation.
+
+Special thanks also to Astro Core team for their dedication and hard work towards building [Astro](https://astro.build) as a fantastic framework for Frontend development.

@@ -20,4 +20,4 @@
  *
  */
 
-export {default as XElement} from './XElement.astro'
+export {default as XElement} from './XElement.js'
