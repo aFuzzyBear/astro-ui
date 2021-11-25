@@ -12,8 +12,8 @@ function handelError(err='No Stylesheets have been included!'){
  *  @returns HTMLLinkElement,  
  * 
  **/
-const returnLink = (path:string,media?:string):HTMLLinkElement => 
-`<link rel="stylesheet" type="text/css" href=${path} media=${media && media}/>`
+const returnLink = (path:string,media?:string,cors?:string,preload?:string,alternative?:boolean,title?:string):HTMLLinkElement => 
+`<link ${preload ?`rel="preload" as="style" ` : `rel=${alternative ? `"alternative stylesheet"` : `"stylesheet"`}`} type="text/css" href="${path}" ${media ? `media="${media}"`: ''} ${cors ? `crossorigin="${cors}"` : ''} ${title && alternative ? `title="${title}"`:''} />`
 
 type SanitizeList =
         "all" |
@@ -27,7 +27,11 @@ type SanitizeList =
     
 type PropsAttributes = {
     href?: "npm:" | string ,
-    media?: string
+    media?: string,
+    preload?,
+    alternative?,
+    cors?:'anonymous'|'use-credentials',
+    title?:string,
 }
 
 interface Props extends PropsAttributes {
@@ -46,7 +50,7 @@ const sanitizerURLS = {
 }
 
 // Acquiring values from props
-const {list, sanitize, href: hrefValue, media: mediaValue} = Astro.props as Props
+const {list, sanitize, href: hrefValue, media: mediaValue, cors, preload, alternative, title} = Astro.props as Props
 const attributesList = list || []
 
 if(!hrefValue && (!Array.isArray(list) || list.length === 0)){
@@ -54,16 +58,29 @@ if(!hrefValue && (!Array.isArray(list) || list.length === 0)){
 }
 
 if (hrefValue) {
-    attributesList.push({href: hrefValue, media: mediaValue})
+    attributesList.push({
+        href: hrefValue, 
+        media: mediaValue,
+        cors,
+        preload,
+        alternative,
+        title
+        })
 }
 
 const linkCSS = attributesList.map(
     (attribute) =>{
-        const {href,media} = attribute
+        const {
+            href,
+            media,
+            cors,
+            preload,
+            alternative,
+            title} = attribute
         let src = href.startsWith('npm:') && href.endsWith('.css')
                     ? 'https://cdn.skypack.dev/' + href.slice(4) 
                     : href
-         return returnLink(src,media)
+         return returnLink(src,media,cors,preload,alternative,title)
     }
 )
 
@@ -74,24 +91,25 @@ let sanitizedArray = []
  * Assister function to help push the right sanitized links to the array
  */
 const getSanitizeLinks = async (name) =>{
+    let cors="anonymous"
     if(name ==='all'){
        Object.entries(sanitizerURLS).forEach(link=>{
         sanitizedArray.push(
-            returnLink(link[1])
+            returnLink(link[1],null,cors)
         )
     })
     }
     else if(name === 'bare'){
         sanitizedArray.push(
-            returnLink(sanitizerURLS['default'])
+            returnLink(sanitizerURLS['default'],null,cors)
         )
     }
     else{
         sanitizedArray.push(
-            returnLink(sanitizerURLS['default'])
+            returnLink(sanitizerURLS['default'],null,cors)
         )
         sanitizedArray.push(
-            returnLink(sanitizerURLS[`${name}`])
+            returnLink(sanitizerURLS[`${name}`],null,cors)
         )
     }
 }
@@ -129,6 +147,6 @@ const populateSanitizer = async() =>{
 }
 
 ---
-    <!-- Populate the generated Stylesheet Links onto the DOM -->
+    <!-- Stylesheets -->
     {linkCSS}
     {await populateSanitizer()}
