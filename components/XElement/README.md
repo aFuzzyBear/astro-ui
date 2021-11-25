@@ -145,7 +145,7 @@ type Tag = keyof HTMLElementTagNameMap | (string & {})
 
 export interface Props {
    '@is': Tag,
-   shadowroot
+   shadowroot,
 ...attrs?: any
 }
 ```
@@ -363,7 +363,7 @@ The `@event:remove` property followed by an event name to remove the registered 
 
 --------------------------------------------------------------------
 
-## `@animate` && `@animateOptions` 
+## `@animate` && `@animateOptions`
 
 `XElement` allows you to animate the element directly by specifying your animations and key-frames as normal when utilising the standard [Web Animation API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
 
@@ -420,9 +420,9 @@ Not needing to install packages to use with your `XElement`, instead just pulled
 
 This way you can load and consume any from of packages or scripts from npm sources without installing them to `node_modules` first.
 
-### `@imports` : Record<"ImportName","path">
+### `@imports` : Record <"ImportName","path">
 
-You can import any exported module, object, function or variable from any file located on the file system or externally. 
+You can import any exported module, object, function or variable from any file located on the file system or externally.
 
 `@imports` can accept as many different imports as needed. There is a few ways to specify declaring the manner in which the import occurs.
 
@@ -444,15 +444,15 @@ You can import any exported module, object, function or variable from any file l
 
 This will then provide the imports and its referenced `namespaces` to the scope of the `XElement` that it is being consumed in.
 
-### `@imports:http` : string<URL>
+### `@import:http` : string< URL >
 
 To import directly from an external resource you can do so using its own `@` handler:
 
 ```jsx
-@imports:https={'https://cdn.skypack.dev/canvas-confetti'}
+@import:https={'https://cdn.skypack.dev/canvas-confetti'}
 ```
 
-### `@imports:key` : string
+### `@import:key` : string
 
 This allows you to attach any external scripts Sub-Resource Integrity Tag to the `<script>` tag as an attribute. This has to comply with the `sha` specifications for handling [SRI](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) keys.
 
@@ -473,7 +473,7 @@ This example encapsulates `XElement` within a Confetti Web Component, here we ar
 
 ```astro
 <Confetti class=".confetti"
-        @imports:={"confetti": "https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"}
+        @imports:={"confetti": "https://cdn.skypack.dev/canvas-confetti"}
 >
   <ConfettiButton @is='button' class=".btn"
       @click={()=>confetti()}
@@ -488,13 +488,11 @@ This example encapsulates `XElement` within a Confetti Web Component, here we ar
 
 <!-- TODO:Write up about SHADOWROOT  -->
 
-
 --------------------------------------------------------------------
 
 --------------------------------------------------------------------
 
 <!-- TODO:Write up about Data Binding  -->
-
 
 --------------------------------------------------------------------
 
