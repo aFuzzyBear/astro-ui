@@ -204,7 +204,8 @@ You can use the full compliment of associated `aria-` attributes, access and mod
 
 Now the purpose of `XElement` is to help facilitate generating and consuming Astro compliant, Web standard HTML Elements, that need JS without the use of an external framework.
 
-In order to respect Astro's Island's ethos, and hydration policies `XElement` has been structured in such a way that the JS sent to the client is packaged as modules, attached only to the element in question, and any children it may inherit.
+In order to respect Astro's Island's ethos, and hydration policies `XElement` has been structured in such a way that the JS sent to the client is packaged as independent modules, attached only to the element in question. 
+<!-- and any children it may inherit. - the validity of this statement doesnt seem to fit with observations, Each module is now independent of itself -->
 
 Since the JS is scoped directly to each `HTMLElement` in a way not previously possible it allows you to specify when you wish to run your script, and how.
 
@@ -328,7 +329,7 @@ This allows to observe any changes that are **only** made to the Elements charac
 
 --------------------------------------------------------------------
 
-### `@ANY_EVENT` : EventTarget
+### `@ANY_EVENT` : EventTarget< void >
 
 The `@event` property followed by an event name indicates that the given function should listen to the given event name.
 
@@ -336,7 +337,7 @@ The `@event` property followed by an event name indicates that the given functio
 @click | @fullscreenchange | @mouseenter ...
 ```
 
-### `@ANY_EVENT:remove`
+### `@ANY_EVENT:remove` : void
 
 The `@event:remove` property is the removal of event listeners of a given type from an element.
 
@@ -344,7 +345,7 @@ The `@event:remove` property is the removal of event listeners of a given type f
 @click:remove={()=>console.log("Removed the click event!")}
 ```
 
-### `@ANY_EVENT:once`
+### `@ANY_EVENT:once` : void
 
 The `@event:once` property that the given function should listen to the given event name and fire only once, removing itself when done.
 
@@ -352,7 +353,7 @@ The `@event:once` property that the given function should listen to the given ev
 @click:once={()=>console.log('Im a one time deal')}
 ```
 
-### `@ANY_EVENT:prevent`
+### `@ANY_EVENT:prevent` : void
 
 The `@event:prevent` property followed by an event name indicates that the given function should prevent the default behaviour of that particular event listeners effects.
 
@@ -360,7 +361,7 @@ The `@event:prevent` property followed by an event name indicates that the given
 @click:prevent={()=>console.log('Prevent default behaviour in full effect')}
 ```
 
-### `@ANY_EVENT:useCapture`
+### `@ANY_EVENT:useCapture` : void
 
 The `@event:useCapture` property followed by an event name indicates that the given function should listen to the given event name, capturing the bubbling behaviour of that event to the element.
 
@@ -370,11 +371,11 @@ The `@event:useCapture` property followed by an event name indicates that the gi
 
 --------------------------------------------------------------------
 
-## `@animate` && `@animateOptions`
+## `@animate` && `@timings` : < object[ ] | object >
 
 `XElement` allows you to animate the element directly by specifying your animations and key-frames as normal when utilising the standard [Web Animation API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
 
-Use the `@animate` to provide a list of keyframes to animate over. `@animateOptions` is an Object which contains the timing options for the animation. These two are used in concert with each other.
+Use the `@animate` to provide a list of keyframes to animate over. `@timings` is an Object which contains the timing options for the animation. These two are used in concert with each other.
 
 ```astro
 <XElement @is="p"
@@ -383,7 +384,7 @@ Use the `@animate` to provide a list of keyframes to animate over. `@animateOpti
   { transform: 'translateX(0px)' },
   { transform: 'translateX(300px)' }
   ]}
-  @animateOptions={
+  @timings={
     {
       // timing options
       duration: 1000,
@@ -397,9 +398,9 @@ Use the `@animate` to provide a list of keyframes to animate over. `@animateOpti
 
 --------------------------------------------------------------------
 
-## `Fetch()`
+## `Fetch()` :  Promise< URL >
 
-XElement also supports client-side's native `fetch()` API through `Fetch()`. Letting you to `GET` data from the internet, letting you `POST` your form's and data back to your servers, all directly from the Element itself.
+XElement also supports client-side's native `fetch()` API through `Fetch()`. Letting you to `GET` data from the internet, `POST` your form's and data back to your servers, everything you can normally do with `fetch()` all directly from within the scope of the Element itself.
 
 ```astro
 
@@ -453,7 +454,7 @@ This will then provide the imports and its referenced `namespaces` to the scope 
 
 ### `@import:http` : string< URL >
 
-To import directly from an external resource you can do so using its own `@` handler:
+To import directly from an external resource you can do so using the `@import:https` handler:
 
 ```jsx
 @import:https={'https://cdn.skypack.dev/canvas-confetti'}
@@ -474,11 +475,15 @@ This allows you to attach any external scripts Sub-Resource Integrity Tag to the
 
 ```
 
-### Confetti Example
+## Confetti Example
 
 This example encapsulates `XElement` within a Confetti Web Component, here we are calling the `canvas-confetti` module via a URL import. We then can call the `confetti()` directly within the `@click` event handler.
 
 ```astro
+---
+import XElement from 'astro-xelement'
+const {Confetti} = XElement
+---
 <Confetti class=".confetti"
         @imports:={"confetti": "https://cdn.skypack.dev/canvas-confetti"}
 >
@@ -490,6 +495,68 @@ This example encapsulates `XElement` within a Confetti Web Component, here we ar
 </Confetti>
 
 ```
+
+This loads `canvas-confetti` from the **Skypack** CDN, since `canvas-confetti` exports to the `window.confetti` this allows us to call the `confetti` function from anywhere on the page.
+
+Normally you would import the modules that you need directly into the Element that is using it. Leveraging the browser cache, multiple requests to the same export would only result in the one file being sent.
+
+--------------------------------------------------------------------
+
+## Passing `@props` from Server to Client
+
+`XElement` allows you to pass **any JS primitive** from Astro's server-side into the `XElement`s client-side JS. This can let you declare a function once and pass it into each module as and when you require.
+
+Each property is accessible inside the `XElement` using the `prop_[ns]` prefix. The *namespace* `[ns]` is the object's key.
+
+### `@props` : Object
+
+```astro
+---
+// Inside the Codefence
+
+const dolphins = "So long and thanks for the fish"
+const answer = 42
+// Logs to the Terminal
+console.log(dolphins,answer)
+---
+@props={
+  {
+    dolphins,
+    answer
+  }
+}
+@do={()=> console.log(prop_dolphins,prop_answer)}
+<!-- Logs output to console in DevTools -->
+"So long and thanks for the fish", 42
+```
+
+The purpose of this is to allow for better collocation of information pertaining to the custom functions that you wish to preform with `XElement`. Utilizing Astro's power of collocating Server-side functionality along with HTML templating and JSX, we can leverage the Astro to provide `props` and `children` into our `XElement`
+
+```astro
+---
+  import XElement from 'astro-xelement'
+  import confetti from 'canvas-confetti'
+  //This could even be kept separate imported in
+  const fadeIn = [
+            { opacity: 0 },
+            { opacity: 1 }
+            ]
+  const timings = {
+              duration: 5000,
+              iterations: 1
+              }
+  const {btnText} = Astro.props
+---
+
+  <Confetti
+    @animate={fadeIn}
+    @timings={timings}
+  >
+    <XElement.button @props={confetti} @click={()=>confetti()}>{btnText}<XElement.button/>
+  </Confetti>
+```
+
+--------------------------------------------------------------------
 
 <!-- TODO:Write up about SHADOWROOT  -->
 
