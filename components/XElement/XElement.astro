@@ -23,6 +23,8 @@ let listenerOfOnce:string = ''
 
 let importString
 
+let propsString
+
 let fetchAPI = `const Fetch = window.fetch`
 
 /** Parse the Attributes */
@@ -102,10 +104,10 @@ for (const name in attrs) {
 			/** Applying Web Animate API to the Element */
 			const [ keyFrames, options ] = [
 				attrs['@animate'],
-				attrs['@animateOptions']
+				attrs['@timings']
 			]
 			delete attrs['@animate']
-			delete attrs['@animateOptions']
+			delete attrs['@timings']
 
 			listenerString += `$.animate(${toAttributeString(JSON.stringify(keyFrames))},${toAttributeString(JSON.stringify({...options}))});`
 		}
@@ -130,9 +132,10 @@ for (const name in attrs) {
 						})
 					}else if(name.match(/[\w:\w]/)){
 						let o = name.split(':')
+						console.log(o)
 						return buffer.push({
-						constName:o[0],
-						importName:o[1],
+						constName:o[1] ?? o[0],
+						importName:o[0],
 						src: path,
 					})
 					}
@@ -150,11 +153,20 @@ for (const name in attrs) {
 				delete attrs['@import:http'] 
 				delete attrs['@import:key'] 
 
-		}	
+		}else if(name.includes('@props') && data && typeof data ==='object'){
+			const buffer = Object.entries(data)
+			const propStatement =(key,value)=> `prop_${key} = ${
+				typeof value ==='object'? toAttributeString(JSON.stringify(value)) : toAttributeString(value)}`
+			const propsStatements =(statements) => `const ${statements.map(prop=>propStatement(prop[0],prop[1]))};
+			`
+			
+		  propsString = propsStatements(buffer)
+			delete attrs['@props']
+		}
 	}
 }
 
-const onLoadString: string = listenerString || listenerOfOnce ? `(async function($$,$){$=this;$$=(await import($$.src)).default;${importString ?? ''};${fetchAPI};${
+const onLoadString: string = listenerString || listenerOfOnce ? `(async function($$,$){$=this;$$=(await import($$.src)).default;${importString ?? ''};${fetchAPI};${propsString ?? ''};${
 	listenerString
 };${
 	listenerOfOnce
