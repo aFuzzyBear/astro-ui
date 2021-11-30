@@ -177,7 +177,9 @@ const Template = 'template'
 ---
 <XElement {...attrs}>{
 	shadowroot == null
-		? <slot>&#8203;</slot>
+		? XElement === Fragment
+			? <slot>&#8203;</slot>
+		: null
 	: <Template shadowroot="open"><slot>&#8203;</slot></Template>
 	}</XElement>{
 	onLoadString ? 
