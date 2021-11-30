@@ -118,7 +118,7 @@ for (const name in attrs) {
 			const importStatement = (name,src,importName,type=null) => `${name}=(await import("${src}"))${type === 'default' ?`.default` : `["${importName}"]`}`
 
 			const importStatements = (statements) => `const ${statements.map(
-  					statement => importStatement(statement.constName,statement.src, statement.importName, statement?.type )).join(',')};`
+  					statement => importStatement(statement.constName,statement.src, statement.importName, statement?.type )).join(',')}`
 			
 			for (let [names, path] of Object.entries(data)) {
 				names.split(',').map(name=>{
@@ -157,23 +157,21 @@ for (const name in attrs) {
 			const buffer = Object.entries(data)
 			const propStatement =(key,value)=> `prop_${key} = ${
 				typeof value ==='object'? toAttributeString(JSON.stringify(value)) : toAttributeString(value)}`
-			const propsStatements =(statements) => `const ${statements.map(prop=>propStatement(prop[0],prop[1]))};
+			const propsStatements =(statements) => `const ${statements.map(prop=>propStatement(prop[0],prop[1]))}
 			`
-			
-		  propsString = propsStatements(buffer)
+		  	propsString = propsStatements(buffer)
 			delete attrs['@props']
 		}
 	}
 }
 
-const onLoadString: string = listenerString || listenerOfOnce ? `(async function($$,$){$=this;$$=(await import($$.src)).default;${importString ?? ''};${fetchAPI};${propsString ?? ''};${
+const onLoadString: string = listenerString || listenerOfOnce ? `(async function($$,$){$=this;$$=(await import($$.src)).default;${importString ?? ''};${propsString ?? ''};${fetchAPI};${
 	listenerString
 };${
 	listenerOfOnce
 }}).call(this.previousSibling,this.remove()||this)` :`(async function($$,$){$=this,$$=(await import($$.src)).default;${importString ?? ''}}).call(this.previousSibling,this.remove()||this)`
 
 const Template = 'template'
-
 ---
 <XElement {...attrs}>{
 	shadowroot == null
