@@ -143,6 +143,7 @@ for (const name in attrs) {
 
 			listenerString += `$.animate(${toAttributeString(JSON.stringify(keyFrames))},${toAttributeString(JSON.stringify({...options}))});`
 		}
+<<<<<<< Updated upstream
 	}
 }
 
@@ -151,6 +152,70 @@ const onLoadString: string = listenerString || listenerOfOnce ? `(function(){let
 };${
 	listenerOfOnce
 }}).call(this.previousSibling,this.remove())` : null
+=======
+		 else if(name.includes('@imports') && data){
+			/** Import modules and external files into the Element */
+			let buffer = []
+
+			const importStatement = (name,src,importName,type=null) => `${name}=(await import("${src}"))${type === 'default' ?`.default` : `["${importName}"]`}`
+
+			const importStatements = (statements) => `const ${statements.map(
+  					statement => importStatement(statement.constName,statement.src, statement.importName, statement?.type )).join(',')}`
+			
+			for (let [names, path] of Object.entries(data)) {
+				names.split(',').map(name=>{
+					if (name.includes(':default')){
+						let o = name.replace(':default','')
+						return buffer.push({
+							constName:o,
+							importName:o,
+							src: path,
+							type:'default',
+						})
+					}else if(name.match(/[\w:\w]/)){
+						let o = name.split(':')
+						console.log(o)
+						return buffer.push({
+						constName:o[1] ?? o[0],
+						importName:o[0],
+						src: path,
+					})
+					}
+					return buffer.push({
+						constName:name,
+						importName:name,
+						src: path,
+					})
+
+				})
+			}
+			importString = importStatements(buffer)
+			delete attrs['@imports']
+		}else if(name.includes('@import:http') && name.includes('@import:key')){
+				delete attrs['@import:http'] 
+				delete attrs['@import:key'] 
+
+		}else if(name.includes('@props') && data && typeof data ==='object'){
+			const buffer = Object.entries(data)
+			const propStatement =(key,value)=> `prop_${key} = ${
+				typeof value ==='object'? toAttributeString(JSON.stringify(value)) : toAttributeString(value)}`
+			const propsStatements =(statements) => `const ${statements.map(prop=>propStatement(prop[0],prop[1]))}
+			`
+			
+		  propsString = propsStatements(buffer)
+			delete attrs['@props']
+		}
+	}
+}
+
+const onLoadString: string = listenerString || listenerOfOnce ? `(async function($$,$){$=this;$$=(await import($$.src)).default;${importString ?? ''};${propsString ?? ''};${fetchAPI};${
+	listenerString
+};${
+	listenerOfOnce
+}}).call(this.previousSibling,this.remove()||this)` : `(async function($$,$){$=this,$$=(await import($$.src)).default;${importString ?? ''}}).call(this.previousSibling,this.remove()||this)`
+
+const Template = 'template'
+>>>>>>> Stashed changes
 
 ---
 

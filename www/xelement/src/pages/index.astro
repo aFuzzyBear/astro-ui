@@ -1,0 +1,74 @@
+---
+import XElement from 'astro-xelement'
+import Stylesheet from 'astro-stylesheet'
+
+import NavBar from '../components/NavBar/NavBar.astro'
+
+
+const {HelloWorld} = XElement
+const NavList = [
+        {
+                text:"Home",
+                path:"/",
+        },
+        {
+                text:"Guides",
+                path:"/",
+        },
+        {
+                text:"Examples",
+                path:"/",
+        },
+        {
+                text:"API",
+                path:"/",
+        }
+]
+
+---
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Welcome to Astro</title>
+	<Stylesheet list={[
+		{
+			href:string = "./styles/styles.css", 
+			media:string = "screen"
+		},
+		{
+			href:string = "./styles/tailwind.css", 
+			media:string = "screen"
+		},]} 
+		sanitize='bare'
+	/>
+</head>
+	<NavBar 
+		navbarClassList={'flex flex-row flex-wrap justify-evenly'} 
+		linkClassList={''} 
+		list={NavList}
+	/>
+
+	
+<body>
+	<h1>Welcome to <a href="https://astro.build/">Astro</a></h1>
+	<HelloWorld @is="p" class="text-blue-500"
+		@animate={[
+		{ transform: 'translateX(0px)' },
+		{ transform: 'translateX(300px)' }
+		]}
+		@timings={{
+			duration: 10000,
+			iterations: 'Infinity'
+			}
+		}>
+	 	Hello World
+	</HelloWorld>
+	<a href="http://www.bbc.co.uk">bbc</a>
+	<a href="/">home</a>
+</body>
+
+</html>

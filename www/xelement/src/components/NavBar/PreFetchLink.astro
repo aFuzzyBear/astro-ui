@@ -1,0 +1,41 @@
+---
+export interface Props{
+    text:string
+    path:string
+    target: "external"|"parent"|"top"|"framename"
+}
+import XElement from 'astro-xelement'
+
+
+
+const {text,path,target,classList} = Astro.props as Props
+
+---
+
+    <XElement @is="a"
+        class={classList ?? null}
+        @do={(element)=>{
+           const prefetch = document.createElement('link')
+           Object.assign(prefetch,{
+               rel:'prefetch',
+               as:'document',
+               href:element.href,
+               type:'text/html'
+           })
+           
+           element.addEventListener('pointerenter',()=>{
+              document.head.appendChild(prefetch)
+           })
+           element.addEventListener('pointerleave',()=>{
+              document.head.removeChild(prefetch)
+           })
+        }}
+        href={path ?? '#'}
+        target={target === 'external' ? "_blank" 
+                : target === "parent"? "_parent"
+                : target === "top" ? "_top"
+                : target === "framename" ?"framename"
+                : "_self" }
+    >
+        {text}
+    </XElement>
