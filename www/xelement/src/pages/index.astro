@@ -3,7 +3,7 @@ import XElement from 'astro-xelement'
 import Stylesheet from 'astro-stylesheet'
 
 import NavBar from '../components/NavBar/NavBar.astro'
-
+import Test from '../components/NavBar/test.astro'
 
 const {HelloWorld} = XElement
 const NavList = [
@@ -33,29 +33,25 @@ const NavList = [
 	<meta charset="utf-8" />
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 	<meta name="viewport" content="width=device-width" />
-	<title>Welcome to Astro</title>
+	<title>Astro XElement</title>
 	<Stylesheet list={[
 		{
-			href:string = "./styles/styles.css", 
-			media:string = "screen"
-		},
-		{
-			href:string = "./styles/tailwind.css", 
-			media:string = "screen"
+			href: Astro.resolve('../styles/tailwind.scss'), 
+			media: "screen"
 		},]} 
-		sanitize='bare'
 	/>
 </head>
+
 	<NavBar 
-		navbarClassList={'flex flex-row flex-wrap justify-evenly'} 
-		linkClassList={''} 
+		navbarClassList="nav"
+		linkClassList={'nav__link'} 
 		list={NavList}
 	/>
 
-	
+	<Test> Content</Test>
 <body>
 	<h1>Welcome to <a href="https://astro.build/">Astro</a></h1>
-	<HelloWorld @is="p" class="text-blue-500"
+	<HelloWorld @is="p" class="text-red-600 "
 		@animate={[
 		{ transform: 'translateX(0px)' },
 		{ transform: 'translateX(300px)' }
@@ -69,6 +65,8 @@ const NavList = [
 	</HelloWorld>
 	<a href="http://www.bbc.co.uk">bbc</a>
 	<a href="/">home</a>
+		
+
 </body>
 
 </html>
