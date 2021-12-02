@@ -174,11 +174,9 @@ const onLoadString: string = listenerString || listenerOfOnce ? `(async function
 const Template = 'template'
 ---
 <XElement {...attrs}>{
-	shadowroot == null
-		? XElement === Fragment
-			? <slot>&#8203;</slot>
-		: null
-	: <Template shadowroot="open"><slot>&#8203;</slot></Template>
+	shadowroot ?
+	<Template shadowroot="open"><slot/></Template> 
+	: <slot/>
 	}</XElement>{
 	onLoadString ? 
         <script 
