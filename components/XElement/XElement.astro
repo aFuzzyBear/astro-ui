@@ -120,40 +120,32 @@ for (const name in attrs) {
 			},${
 				JSON.stringify({ ...options })
 			});`
-		} else if (name.includes('@props') && data && typeof data === 'object') {
-			const propStatement = (key: string, value: any) => `prop_${
-				key
-			} = ${
-				value && typeof value === 'object'
-					? JSON.stringify(value)
-				: toAttributeString(value)
-			}`
-
-			const propsStatements = (statements: any[]) => `const ${
-				statements.map(statement=>{
-					let entry= Object.entries(statement)
-					return propStatement(entry[0][0],entry[0][1])
-				})
-			}`
-
-			propsString = propsStatements(data)
-			delete attrs['@props']
-		}
+		} 
 	}
+	if (name.includes('define:vars')){
+			const data = attrs['define:vars']
+			if(typeof data === 'object'){
+				propsString = `let ${
+					Object.entries(Object(data)).map(
+						([ name, value ]) => `${name.replace(/[^\w]/g, '')}=${JSON.stringify(value)}`
+					).join(',')
+				};`
+			}
+			delete attrs['define:vars']
+		}
 }
 
 const onLoadString: string = (
-	listenerString || listenerOfOnce
-		? `(async function($$,$){$=this;$$=(await import($$.src)).default;${
-			propsString ? `${propsString};` : ``
-		}${
-			listenerString ? `${listenerString};` : ``
-		};${
-			listenerOfOnce
-		}}).call(this.previousSibling,this.remove()||this)`
-	: null
+    listenerString || listenerOfOnce
+        ? `(async function($$,$){$=this;$$=(await import($$.src)).default;${
+            propsString ?? ``
+        }${
+            listenerString ?? ``
+        }${
+            listenerOfOnce ?? ``
+        }}).call(this.previousSibling,this.remove()||this)`
+    : null
 )
-
 /** Matching ShadowRoot attribute. */
 let shadowRoot = Object.keys(attrs).find(name => /^shadowroot$/i.test(name))
 

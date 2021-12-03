@@ -197,7 +197,7 @@ For further information on HTML Elements and their representations, please visit
 
 Can utilize as many of the [HTML Element Attributes](https://developer.mozilla.org/en-US/docs/Web/API/Element/attributes) that are registered for the element specified.
 
-You can use the full compliment of associated `aria-` attributes, access and modify the `data-` attributes, specify the elements `id` and apply `class` and inline `style` attributes.
+You can use the full compliment of associated HTML attributes such as; `aria-` attributes, access and modify the `data-` attributes, specify the elements `id` and apply `class` and inline `style` attributes.
 
 --------------------------------------------------------------------
 
@@ -454,12 +454,57 @@ Normally you would import the modules that you need directly into the Element th
 
 --------------------------------------------------------------------
 
+## `define:vars=` : Object
+
+With Astro `v0.21` you are able to send `props` from inside the Astro Codefence, into the `<script>` tag, using Astro's `define:vars` directive.
+
+This has also been replicated with `XElement` to allow you to have the same ability to send data from Astro into your client-side JS, letting you leverage Astro compliment of tools and abilities to its full power.
+
+```astro
+---
+import XElement from 'astro-xelement'
+
+const {Title} = XElement
+
+const fadeIn = [
+    { 
+        transform: 'translateY(50px)',
+        opacity: 0
+    },
+    {
+        transform: 'translateY(0)',
+        opacity: 1
+    }
+];
+const timing = {
+    duration: 1000,
+    easing: 'cubic-bezier(0.390, 0.575, 0.565, 1.000)',
+    fill: 'both'
+};
+---
+<Title 
+  define:vars={
+    {
+      fadeIn,
+      timing
+    }
+  }
+  @visible={(event)=> {
+      event.target.animate(fadeIn,timing)
+  }}
+>
+ See me Fade In
+</Title>
+```
+
+--------------------------------------------------------------------
+
 <!-- TODO:Write up about SHADOWROOT  -->
 
 <!-- TODO:Write up about Data Binding  -->
 
 ## Credits
 
-This project owes a tremendous amount of gratitude and thanks to [jonathantneal](https://github.com/jonathantneal) for supporting and hacking away, helping to guide this whimsical fantasy into creation.
+This project owes a tremendous amount of gratitude and thanks to [jonathantneal](https://github.com/jonathantneal) for his continuous support and hacking away, helping to guide this whimsical fantasy into creation.
 
-Special thanks also to Astro Core team for their dedication and hard work towards building [Astro](https://astro.build) as a fantastic framework for Frontend development.
+Special acknowledgement to the Astro Core team for their dedication and hard work towards building [Astro](https://astro.build) as a fantastic framework for Frontend development.
