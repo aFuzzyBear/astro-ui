@@ -26,7 +26,7 @@ We will constantly be seeking to make `XElement` better with new features and im
 
 ### Compatability
 
-`XElement` is supported on all versions of  Astro >`v0.21`
+`XElement` is supported on all versions of Astro >`v0.21`
 
 This particular version of XElement will not be supported on Astro versions <`0.20.12`.
 
@@ -45,7 +45,7 @@ Import into your [Astro](https://astro.build) file:
 
 ```astro
 ---
-  import XElement from 'astro-xelement'
+import XElement from 'astro-xelement'
 ---
 ```
 
@@ -65,10 +65,11 @@ And it is really simple to use, take a look over some of these examples.
 
 ```astro
 ---
-  import XElement from 'astro-xelement'
+import XElement from 'astro-xelement'
 ---
 <XElement @is="h1" class="joy">Here Comes A Title</XElement>
-<!-- Outputs -->
+
+<!-- renders as -->
 <h1 class="joy">Here Comes A Title<h1>
 ```
 
@@ -76,17 +77,18 @@ In this example, we are representing an article heading as a page title via JS.
 
 ```astro
 ---
-  import XElement from 'astro-xelement'
+import XElement from 'astro-xelement'
 ---
 <XElement @is="h1"
   @do={element => {
-    document.title = `${element.textContent} - Pushed to the Page Title via JS`}} >
-      Some Article Title
-</XElement>
+    document.title = `${element.textContent} - Pushed to the Page Title via JS`}
+  }
+>Some Article Title</XElement>
 
-<!-- Outputs -->
+<!-- renders as -->
 <h1>Some Article Title</h1>
-<!-- JS Outputs -->
+
+<!-- js changes the title to -->
 <title>Some Article Title - Pushed to the Page Title via JS</title>
 ```
 
@@ -94,48 +96,46 @@ Another example, here it can be used to handle a click event in JS on the Elemen
 
 ```astro
 ---
-  import XElement from 'astro-xelement'
+import XElement from 'astro-xelement'
 ---
 <XElement.button
-  @click={element => { console.log('clicked')}}>
-    Button: Clickable
-</XElement.button>
-<!-- Outputs -->
+  @click={element => {
+    console.log('clicked')
+  }}
+>Button: Clickable</XElement.button>
+
+<!-- renders as -->
 <button>Button: Clickable</button>
-<!-- Outputs to Console -->
-"Clicked"
+
+<!-- logs "clicked" to the console when clicked -->
 ```
 
 The next example is the pinnacle of all framework examples, setting up a custom 'Counter' HTML Web Component.
 
 ```astro
 ---
-  import XElement from 'astro-xelement'
-  const {Counter} = XElement //Creating a named Web Component
----
+import XElement from 'astro-xelement'
 
-<Counter>
-  <XElement.button
+const { Button, CounterComponent } = XElement
+---
+<CounterComponent>
+  <Button
     @do={() => {
-      //JS in Here
-      let count = 0
+      let count = 0;
+
       this.onclick = () => {
         counter_output.textContent = ++count
       }
-    }}>
-    Increment
-  </XElement>
-    &nbsp; <!-- HTML In Here -->
-  <span id="counter_output"></span>
-</Counter>
+    }}
+  >Increment</Button> <span id="counter_output">0</span>
+</CounterComponent>
 
-<!-- Outputs -->
+<!-- renders as -->
+<counter-component>
+  <button>Increment</button> <span id="counter_output">0</span>
+</counter-component>
 
-<counter>
-  <button>Increment</button>
-  &nbsp;
-  <span><span id="counter_output"> 0 </span>
-</counter>
+<!-- increments `counter_output` when clicked -->
 ```
 
 👆 A Working HTML Counter Web Component 🤯
@@ -153,7 +153,7 @@ type Tag = keyof HTMLElementTagNameMap | (string & {})
 export interface Props {
    '@is': Tag,
    shadowroot,
-...attrs?: any
+  ...attrs?: any
 }
 ```
 
@@ -168,7 +168,7 @@ The `Tag` can be extended to incorporate custom Tags, allowing you to specify an
 The `@is` property accepts a string indicating the type of element being created. By default, it is a `span`.
 
 ```jsx
- @is = "div" | "p" | "a" | "audio" | "img" | "video" ...
+@is = "div" | "p" | "a" | "audio" | "img" | "video" ...
 ```
 
 This is a necessary property to allow `XElement` to generate the HTML Element that you wish to consume for you component.
@@ -176,18 +176,19 @@ This is a necessary property to allow `XElement` to generate the HTML Element th
 Since `XElement` is polymorphic in its nature, it does need to know what type of Element it is to generate. There are three ways to inform `XElement` of the *type of element* its to create.
 
 ```astro
-
 <!-- (1) using `@is`-->
- <XElement @is="div"></XElement>
+<XElement @is="div"></XElement>
 
 <!-- (2) using `.` notation-->
- <XElement.button></XElement.button>
+<XElement.button></XElement.button>
+```
 
-<!-- (3) using a `named` reference -->
+```astro
 ---
-const {Container} = XElement
+// (3) using a `named` reference
+const { Section } = XElement
 ---
-<Container></Container>
+<Section></Section>
 ```
 
 For further information on HTML Elements and their representations, please visit [MDN-Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)
@@ -220,7 +221,7 @@ These are the following methods to apply client-side JS using `XElement`:
 The `@do` property accepts a function which runs when the element has loaded and document is ready.
 
 ```js
-@do = {(element)=>{
+@do={(element) => {
   console.log(element)
 }}
 ```
@@ -234,7 +235,7 @@ This is the equivalent to using the Astro `client:load` hydration selector.
 The `@visible` property indicates that the given function should run when the element is visible to the viewport.
 
 ```js
-@visible={()=>{
+@visible={() => {
   console.log('Im Visible and Active')
 }}
 ```
@@ -246,7 +247,7 @@ This is equivalent to Astro's `client:visible` hydration selector.
 This `@visible:once` property only runs **once** when it becomes visible on the viewport, it then removes and disconnects itself from the Element.
 
 ```js
-@visible:once={()=>{
+@visible:once={() => {
   console.log('See me Once, run me Once')
 }}
 ```
@@ -258,7 +259,7 @@ This `@visible:once` property only runs **once** when it becomes visible on the 
 The `@resize` property fires a callback whenever there is a change to `XElement`'s dimensions, either its content or border box.
 
 ```js
-@resize={()=>{
+@resize={() => {
   console.log("I've changed size!")
 }}
 ```
@@ -270,7 +271,7 @@ This is equivalent to Astro's `client:media` hydration selector.
 The `@resize:once` property only runs **once** when the element has been resized only *once*, it then would remove and disconnect itself from the Element.
 
 ```js
-@resize:once={()=>{
+@resize:once={() => {
   console.log("I've only changed size Once!!")
 }}
 ```
@@ -282,8 +283,8 @@ The `@resize:once` property only runs **once** when the element has been resized
 The `@observe` property runs whenever there is a DOM Mutation change to the Element or its sub-components, such as: Attributes, Children, Modifications made to the Components Subtree and also its data. By default it would observe all the aforementioned attributes unless specified.
 
 ```js
-@observe={()=>{
-    console.log("Something's Changed with the element's properties")
+@observe={() => {
+  console.log("Something's Changed with the element's properties")
 }}
 ```
 
@@ -342,7 +343,7 @@ The `@event` property followed by an event name indicates that the given functio
 The `@event:remove` property is the removal of event listeners of a given type from an element.
 
 ```js
-@click:remove={()=>console.log("Removed the click event!")}
+@click:remove={() => console.log("Removed the click event!")}
 ```
 
 ### `@ANY_EVENT:once` : void
@@ -350,7 +351,7 @@ The `@event:remove` property is the removal of event listeners of a given type f
 The `@event:once` property that the given function should listen to the given event name and fire only once, removing itself when done.
 
 ```js
-@click:once={()=>console.log('Im a one time deal')}
+@click:once={() => console.log('Im a one time deal')}
 ```
 
 ### `@ANY_EVENT:prevent` : void
@@ -358,7 +359,7 @@ The `@event:once` property that the given function should listen to the given ev
 The `@event:prevent` property followed by an event name indicates that the given function should prevent the default behaviour of that particular event listeners effects.
 
 ```js
-@click:prevent={()=>console.log('Prevent default behaviour in full effect')}
+@click:prevent={() => console.log('Prevent default behaviour in full effect')}
 ```
 
 ### `@ANY_EVENT:useCapture` : void
@@ -366,7 +367,7 @@ The `@event:prevent` property followed by an event name indicates that the given
 The `@event:useCapture` property followed by an event name indicates that the given function should listen to the given event name, capturing the bubbling behaviour of that event to the element.
 
 ```js
-@click:useCapture={()=>console.log('Initiate Capture of the Event')}
+@click:useCapture={() => console.log('Initiate Capture of the Event')}
 ```
 
 --------------------------------------------------------------------
@@ -381,8 +382,8 @@ Use the `@animate` to provide a list of keyframes to animate over. `@timings` is
 <XElement @is="p"
   @animate={[
     // keyframes
-  { transform: 'translateX(0px)' },
-  { transform: 'translateX(300px)' }
+    { transform: 'translateX(0px)' },
+    { transform: 'translateX(300px)' }
   ]}
   @timings={
     {
@@ -398,18 +399,17 @@ Use the `@animate` to provide a list of keyframes to animate over. `@timings` is
 
 --------------------------------------------------------------------
 
-## `Fetch()` :  Promise< URL >
+## Using `fetch`
 
-XElement also supports client-side's native `fetch()` API through `Fetch()`. Letting you to `GET` data from the internet, `POST` your form's and data back to your servers, everything you can normally do with `fetch()` all directly from within the scope of the Element itself.
+XElement also supports client-side's native `fetch()` API. This allows you to `GET` data from the internet, `POST` your form's and data back to your servers, everything you can normally do with `fetch()` all directly from within the scope of the Element itself.
 
 ```astro
-
 <XElement 
   @is="button"
-  @click={()=>{
-   Fetch('https://jsonplaceholder.typicode.com/todos/1')
-  .then(response => response.json())
-  .then(json => console.log("Here is the Fetched Data", json))
+  @click={async ()=>{
+    await fetch('https://jsonplaceholder.typicode.com/todos/1').then(response => response.json())
+  
+    console.log("Here is the Fetched Data", json)
   }}
 >
 ```
@@ -424,56 +424,9 @@ Since `XElement` utilises `ES Modules`, it lets you use other module script file
 
 You can also **import third party modules** from around the ecosystem providing they are `esm` compliant, this allows you to have a form of *package-manager-less* type of development.
 
-Not needing to install packages to use with your `XElement`, instead just pulled using an URL from sources such as:  [Skypack](https://www.skypack.dev/), [jspm.io](https://jspm.org/), [jsDelivr](https://www.jsdelivr.com/) or [esm.sh.](https://esm.sh/).
+Not needing to install packages to use with your `XElement`, instead just pulled using an URL from sources such as: [Skypack](https://www.skypack.dev/), [jspm.io](https://jspm.org/), [jsDelivr](https://www.jsdelivr.com/) or [esm.sh.](https://esm.sh/).
 
 This way you can load and consume any from of packages or scripts from npm sources without installing them to `node_modules` first.
-
-### `@imports` : Record <"ImportName","path">
-
-You can import any exported module, object, function or variable from any file located on the file system or externally.
-
-`@imports` can accept as many different imports as needed. There is a few ways to specify declaring the manner in which the import occurs.
-
-```jsx
-// Imports take the following types shape
-@imports={
-  {
-    //Import defaults
-    "ImportNS:default":Astro.resolve('../functions/moduleWithDefault.mjs')
-    //Import Multiple Modules
-    "ImportNS,SecondaryImport,....": Astro.resolve('../functions/namedExportsModule.mjs'),
-    //Reassign the Import Namespace
-    "NewReference:ImportNS": Astro.resolve('../functions/namedExportsModule.mjs'),
-    //Multiple reassignments and imports from external source
-    "a:modA,b:modB,modC":"https://skypack.dev/somePkg/file.esm.js?url",
-  }
-}
-```
-
-This will then provide the imports and its referenced `namespaces` to the scope of the `XElement` that it is being consumed in.
-
-### `@import:http` : string< URL >
-
-To import directly from an external resource you can do so using the `@import:https` handler:
-
-```jsx
-@import:https={'https://cdn.skypack.dev/canvas-confetti'}
-```
-
-### `@import:key` : string
-
-This allows you to attach any external scripts Sub-Resource Integrity Tag to the `<script>` tag as an attribute. This has to comply with the `sha` specifications for handling [SRI](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) keys.
-
-```jsx
-@import:key="sha256-2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
-<!-- renders -->
-<script src="https://cdn.com/some/file.js" 
-    integrity="sha256-2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
-    crossorigin="anonymous"
-    referrerpolicy="origin"
-    >
-
-```
 
 ## Confetti Example
 
@@ -482,79 +435,22 @@ This example encapsulates `XElement` within a Confetti Web Component, here we ar
 ```astro
 ---
 import XElement from 'astro-xelement'
-const {Confetti} = XElement
+
+const { button: ConfettiButton, div: Confetti } = XElement
 ---
-<Confetti class=".confetti"
-        @imports:={"confetti": "https://cdn.skypack.dev/canvas-confetti"}
->
-  <ConfettiButton @is='button' class=".btn"
-      @click={()=>confetti()}
-  >
-      Confetti
-  </ConfettiButton>
+<Confetti class="confetti">
+  <ConfettiButton
+    class="btn"
+    @click={() => {
+      const confetti = await import('https://cdn.skypack.dev/canvas-confetti').then(exports => exports.default)
+
+      confetti()
+    }}
+  >Confetti</ConfettiButton>
 </Confetti>
-
 ```
-
-This loads `canvas-confetti` from the **Skypack** CDN, since `canvas-confetti` exports to the `window.confetti` this allows us to call the `confetti` function from anywhere on the page.
 
 Normally you would import the modules that you need directly into the Element that is using it. Leveraging the browser cache, multiple requests to the same export would only result in the one file being sent.
-
---------------------------------------------------------------------
-
-## Passing `@props` from Server to Client
-
-`XElement` allows you to pass **any JS primitive** from Astro's server-side into the `XElement`s client-side JS. This can let you declare a function once and pass it into each module as and when you require.
-
-Each property is accessible inside the `XElement` using the `prop_[ns]` prefix. The *namespace* `[ns]` is the object's key.
-
-### `@props` : Object
-
-```astro
----
-// Inside the Codefence
-
-const dolphins = "So long and thanks for the fish"
-const answer = 42
-// Logs to the Terminal
-console.log(dolphins,answer)
----
-@props={
-  {
-    dolphins,
-    answer
-  }
-}
-@do={()=> console.log(prop_dolphins,prop_answer)}
-<!-- Logs output to console in DevTools -->
-"So long and thanks for the fish", 42
-```
-
-The purpose of this is to allow for better collocation of information pertaining to the custom functions that you wish to preform with `XElement`. Utilizing Astro's power of collocating Server-side functionality along with HTML templating and JSX, we can leverage the Astro to provide `props` and `children` into our `XElement`
-
-```astro
----
-  import XElement from 'astro-xelement'
-  import confetti from 'canvas-confetti'
-  //This could even be kept separate imported in
-  const fadeIn = [
-            { opacity: 0 },
-            { opacity: 1 }
-            ]
-  const timings = {
-              duration: 5000,
-              iterations: 1
-              }
-  const {btnText} = Astro.props
----
-
-  <Confetti
-    @animate={fadeIn}
-    @timings={timings}
-  >
-    <XElement.button @props={confetti} @click={()=>confetti()}>{btnText}<XElement.button/>
-  </Confetti>
-```
 
 --------------------------------------------------------------------
 
