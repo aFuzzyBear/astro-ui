@@ -12,16 +12,18 @@
     "HTMl-component",
     "Web-component"
   ],
-  "contributors": ["jonathantneal <jonathantneal@hotmail.com>(https://github.com/jonathantneal)","aFuzzyBear <drgaud@hotmail.com>(https://github.com/aFuzzyBear)"],
+  "contributors": [
+    "jonathantneal <jonathantneal@hotmail.com>(https://github.com/jonathantneal)",
+    "aFuzzyBear <drgaud@hotmail.com>(https://github.com/aFuzzyBear)"
+  ],
   "homepage": "https://github.com/aFuzzyBear/astro-ui/tree/main/components/XElement#readme",
   "license": "GPN3",
   "type": "module",
-  "exports":{
-    ".":"./XElement.js"
+  "exports": {
+    ".": "./XElement.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aFuzzyBear/astro-ui.git"
   }
-
 }
