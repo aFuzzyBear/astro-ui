@@ -3,29 +3,24 @@ import { Fragment } from 'astro/internal'
 
 const {
 	'@is': tag = null,
-	'@import:http': EXT_Source = null,
-	'@import:key': EXT_SRI_KEY = null,
-	shadowroot,
 	...attrs
-} = Astro.props as Props
+} = Astro.props
 
 /** Generates the HTML Tag for the Element */
-const XElement: string = tag === null || tag === '#text' ? Fragment : tag
+const XElement: string = tag == null || /^(#text|fragment)$/i.test(tag) ? Fragment : tag
 
 /** Formats the given value so that it can be placed into an attribute. */
-const toAttributeString = (value: any) => String(value)
+const toAttributeString = (value: any) => String(value).replace(/\b__vite_ssr_dynamic_import__\b/, 'import')
 
 /** Listeners to attach onto the event. */
-let listenerString:string = ''
+let listenerString: string = ''
 
 /** Event fired once before the document is displayed, deferred using `type="module". */
-let listenerOfOnce:string = ''
+let listenerOfOnce: string = ''
 
-let importString
+let importString: string = ''
 
-let propsString
-
-let fetchAPI = `const Fetch = window.fetch`
+let propsString: string = ''
 
 /** Parse the Attributes */
 for (const name in attrs) {
@@ -49,6 +44,7 @@ for (const name in attrs) {
 
 				type = type.slice(0, read.index)
 			}
+
 			/** Apply the JS payload delivery*/
 			switch (type) {
 				case 'do':
@@ -70,14 +66,14 @@ for (const name in attrs) {
 						: ``
 					}(${toAttributeString(data)})(e[0])).observe($,${
 						opts.attr ?
-							`attributes: true`
+							`attributes:true`
 						: opts.children ?
-							`childList: true`
+							`childList:true`
 						: opts.sub ?
-							`subtree: true`
+							`subtree:true`
 						: opts.data ?
 							`characterData:true`
-						: `attributes: true, childList: true, subtree: true, characterData: true`
+						: `attributes:true,childList:true,subtree:true,characterData:true`
 						});`
 					break
 
@@ -91,12 +87,21 @@ for (const name in attrs) {
 				
 				default:
 					// Add Event Listeners
-					listenerString += `$.${opts.remove ?`removeEventListener` : `addEventListener`}(${toAttributeString(JSON.stringify(type))},${`e=>{${opts.prevent ? `e.preventDefault();` : ''}(${toAttributeString(data)})(e,$$)}`
+					listenerString += `$.${
+						opts.remove ?`removeEventListener` : `addEventListener`
+					}(${
+						JSON.stringify(type)
+					},${
+						`e=>{${
+							opts.prevent ? `e.preventDefault();` : ''
+						}(${
+							toAttributeString(data)
+						})(e,$$)}`
 					}${
 						opts.once
-						? ',{once:true}'
+							? ',{once:true}'
 						: opts.useCapture
-						? `,{useCapture:true}`
+							? `,{useCapture:true}`
 						: ''
 					});`
 			}
@@ -106,86 +111,81 @@ for (const name in attrs) {
 				attrs['@animate'],
 				attrs['@timings']
 			]
+
 			delete attrs['@animate']
 			delete attrs['@timings']
 
-			listenerString += `$.animate(${toAttributeString(JSON.stringify(keyFrames))},${toAttributeString(JSON.stringify({...options}))});`
-		}
-		 else if(name.includes('@imports') && data){
-			/** Import modules and external files into the Element */
-			let buffer = []
-
-			const importStatement = (name,src,importName,type=null) => `${name}=(await import("${src}"))${type === 'default' ?`.default` : `["${importName}"]`}`
-
-			const importStatements = (statements) => `const ${statements.map(
-  					statement => importStatement(statement.constName,statement.src, statement.importName, statement?.type )).join(',')}`
-			
-			for (let [names, path] of Object.entries(data)) {
-				names.split(',').map(name=>{
-					if (name.includes(':default')){
-						let o = name.replace(':default','')
-						return buffer.push({
-							constName:o,
-							importName:o,
-							src: path,
-							type:'default',
-						})
-					}else if(name.match(/[\w:\w]/)){
-						let o = name.split(':')
-						console.log(o)
-						return buffer.push({
-						constName:o[1] ?? o[0],
-						importName:o[0],
-						src: path,
-					})
-					}
-					return buffer.push({
-						constName:name,
-						importName:name,
-						src: path,
-					})
-
-				})
-			}
-			importString = importStatements(buffer)
-			delete attrs['@imports']
-		}else if(name.includes('@import:http') && name.includes('@import:key')){
-				delete attrs['@import:http'] 
-				delete attrs['@import:key'] 
-
-		}else if(name.includes('@props') && data && typeof data ==='object'){
+			listenerString += `$.animate(${
+				JSON.stringify(keyFrames)
+			},${
+				JSON.stringify({ ...options })
+			});`
+		} else if (name.includes('@props') && data && typeof data === 'object') {
 			const buffer = Object.entries(data)
-			const propStatement =(key,value)=> `prop_${key} = ${
-				typeof value ==='object'? toAttributeString(JSON.stringify(value)) : toAttributeString(value)}`
-			const propsStatements =(statements) => `const ${statements.map(prop=>propStatement(prop[0],prop[1]))}
-			`
-		  	propsString = propsStatements(buffer)
+
+			const propStatement = (key: string, value: any) => `prop_${
+				key
+			} = ${
+				value && typeof value === 'object'
+					? JSON.stringify(value)
+				: toAttributeString(value)
+			}`
+
+			const propsStatements = (statements: any[]) => `const ${
+				statements.map(
+					prop => propStatement(prop[0], prop[1])
+				)
+			}`
+
+			propsString = propsStatements(buffer)
+
 			delete attrs['@props']
 		}
 	}
 }
 
-const onLoadString: string = listenerString || listenerOfOnce ? `(async function($$,$){$=this;$$=(await import($$.src)).default;${importString ?? ''};${propsString ?? ''};${fetchAPI};${
-	listenerString
-};${
-	listenerOfOnce
-}}).call(this.previousSibling,this.remove()||this)` :`(async function($$,$){$=this,$$=(await import($$.src)).default;${importString ?? ''}}).call(this.previousSibling,this.remove()||this)`
+const onLoadString: string = (
+	listenerString || listenerOfOnce
+		? `(async function($$,$){$=this;$$=(await import($$.src)).default;${
+			propsString ? `${propsString};` : ``
+		}${
+			listenerString ? `${listenerString};` : ``
+		};${
+			listenerOfOnce
+		}}).call(this.previousSibling,this.remove()||this)`
+	: `(async function($$,$){$=this,$$=(await import($$.src)).default}).call(this.previousSibling,this.remove()||this)`
+)
 
-const Template = 'template'
+/** Matching ShadowRoot attribute. */
+let shadowRoot = Object.keys(attrs).find(name => /^shadowroot$/i.test(name))
+
+if (shadowRoot) {
+  /** Formatted ShadowRoot attribute value */
+  let value = attrs[shadowRoot]
+
+  // format the ShadowRoot attribute value
+  value = typeof value === 'string' ? value : value ? 'open' : 'closed'
+
+  // remove it from the attributes sent to the main element
+  delete attrs[shadowRoot]
+
+  // update the shadowRoot attribute value
+  shadowRoot = value
+}
+
+const AstroFragment = Fragment as unknown as string
+const HtmlTemplate = 'template'
 ---
 <XElement {...attrs}>{
-	shadowroot == null
-		? XElement === Fragment
-			? <slot>&#8203;</slot>
-		: null
-	: <Template shadowroot="open"><slot>&#8203;</slot></Template>
-	}</XElement>{
-	onLoadString ? 
-        <script 
-            type="module" 
-            src={EXT_Source ?? `data:text/javascript,export default {}`}
-            integrity={EXT_SRI_KEY && EXT_Source ? EXT_SRI_KEY : null} 
-            crossorigin={EXT_SRI_KEY ? 'anonymous' : null} 
-            referrerpolicy={'origin'} 
-            onload={onLoadString}></script> : null
+	shadowRoot
+		? <HtmlTemplate {shadowRoot}><slot /></HtmlTemplate>
+	: XElement === AstroFragment
+		? <slot>&#8203;</slot>
+	: <slot />
+}</XElement>{
+	onLoadString
+		? <script type="module" src="data:text/javascript,export default {}" onload={
+			onLoadString
+		} />
+	: null
 }
