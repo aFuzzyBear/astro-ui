@@ -121,8 +121,6 @@ for (const name in attrs) {
 				JSON.stringify({ ...options })
 			});`
 		} else if (name.includes('@props') && data && typeof data === 'object') {
-			const buffer = Object.entries(data)
-
 			const propStatement = (key: string, value: any) => `prop_${
 				key
 			} = ${
@@ -132,13 +130,13 @@ for (const name in attrs) {
 			}`
 
 			const propsStatements = (statements: any[]) => `const ${
-				statements.map(
-					prop => propStatement(prop[0], prop[1])
-				)
+				statements.map(statement=>{
+					let entry= Object.entries(statement)
+					return propStatement(entry[0][0],entry[0][1])
+				})
 			}`
 
-			propsString = propsStatements(buffer)
-
+			propsString = propsStatements(data)
 			delete attrs['@props']
 		}
 	}
