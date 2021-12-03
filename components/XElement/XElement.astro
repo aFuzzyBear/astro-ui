@@ -156,12 +156,32 @@ const onLoadString: string = (
 	: `(async function($$,$){$=this,$$=(await import($$.src)).default}).call(this.previousSibling,this.remove()||this)`
 )
 
+/** Matching ShadowRoot attribute. */
+let shadowRoot = Object.keys(attrs).find(name => /^shadowroot$/i.test(name))
+
+if (shadowRoot) {
+  /** Formatted ShadowRoot attribute value */
+  let value = attrs[shadowRoot]
+
+  // format the ShadowRoot attribute value
+  value = typeof value === 'string' ? value : value ? 'open' : 'closed'
+
+  // remove it from the attributes sent to the main element
+  delete attrs[shadowRoot]
+
+  // update the shadowRoot attribute value
+  shadowRoot = value
+}
+
 const AstroFragment = Fragment as unknown as string
+const HtmlTemplate = 'template'
 ---
 <XElement {...attrs}>{
-	XElement === AstroFragment
+	shadowRoot
+		? <HtmlTemplate {shadowRoot}><slot /></HtmlTemplate>
+	: XElement === AstroFragment
 		? <slot>&#8203;</slot>
-	: null
+	: <slot />
 }</XElement>{
 	onLoadString
 		? <script type="module" src="data:text/javascript,export default {}" onload={
