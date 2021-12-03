@@ -4,15 +4,12 @@
  *  @params err? - defaults to "No Stylesheets have been included"
  *  @throw Error to STDERR 
  */
-function handelError(err='No Stylesheets have been included!'){
-    throw new Error(err)
+function handelError(err){
+    throw new ReferenceError(`❗ There is an Error with the <Stylesheet> component: \n${err}`)
 }
-/**
- *  @params path - used as source for the href  
- *  @returns HTMLLinkElement,  
- * 
- **/
-const returnLink = (path:string,media?:string,cors?:string,preload?:string,alternative?:boolean,title?:string):HTMLLinkElement => 
+
+/** Render Link Element */
+const renderLinkElement = ( path:string, media?:string, cors?:string, preload?:string, alternative?:boolean, title?:string ):HTMLLinkElement => 
 `<link ${preload ?`rel="preload" as="style" ` : `rel=${alternative ? `"alternative stylesheet"` : `"stylesheet"`}`} type="text/css" href="${path}" ${media ? `media="${media}"`: ''} ${cors ? `crossorigin="${cors}"` : ''} ${title && alternative ? `title="${title}"`:''} />`
 
 type SanitizeList =
@@ -23,20 +20,27 @@ type SanitizeList =
         "typography"|
         "reducedMotion"|
         "sysUI"|
+        "modern"|
         "monoUI"
     
-type PropsAttributes = {
+interface PropsAttributes {
+    /** HREF location of the file */
     href?: "npm:" | string ,
+    /** Media type for the stylesheet */
     media?: string,
+    /** Preload the stylesheet */
     preload?,
+    /** Alternative Stylesheet */
     alternative?,
-    cors?:'anonymous'|'use-credentials',
+    /** Alternative Stylesheet NAME */
     title?:string,
+    /** CORS settings */
+    cors?:'anonymous'|'use-credentials',
 }
 
 interface Props extends PropsAttributes {
     list?: PropsAttributes[]
-    sanitize?: SanitizeList
+    sanitize?: SanitizeList | 'none'
 }
 
 const sanitizerURLS = {
@@ -46,15 +50,25 @@ const sanitizerURLS = {
     typography:"https://unpkg.com/sanitize.css/typography.css",
     reducedMotion:"https://unpkg.com/sanitize.css/reduce-motion.css",
     sysUI:"https://unpkg.com/sanitize.css/system-ui.css",
-    monoUI:"https://unpkg.com/sanitize.css/ui-monospace.css"
+    monoUI:"https://unpkg.com/sanitize.css/ui-monospace.css",
+    modern:"https://unpkg.com/modern-css-reset/dist/reset.min.css"
 }
 
 // Acquiring values from props
-const {list, sanitize, href: hrefValue, media: mediaValue, cors, preload, alternative, title} = Astro.props as Props
+const {
+       list, 
+       sanitize="none",
+       href: hrefValue, 
+       media: mediaValue, 
+       cors, 
+       preload, 
+       alternative, 
+       title
+       } = Astro.props as Props
 const attributesList = list || []
 
 if(!hrefValue && (!Array.isArray(list) || list.length === 0)){
-    handelError()
+    handelError('No Stylesheets have been included!')
 }
 
 if (hrefValue) {
@@ -80,69 +94,78 @@ const linkCSS = attributesList.map(
         let src = href.startsWith('npm:') && href.endsWith('.css')
                     ? 'https://cdn.skypack.dev/' + href.slice(4) 
                     : href
-         return returnLink(src,media,cors,preload,alternative,title)
+         return renderLinkElement(src,media,cors,preload,alternative,title)
     }
 )
+
+
 
 /**Global to place the sanitized links into */
 let sanitizedArray = []
 
-/**
- * Assister function to help push the right sanitized links to the array
+/** 
+ * @param input - Each value passed into the 'sanitize' prop
+ * @returns Pushes rendered Link Element to the SanitizedArray Based on the Input
  */
-const getSanitizeLinks = async (name) =>{
-    let cors="anonymous"
-    if(name ==='all'){
-       Object.entries(sanitizerURLS).forEach(link=>{
-        sanitizedArray.push(
-            returnLink(link[1],null,cors)
-        )
-    })
+async function createSanitizerLink(input:string):Promise<T>{
+    const cors = 'anonymous'
+    if(input ===  "all"){
+        Object.entries(sanitizerURLS).forEach(link=>{
+                sanitizedArray.push(
+                    renderLinkElement(link[1],null,cors)
+                )
+        })
+        return
     }
-    else if(name === 'bare'){
-        sanitizedArray.push(
-            returnLink(sanitizerURLS['default'],null,cors)
-        )
+    if(input ===  "bare"){
+       return sanitizedArray.push(
+        renderLinkElement(sanitizerURLS['default'],null,cors))
     }
-    else{
-        sanitizedArray.push(
-            returnLink(sanitizerURLS['default'],null,cors)
-        )
-        sanitizedArray.push(
-            returnLink(sanitizerURLS[`${name}`],null,cors)
-        )
+    if( input ===  "forms" || 
+        input ===  "assets" ||
+        input ===  "typography" ||
+        input ===  "reducedMotion" ||
+        input ===  "modern" ||
+        input ===  "monoUI"
+        ){
+           return sanitizedArray.push(
+                renderLinkElement(sanitizerURLS[input],null,cors)
+            )
     }
+    
 }
 
 /**
- * Normalise the sanitize behaviour
+ * @param entry - Sanitized Prop value
  */
-const linkSanitizeHTML = (
-    sanitize === 'all' 
-        ? getSanitizeLinks('all')
-    : sanitize === 'bare' 
-        ? getSanitizeLinks('bare')
-    : sanitize === 'forms' 
-        ? getSanitizeLinks('forms')
-    : sanitize === 'assets' 
-        ? getSanitizeLinks('assets')
-    : sanitize === 'typography' 
-        ? getSanitizeLinks('typography')
-    : sanitize === 'reducedMotion' 
-        ? getSanitizeLinks('reducedMotion')
-    : sanitize === 'sysUI' 
-        ? getSanitizeLinks('sysUI')
-    : sanitize === 'monoUI' 
-        ? getSanitizeLinks('monoUI')
-    : handelError('An incorrect sanitizer value has been provided as Props')
+async function generateSanitizedLinks(entry:string):Promise<T>{
+    let terms = entry.split(',')
+    if(terms.includes('none')){
+        return
+    }
+    if(terms.length == 1){
+        await createSanitizerLink(entry)
+    }
+    if(terms.length > 1){
+        terms.forEach(async(term) => {
+            await createSanitizerLink(term)
+        });
+        if(terms.includes('bare') === false){
+            sanitizedArray.push(
+                renderLinkElement(sanitizerURLS['default'],null,'anonymous')
+            )
+        }
+    }
+   
+}
 
-)
+
 
 /**
  * Function to populate the list of sanitized links 
  */
 const populateSanitizer = async() =>{
-    const worker = await linkSanitizeHTML
+    const worker = await generateSanitizedLinks(sanitize)
     return sanitizedArray
 }
 
@@ -150,3 +173,4 @@ const populateSanitizer = async() =>{
     <!-- Stylesheets -->
     {linkCSS}
     {await populateSanitizer()}
+    <!-- End of Stylesheets -->
