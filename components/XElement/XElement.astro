@@ -172,7 +172,7 @@ for (const name in attrs) {
 	}
 }
 
-const ParseLoadString: string = `
+const Payload: string = `
 	(async function($$,$){$=this;$$=(await import($$.src)).default;${
 			defineVarsString ?? ``
 		}${
@@ -203,7 +203,7 @@ const memo = async (code: string) => {
 
 const onLoadString: string = (
     listenerString || listenerOfOnce
-        ? (await memo(LoadString))
+        ? (await memo(Payload))
     : null
 )
 
