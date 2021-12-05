@@ -3,7 +3,7 @@ import { Fragment } from 'astro/internal'
 import {createRequire} from 'node:module'
 
 const require = createRequire(import.meta.url)
-const {transformWithEsbuild} = require('vite')
+const { transformWithEsbuild } = require('vite')
 
 const {
 	'@is': tag = null,
