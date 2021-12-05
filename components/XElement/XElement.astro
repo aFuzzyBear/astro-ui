@@ -182,7 +182,7 @@ const Payload: string = `
 		}}).call(this.previousSibling,this.remove()||this)
 `
 /** Transforms the JS/TS input using ESBuild */
-const transformer = async (code:string):Promise<string>=> (await transformWithEsbuild(code,`xelement.ts`,{minify: true})).code 
+const transformer = async (code: string): Promise<string> => await transformWithEsbuild(code, 'xelement.ts', { minify: true }).then(result => result.code)
 
 /** Create a hashmap to store the transformed code */
 const hash = Object.create(null)
