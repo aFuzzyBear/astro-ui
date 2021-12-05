@@ -35,6 +35,8 @@ const serialize = (value: any) => {
 					? `[${
 						Object.values(value)
 					}]`
+				: value instanceof RegExp
+					? String(value)
 				: `{${
 					Object.keys(value).map(name => {
 						`${JSON.stringify(name)}:${serialize(value)}`
