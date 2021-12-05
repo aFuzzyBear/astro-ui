@@ -18,16 +18,43 @@ let listenerString: string = ''
 /** Event fired once before the document is displayed, deferred using `type="module". */
 let listenerOfOnce: string = ''
 
-let importString: string = ''
+let defineVarsString: string = ''
 
-let propsString: string = ''
+/** Returns the null-safe type of value. */
+const typeOf = (value: any) => value === null ? 'null' : typeof value
+
+/** Returns the function-safe serialized value. */
+const serialize = (value: any) => {
+	switch (typeOf(value)) {
+		case 'function':
+			return String(value)
+
+		case 'object':
+			return (
+				Array.isArray(value)
+					? `[${
+						Object.values(value)
+					}]`
+				: value instanceof RegExp
+					? String(value)
+				: `{${
+					Object.keys(value).map(name => {
+						`${JSON.stringify(name)}:${serialize(value)}`
+					})
+				}}`
+			)
+
+		default:
+			return JSON.stringify(value)
+	}
+}
 
 /** Parse the Attributes */
 for (const name in attrs) {
 	if (name.startsWith('@')) {
 		const data = attrs[name]
 
-		if (typeof data === 'function') {
+		if (typeOf(data) === 'function') {
 			delete attrs[name]
 
 			/** Normalized type of the event. */
@@ -84,7 +111,7 @@ for (const name in attrs) {
 						: ``
 					}&&(${toAttributeString(data)})(e[0],$$)).observe($);`
 					break
-				
+
 				default:
 					// Add Event Listeners
 					listenerString += `$.${
@@ -104,8 +131,9 @@ for (const name in attrs) {
 							? `,{useCapture:true}`
 						: ''
 					});`
+					break
 			}
-		} else if (name.includes('@animate') && data && typeof data === 'object') {
+		} else if (name.includes('@animate') && typeOf(data) === 'object') {
 			/** Applying Web Animate API to the Element */
 			const [ keyFrames, options ] = [
 				attrs['@animate'],
@@ -122,30 +150,36 @@ for (const name in attrs) {
 			});`
 		} 
 	}
+
 	if (name.includes('define:vars')){
-			const data = attrs['define:vars']
-			if(typeof data === 'object'){
-				propsString = `let ${
-					Object.entries(Object(data)).map(
-						([ name, value ]) => `${name.replace(/[^\w]/g, '')}=${JSON.stringify(value)}`
-					).join(',')
-				};`
-			}
-			delete attrs['define:vars']
+		const data = attrs['define:vars']
+
+		if (typeOf(data) === 'object') {
+			defineVarsString = `let ${
+				Object.entries(data).map(
+					([ name, value ]) => `${name.replace(/[^\w]/g, '')}=${
+						serialize(value)
+					}`
+				).join(',')
+			};`
 		}
+
+		delete attrs['define:vars']
+	}
 }
 
 const onLoadString: string = (
-    listenerString || listenerOfOnce
-        ? `(async function($$,$){$=this;$$=(await import($$.src)).default;${
-            propsString ?? ``
-        }${
-            listenerString ?? ``
-        }${
-            listenerOfOnce ?? ``
-        }}).call(this.previousSibling,this.remove()||this)`
-    : null
+	listenerString || listenerOfOnce
+		? `(async function($$,$){$=this;$$=(await import($$.src)).default;${
+			defineVarsString ?? ``
+		}${
+			listenerString ?? ``
+		}${
+			listenerOfOnce ?? ``
+		}}).call(this.previousSibling,this.remove()||this)`
+	: null
 )
+
 /** Matching ShadowRoot attribute. */
 let shadowRoot = Object.keys(attrs).find(name => /^shadowroot$/i.test(name))
 
