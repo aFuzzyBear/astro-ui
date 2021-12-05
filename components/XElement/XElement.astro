@@ -12,7 +12,7 @@ const {
 
 /** Generates the HTML Tag for the Element */
 const XElement: string = tag == null || /^(#text|fragment)$/i.test(tag) ? Fragment : tag
-
+const XID = `${tag}-${Math.random().toString(32).substring(8)}`
 /** Formats the given value so that it can be placed into an attribute. */
 const toAttributeString = (value: any) => String(value).replace(/\b__vite_ssr_dynamic_import__\b/, 'import').replace(/\b__vite_ssr_import_0__\.default\b/, 'fetch')
 
@@ -139,20 +139,44 @@ for (const name in attrs) {
 		}
 }
 
-const onLoadString: string = (
-    listenerString || listenerOfOnce
-        ? (await transformWithEsbuild(`(async function($$,$){$=this;$$=(await import($$.src)).default;${
+
+
+
+const TestLoadString: string =  `(async function($$,$){$=this;$$=(await import($$.src)).default;${
             propsString ?? ``
         }${
             listenerString ?? ``
         }${
             listenerOfOnce ?? ``
-        }}).call(this.previousSibling,this.remove()||this)`,`${tag}_Onload.ts`,{
-			loader:'ts',
-			minify:true
-		})).code
+        }}).call(this.previousSibling,this.remove()||this)`
+
+
+
+const memoizedTransformer = () =>{
+	const cache = {}	
+	return async(str,key)=>{
+		console.log(str,key)
+		const transformer = async (str)=> (await transformWithEsbuild(str,`Onload.ts`,{minify: true})).code 
+
+		if(key in cache){
+			console.log('Fetching from Console')
+			return cache[key]
+		}
+		else{
+			console.log('Transfroming String')
+			let transformation = cache[key] = await transformer(str)
+			return transformation
+		}
+	}
+}
+const getTransformations = memoizedTransformer()
+
+const onLoadString: string = (
+    listenerString || listenerOfOnce
+        ? (await getTransformations(TestLoadString,XID))
     : null
 )
+
 /** Matching ShadowRoot attribute. */
 let shadowRoot = Object.keys(attrs).find(name => /^shadowroot$/i.test(name))
 
