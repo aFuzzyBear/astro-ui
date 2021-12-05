@@ -1,5 +1,9 @@
 ---
 import { Fragment } from 'astro/internal'
+import {createRequire} from 'node:module'
+
+const require = createRequire(import.meta.url)
+const {transformWithEsbuild} = require('vite')
 
 const {
 	'@is': tag = null,
@@ -137,13 +141,16 @@ for (const name in attrs) {
 
 const onLoadString: string = (
     listenerString || listenerOfOnce
-        ? `(async function($$,$){$=this;$$=(await import($$.src)).default;${
+        ? (await transformWithEsbuild(`(async function($$,$){$=this;$$=(await import($$.src)).default;${
             propsString ?? ``
         }${
             listenerString ?? ``
         }${
             listenerOfOnce ?? ``
-        }}).call(this.previousSibling,this.remove()||this)`
+        }}).call(this.previousSibling,this.remove()||this)`,`${tag}_Onload.ts`,{
+			loader:'ts',
+			minify:true
+		})).code
     : null
 )
 /** Matching ShadowRoot attribute. */
