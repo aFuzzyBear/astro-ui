@@ -208,17 +208,6 @@ const onLoadString: string = (
 	: null
 )
 
-const onLoadString: string = (
-	listenerString || listenerOfOnce
-		? `(async function($$,$){$=this;$$=(await import($$.src)).default;${
-			defineVarsString ?? ``
-		}${
-			listenerString ?? ``
-		}${
-			listenerOfOnce ?? ``
-		}}).call(this.previousSibling,this.remove()||this)`
-	: null
-)
 
 /** Matching ShadowRoot attribute. */
 let shadowRoot = Object.keys(attrs).find(name => /^shadowroot$/i.test(name))
