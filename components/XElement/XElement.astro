@@ -1,5 +1,9 @@
 ---
 import { Fragment } from 'astro/internal'
+import { createRequire } from 'node:module'
+
+const require = createRequire(import.meta.url)
+const { transformWithEsbuild } = require('vite')
 
 const {
 	'@is': tag = null,
@@ -33,14 +37,14 @@ const serialize = (value: any) => {
 			return (
 				Array.isArray(value)
 					? `[${
-						Object.values(value)
+						Object.values(value).map(serialize)
 					}]`
 				: value instanceof RegExp
 					? String(value)
 				: `{${
-					Object.keys(value).map(name => {
-						`${JSON.stringify(name)}:${serialize(value)}`
-					})
+					Object.keys(value).map(
+						name => `${JSON.stringify(name)}:${serialize(value[name])}`
+					)
 				}}`
 			)
 
@@ -168,33 +172,53 @@ for (const name in attrs) {
 	}
 }
 
+/** Transforms the JS/TS input using ESBuild */
+const transformer = async (code: string): Promise<string> => await transformWithEsbuild(code, 'xelement.ts', { minify: true }).then(result => result.code)
+
+/** Create a hashmap to store the transformed code */
+const hash = Object.create(null)
+
+/** Return transformed code, remembering previously transformed code. */
+const memo = async (code: string) => {
+	// if the hashmap has the transformed code for this code, return it
+	if (code in hash) return hash[code]
+
+	// otherwise, the transform code and assign it to the hashmap
+	hash[code] = await transformer(code)
+
+	// and return the transformed code
+	return hash[code]
+}
+
 const onLoadString: string = (
 	listenerString || listenerOfOnce
-		? `(async function($$,$){$=this;$$=(await import($$.src)).default;${
-			defineVarsString ?? ``
-		}${
-			listenerString ?? ``
-		}${
-			listenerOfOnce ?? ``
-		}}).call(this.previousSibling,this.remove()||this)`
-	: null
+		? await memo(
+			`(async function($$,$){$=this;$$=(await import($$.src)).default;${
+				defineVarsString ?? ''
+			}${
+				listenerString ?? ''
+			}${
+				listenerOfOnce ?? ''
+			}}).call(this.previousSibling,this.remove()||this)`
+		)
+	: ''
 )
 
 /** Matching ShadowRoot attribute. */
 let shadowRoot = Object.keys(attrs).find(name => /^shadowroot$/i.test(name))
 
 if (shadowRoot) {
-  /** Formatted ShadowRoot attribute value */
-  let value = attrs[shadowRoot]
+	/** Formatted ShadowRoot attribute value */
+	let value = attrs[shadowRoot]
 
-  // format the ShadowRoot attribute value
-  value = typeof value === 'string' ? value : value ? 'open' : 'closed'
+	// format the ShadowRoot attribute value
+	value = typeof value === 'string' ? value : value ? 'open' : 'closed'
 
-  // remove it from the attributes sent to the main element
-  delete attrs[shadowRoot]
+	// remove it from the attributes sent to the main element
+	delete attrs[shadowRoot]
 
-  // update the shadowRoot attribute value
-  shadowRoot = value
+	// update the shadowRoot attribute value
+	shadowRoot = value
 }
 
 const AstroFragment = Fragment as unknown as string
