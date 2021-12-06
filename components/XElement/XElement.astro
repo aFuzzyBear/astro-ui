@@ -204,7 +204,7 @@ const memo = async (code: string) => {
 
 const onLoadString: string = (
 	listenerString || listenerOfOnce
-		? (await memo(Payload))
+		? await memo(Payload)
 	: null
 )
 
