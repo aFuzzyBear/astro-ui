@@ -4,11 +4,13 @@ In this soft introductory page on how to get started with using `XElement`.
 
 We will try to let you create your first set of `XElement` components, establish some of the methods that you can use with `XElement` such as animations and using vanilla JS to make a custom `<counter>` component.
 
-It is our intention that by the end of the page you would have a slightly better understanding on how to being composing your components using `XElement`
+It is our intention that by the end of the page you would have a slightly better understanding on how to begin composing your components using `XElement`
 
 Without much further fanfare, let the journey begin.....cue the music!
 
 ## Setup
+
+Lets quickly go over the setup procedure once again.
 
 To setup `XElement` you simply need to acquire it from the package registry using your preferred package manager.
 
@@ -18,7 +20,7 @@ npm i astro-xelement -D
 
 Here we are saving it as a developer dependency `-D` since its not needed as part of the final build of the project.
 
-Once you have it added to your `node_modules`, at the top of your `.astro` component file or page simply `import` it in.
+Once you have it added to your `node_modules`, at the top of your `.astro` component file, layout or page simply `import` it in.
 
 ```astro
 ---
@@ -33,7 +35,7 @@ And that is it, you are now ready to start developing your first `XElement` comp
 
 The first thing we are going to be doing together will be to create your first `XElement` component.
 
-As with all maiden components when trying out any new *frameworks*, our first component we too shall create our own `hello-world` component.
+As with all maiden components when trying out any new *frameworks*, for our first component we too shall create our own `hello-world` component.
 
 ```astro
 ---
@@ -48,11 +50,13 @@ const { h1 : HelloWorld } = XElement
 </HelloWorld>
 ```
 
-This renders out as a simple `<h1> Hello World </h1>` HTML string.
+This renders out as a simple `<h1> !! Hello World !! </h1>` HTML string.
 
-`XElement` is designed to be *polymorphic* by default, this means that there are a couple of different way's to write out your `XElement` components.
+`XElement` is designed to be [*polymorphic*](https://en.wikipedia.org/wiki/Polymorphism_(computer_science)) by default.
 
-We will demonstrate them all in good time, suffice to say, the manner shown above is called 'Named Elements' and is but one of many *happy* path's that can be took when creating your Elements.
+All this means is that there are a couple of different way's to write out your `XElement` components.
+
+We will demonstrate them all in good time, suffice to say, the manner shown above is called 'Named Elements' and is but one of many *happy* path's that can be taken when creating your Elements.
 
 From here we can make this element do any number of things we wish.
 
@@ -60,9 +64,11 @@ For instance, we can apply choose to apply either **JavaScript** or **TypeScript
 
 Like if it has been *clicked* on or if it is *visible* or if it has been *resized* etc.
 
-We can even apply with little effort the **Web Animation API** to the element itself. Heck, it can even `fetch` data and dynamically `import` files inside the element itself.
+We can even apply with little effort the **Web Animation API** to the element itself. Heck, it can even `fetch` data and dynamically `import` files inside the element itself!
 
-What one can do with this little `<HelloWorld>` component is entirely up to you. Their is plethora of possible components that can be created, what you can do with `XElement` is only bounded by ones own imagination.  
+What one can do with this little `<HelloWorld>` component is entirely up to you.
+
+Their is plethora of possible components that can be created, what you can do with `XElement` is only bounded by ones own imagination.  
 
 Why not make our `<HelloWorld>` component fade in, its a simple animation, and you can play about with this as much as you like.
 
@@ -148,7 +154,7 @@ Similar to the (P)React method, but wholly different in its execution.
 
 Vue wants to have the component be written in their own `.vue` component syntax, using `<templates>` and `<scripts>`
 
-```jsx
+```astro
 <template>
 	<div class="button-area">
 		<button @click="counter--" class="dec-button">-</button>
@@ -171,7 +177,7 @@ export default {
 
 Svelte does so in a similar style,
 
-```jsx
+```svelte
 
 <script>
 	let count = 0;
@@ -186,9 +192,9 @@ Svelte does so in a similar style,
 </button>
 ```
 
-Given the above examples of the different frameworks, there is striking similarities between some of them, yet there is a vast number of ways to implement this pretty simple and straight forward feature.
+Given the examples of the different frameworks, there is striking similarities between some of them, yet there is a vast differences in how to implement this pretty simple and straight forward feature.
 
-There are other considerations to be highlighted, the most crucial is that already learned knowledge in the basic fields of HTML, CSS and JS is often blurred when using UI frameworks.
+There are other considerations to be highlighted, one is that already learned knowledge in the basic fields of HTML, CSS and JS is often blurred when using different forms of UI frameworks.
 
 A case can be made that this learned knowledge becomes *tainted* over time. In a sense with some foreign patterns and or behaviours that are only adopted within their respective frameworks becoming standard practice.
 
@@ -235,12 +241,14 @@ const {..., button:Button, span:Display, Counter} = XElement
 
 ```
 
-All we are doing here is creating three distinct HTML elements: `const {..., button:Button, span:Display, Counter} = XElement}` . Two of these *Named Elements* are known HTML Elements, a `<button>` and a `<span>`, the third `Counter` is deliberately unreferenced, this results in a HTML `<counter>` element which is a `HTML Fragment`, a special type of HTML element and one we would explain in more detail later on.
+All we are doing here is creating three distinct HTML elements: `const {..., button:Button, span:Display, Counter} = XElement}` . 
+
+Two of these *Named Elements* are known HTML Elements, a `<button>` and a `<span>`, the third `Counter` is deliberately unreferenced, this results in a HTML `<counter>` element which is a `HTML Fragment`, a special type of HTML element and one we would explain in more detail later on.
  <!-- TODO: Link to the HTML FRAGMENT AND ITS BEHAVIOUR ONCE WRITTEN UP -->
 
 To apply the JavaScript we use one of many special `@` decorators that comes with `XElement` to inform the Element of what type of action we wish it to perform.
 
-Using only vanilla JS all we are asking it to **do** is, when clicked increase the counter value by one and, update the `textContent` of the `<Display>` to reflect the new value.
+Using only vanilla JS all we are asking it to **do** is, when clicked increase the counter value by one and, update the `textContent` of the `<Counter>` to reflect the new value.
 
 This `<Counter>` can be displayed many times and in as many different places around your Astro site as you wish.
 
