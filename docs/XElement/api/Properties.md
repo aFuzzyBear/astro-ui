@@ -143,11 +143,15 @@ Take the following example:
   </Card>
   <!-- renders as -->
   <card>....</card>
-````
+```
+
+The `DocumentFragment` has no real html entity, so it is limited in some ways, such as using the `Web Animation API`. Its not overly polite to think of them as *souless divs*, but in reality that is not a bad description for them.
+
+We use `DocumentFragment` to create any custom html element that you wish for, so `<Card>` can be rendered out as `<card>` on the DOM.
 
 We have a separate guide that shows you how to create components. Demonstrating the individual methods shown here in further detail. If you wish to find out more please visit [Creating Components](#).
 
-----------
+-----
 
 ## shadowroot
 
