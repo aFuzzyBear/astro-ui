@@ -17,13 +17,13 @@ Here you have access to the `element` itself allowing you to **do** whatever you
 }}
 ```
 
-The `@do` method accepts a function which runs when the element has loaded and document is ready.
+The `@do` method accepts a callback function which runs when the element has loaded and document is ready.
 
 The equivalent to using the Astro `client:load` hydration selector.
 
-`@do` is the main entry for applying your code to the top-level of the component.
+`@do` is the main entry point for applying your code to the top-level of the component.
 
-Anything you want your `XElement` to**do**, this is where you would apply your code.
+Anything you want your `XElement` to **do**, this is where you would apply your code.
 
 To find out more about using the `@do` method please visit our API page discussing this subject matter in more detail.
 
@@ -41,7 +41,7 @@ Each observer is already setup for you, you just need to provide it a function t
 
 They also come with the ability to pass through your own options to provide an extra level of control over the observations on the element. These `[options]` vary between observers and we tell you about them in more details in their respective pages.
 
-### `@resize` : void ( )
+### `@resize` : Callback (observation,store)
 
 ```js
 @resize={() => {
@@ -55,17 +55,19 @@ This is equivalent to Astro's `client:media` hydration selector.
 
 For further guidance on using `@resize` observer with `XElement` please visit our dedicated API page on this subject matter.
 
-### `@observe` : void ( )
+### `@observe` : Callback (observation,store,options={})
 
 ```js
 @observe={() => {
   console.log("Something's Changed with the element's properties")
 }}
 ```
+
+There is no current equivalence to this observer behaviour with Astro, this is an `XElement` thing
+
 For further guidance on using `@observe` observer with `XElement` please visit our dedicated API page on this subject matter.
 
-
-### `@visible` : void( )
+### `@visible` : Callback (observation,store,options={})
 
 This indicates that the given function should run when the element is visible to the viewport, or not.
 
@@ -101,7 +103,7 @@ Events accept three arguments and executes a callback function.
 }}
 ```
 
-Like with using the `XElement` Observer Methods, we allow you to pass through additional options to control the behaviour of the `Event`. You can add and remove event listeners, control their propagation and bubbling behaviour.
+Similar to using the `XElement` Observer Methods, we allow you to pass through additional options to control the behaviour of the `Event`. You can add and remove event listeners, control their propagation and bubbling behaviour.
 
 For further guidance on using Events with `XElement` please visit our dedicated API page on this subject matter.
 

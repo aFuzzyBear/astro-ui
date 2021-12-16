@@ -1,5 +1,13 @@
 # XElement Properties
 
+This page is setup to provide you with a higher overview to `XElements` properties.
+
+Here we explain `XElement` features and what happened under the hood in a bit more detail. 
+
+In all honesty you will never directly interact with some of the things mentioned here, but having some understanding would help you when it comes to using `XElement` in full swing.
+
+## Props
+
 This is the types and shape of the `XElement` props:
 
 ```ts
