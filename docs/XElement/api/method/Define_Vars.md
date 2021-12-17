@@ -46,3 +46,13 @@ This was extremely handy as alot of Astro works at build time generating your pa
     ></Box>
 ```
 
+With `define:vars` anything you pass through get *hoisted* to the modules block scope, basically it goes straight to the top, and can be called from any other method.
+
+This lets you abstract away a lot of the code that you write, by having it ready to Astro at build time, we can copy those variables and their values over into the module.
+
+So you can do things like:
+
+```
+import FancyFunction from '../fancy.js'
+
+const fancy

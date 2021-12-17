@@ -221,36 +221,43 @@ const {..., button:Button, span:Display, Counter} = XElement
 ---
 
 ...
-<Counter>
+<Counter
+    @do={(element,store)=>{
+        store.count = 0 
+    }}
+    >
+    <Display id="display">0</Display>
     <Button 
-        @do={()=>{
-            let count = 0
-            this.onclick = ()=>{
-                counter_output.textContent = ++count
-            }
-        }}
-    > Increment</Button>
-    <Display id="counter_output">0</Display>
+        @click={(event,store)=>{ display.textContent =  ++store.count}}>
+             Increment
+    </Button>
+    <Button 
+        @click={(event,store)=>{ display.textContent = --store.count}}>
+             Decrement
+    </Button>
 </Counter>
 
 <!-- renders as -->
 <counter>
+    <span id="display">0</span>
     <!-- increments `counter_output` when clicked -->
-    <button>Increment</button> <span id="counter_output">0</span>
+    <button>Increment</button> 
 </counter>
 
 ```
 
-All we are doing here is creating three distinct HTML elements: `const {..., button:Button, span:Display, Counter} = XElement}` . 
+All we are doing here is creating four distinct HTML elements: `const {..., button:Button, span:Display, Counter} = XElement}`.
 
-Two of these *Named Elements* are known HTML Elements, a `<button>` and a `<span>`, the third `Counter` is deliberately unreferenced, this results in a HTML `<counter>` element which is a `HTML Fragment`, a special type of HTML element and one we would explain in more detail later on.
+Two of these *Named Elements* are known HTML Elements, two `<button>`'s and a `<span>`, the parent component is our `Counter`, this is deliberately unreferenced, it results in a html `<counter>` element which is a `DocumentFragment`, a special type of HTML element and one we would explain in more detail later on.
  <!-- TODO: Link to the HTML FRAGMENT AND ITS BEHAVIOUR ONCE WRITTEN UP -->
 
-To apply the JavaScript we use one of many special `@` decorators that comes with `XElement` to inform the Element of what type of action we wish it to perform.
+To apply the JavaScript we use one of many special `@` decorators that comes with `XElement` to inform the element of what type of action we wish it to perform.
 
-Using only vanilla JS all we are asking it to **do** is, when clicked increase the counter value by one and, update the `textContent` of the `<Counter>` to reflect the new value.
+Breaking this magic trick out, in our `<Counter>` parent element, we are asking it to **do** is initialise the `store` with a `count` of `0`. The `store` is a special non-persistent data object that is available to all `XElement` components. This lets you *store* your data and allow it to be used elsewhere.
 
-This `<Counter>` can be displayed many times and in as many different places around your Astro site as you wish.
+Giving the `id` to the `<Display>` allows us to target that element from elsewhere in the component tree. Now we are mearley telling the buttons that when they receive a `click` event to increment the `store.count` or decrement the count value updating the `display.textContent` aswell.
+
+And voila, that is us, we have our very own bona fide `XCounter`...sorry `<Counter>`, and the great thing is, it can be displayed many times and in as many different places around your Astro site as you wish.
 
 ## Next Steps
 

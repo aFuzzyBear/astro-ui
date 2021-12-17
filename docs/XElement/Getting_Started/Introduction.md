@@ -12,7 +12,7 @@ But first lets address the 🐘 in the room.
 
 ## What is `XElement`?
 
-It is not a framework, in the traditional sense. Astro is the underlying framework. 
+It is not a framework, in the traditional sense. Astro is the underlying framework.
 
 Nor is it a library, instead it lets you use any library you want.
 
