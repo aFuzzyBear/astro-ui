@@ -10,7 +10,7 @@ Unlike other framework components, XElement-generated components can even contai
 
 ----------
 
-### To use XElement components in your project, follow these steps:
+## Getting Started:
 
 1. Add `XElement` to your Astro project via the terminal
 ```bash
