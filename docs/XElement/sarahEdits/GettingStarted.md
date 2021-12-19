@@ -74,7 +74,7 @@ You will notice that Astro starter "framework" examples (e.g. React, Svelte etc.
 With XElement, you can have a fully-functioning, interactive *Astro* counter component, no other framework required!
 
 
-## `<Counter>`
+### Let Start
 
 Let's create our own interactive `<Counter>` component. Note that this time, we will need to declare a few different XElements, one to represent each HTML element we wish to create.
 
