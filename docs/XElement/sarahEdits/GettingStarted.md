@@ -76,7 +76,7 @@ With XElement, you can have a fully-functioning, interactive *Astro* counter com
 
 ## `<Counter>`
 
-Let's create our own interactive `<Counter>` component. Note that this time, we will need to import multiple XElement components, one to represent each HTML element we wish to create.
+Let's create our own interactive `<Counter>` component. Note that this time, we will need to declare a few different XElements, one to represent each HTML element we wish to create.
 
 Our counter requires two buttons, as well as a counter display. We also need to create a parent `<Counter>` container element. 
 
