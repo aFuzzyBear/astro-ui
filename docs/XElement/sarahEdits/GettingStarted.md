@@ -124,7 +124,7 @@ const {..., button:Button, span:Display, Counter} = XElement
 </Counter>
 ```
 ### `@` decorators
-To apply JavaScript to our component, we use one of the many `@` decorators recognized by `XElement` to specify what type of action we wish it to perform.
+To start enhancing our component, we use one of the many `@` decorators recognized by `XElement` to specify what type of action we wish it to perform.
 
 `@do` is a common instruction to "do" something. And in our buttons, we will use `@click` to describe an `onClick` action.
 
