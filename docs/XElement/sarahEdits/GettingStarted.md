@@ -144,9 +144,9 @@ And, we are telling the buttons that when they receive a `click` event, they sho
 This `<Counter>` example renders the following HTML to the page:
 ```html
 <counter>
+    <button>+</button> 
     <span id="display">0</span>
-    <!-- increments `counter_output` when clicked -->
-    <button>Increment</button> 
+    <button>-</button> 
 </counter>
 
 ```
