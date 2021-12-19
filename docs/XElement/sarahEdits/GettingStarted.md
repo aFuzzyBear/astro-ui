@@ -137,7 +137,7 @@ XElement also provides a `store`: a special non-persistent data object that is a
 Giving an `id` to an XElment, as we have done with `<Display>`, allows us to target that element from elsewhere in the component tree. In this example, we can update the counter's displayed count by referencing, then changing the `<Display>` element's `textContent`.
 
 ### Summary 
-In this example, what we are asking our `<Counter>` parent element to **do**  is initialise the `store` with a `count` of `0`. 
+In this example, what we are asking our  parent element, the `<Counter>` to **do**  is initialise the `store` with a `count` of `0`. 
 
 And, we are telling the buttons that when they receive a `click` event, they should increment or decrement the `store.count` and update the `display.textContent`.
 
