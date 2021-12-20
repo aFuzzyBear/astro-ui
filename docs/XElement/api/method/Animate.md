@@ -13,7 +13,7 @@ We have two reserved `@` methods to pass through information regarding the anima
 These are `@animate:Record<Object>` and `@timings:Object`.
 ## How to use
 
-The `@animate` method only accepts a record of objects. Or a collection of your animation instructions as one big list or object, see below:
+The `@animate` method only accepts a series of keyframes as a record of objects. Or a collection of your animation instructions as one big list of objects or an object of objects, see below:
 
 ```astro
 
@@ -26,18 +26,18 @@ The `@animate` method only accepts a record of objects. Or a collection of your 
     {
        {transform: "translateX(0)"},
        {
-           transform: "translateX(100px)",
-           offset:'0.5' // 50%
+        transform: "translateX(100px)",
+        offset:'0.5' // 50%
        }, 
        {transform: "translateX(200px)"}, 
     }
 }
 ```
 
-Here we are designating the keyframes like you might do in CSS-land, but with the WebAnimationAPI you have to adjust the way you pass through the keyframes, the most important on is the `offset` property is akin to the keyframe step in CSS so the equivalent to the above would be:
+Here we are designating the keyframes like you might do in CSS-land, but with the `WebAnimationAPI` you have to adjust the way you pass through the keyframes, the most important on is the `offset` property is akin to the keyframe step in CSS so the equivalent of the above would be:
 
 ```css
-@keyframs{
+@keyframes moveText{
     0%{
         transform: translateX(0)
     },
@@ -64,9 +64,13 @@ This is where we introduce `@animate`'s companion method `@timings` which accept
 }
 ```
 
+With the `@timings` you can specify the length of time you want the animation to last for, its easing qualities and anything else you wish to define.
+
+
+
 -----
 
 ## Further Information
 
-We will have a guide written to demonstrate using the Web Animation API with XElement and all the different ways you can instruct it.
+We will have a guide written to demonstrate using the Web Animation API with XElement and all the different ways you can instruct it and control animations using XElement
 

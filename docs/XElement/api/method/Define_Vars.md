@@ -46,13 +46,56 @@ This was extremely handy as alot of Astro works at build time generating your pa
     ></Box>
 ```
 
-With `define:vars` anything you pass through get *hoisted* to the modules block scope, basically it goes straight to the top, and can be called from any other method.
+With `define:vars` anything you pass through get *hoisted* to that elements module's block scope, basically it goes straight to the top, and can be called from any other method. But not outside of the element.
 
-This lets you abstract away a lot of the code that you write, by having it ready to Astro at build time, we can copy those variables and their values over into the module.
+This lets you abstract away a lot of the code that you may write, by having it ready to Astro at build time, we can copy those variables and their values over into the module.
 
 So you can do things like:
 
 ```
+---
 import FancyFunction from '../fancy.js'
 
-const fancy
+const {div:Box}=XElement
+
+const fancy = await FancyFunction
+
+const msg = "So long and thanks for the fish!"
+
+const answer = 42
+
+const data = {
+    a:1,
+    b:{
+        c:'3P0'
+    }
+}
+
+const list = ['joy','happy','fun']
+---
+
+<Box 
+    @define:vars={
+        {
+            fancy,
+            msg,
+            answer,
+            data,
+            list
+        }
+    }
+    @do={()=>{
+        console.log(fancy,data)
+    }}
+    @visible={()=>{
+        console.log(msg)
+    }}
+    @resize={()=>{
+        console.log(answer)
+    }}
+    @click={()=>{
+        console.log(list)
+    }}
+>
+
+```

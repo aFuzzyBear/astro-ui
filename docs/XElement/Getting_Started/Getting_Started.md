@@ -255,7 +255,7 @@ To apply the JavaScript we use one of many special `@` decorators that comes wit
 
 Breaking this magic trick out, in our `<Counter>` parent element, we are asking it to **do** is initialise the `store` with a `count` of `0`. The `store` is a special non-persistent data object that is available to all `XElement` components. This lets you *store* your data and allow it to be used elsewhere.
 
-Giving the `id` to the `<Display>` allows us to target that element from elsewhere in the component tree. Now we are mearley telling the buttons that when they receive a `click` event to increment the `store.count` or decrement the count value updating the `display.textContent` aswell.
+Giving the `id` to the `<Display>` allows us to target that element from elsewhere in the component tree. Now we are mearley telling the buttons that when they receive a `click` event to increment the `store.count` or decrement the count value updating the `display.textContent` as well.
 
 And voila, that is us, we have our very own bona fide `XCounter`...sorry `<Counter>`, and the great thing is, it can be displayed many times and in as many different places around your Astro site as you wish.
 
