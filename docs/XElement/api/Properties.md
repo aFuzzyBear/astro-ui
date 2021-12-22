@@ -65,7 +65,7 @@ This would render out as `<custom-component>` on the DOM. The reason for this is
 
 -----------
 
-## [Polymorphism](#ploymorphism)
+## [Polymorphism](#polymorphism)
 
 Since `XElement` is a polymorphic element, it does need to be told what it needs to generate.
 
@@ -126,7 +126,7 @@ To implement this method you need to first in the Astro Code-block, declare the 
   </Container>
 ```
 
-#### [Custom Named Elements](#CustomNamedElements)
+### [Custom Named Elements](#CustomNamedElements)
 
 To use Custom Named Elements is a similar process however we only pass in the name by itself, without referencing any other html element: `const { name } = XElement`.
 
@@ -174,7 +174,7 @@ We will have a guide to explain this particular functionality in more detail soo
 <!-- TODO! Need a guide written up about using the shadow DOM -->
 ----------
 
-# [`...attrs` : HTMLAttributes](#htmlattributes)
+## [`...attrs` : HTMLAttributes](#htmlattributes)
 
 `XElement` allows you to utilize as many of the [HTML Element Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes) that are registered for the element specified.
 
