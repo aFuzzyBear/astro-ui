@@ -1,6 +1,8 @@
 # My First Components
 
-This page will provide you with an introduction on how to start using XElement in your projects. It should by the end of this page give you a better understanding to using XElement.
+This page will provide you with an introduction on how to start using XElement in your projects. 
+
+Here we are going to be building out two sets of components, demonstrating some of the methods that you can use to enhance your elements.
 
 ## `<HelloWorld>`
 
@@ -90,11 +92,11 @@ const {..., button:Button, span:Display, Counter} = XElement
 ---
 ```
 
-Here we are defining three different types HTML elements to create four distinct HTML elements. (Remember, we're making two buttons. So they are distinct elements in the document, but they are the same type of element!) 
+Here we are defining three different types HTML elements to create four distinct HTML elements. (Remember, we're making two buttons. So they are distinct elements on the document, but they are the same type of element!)
 
-Two types of these *Named Elements* are familiar HTML Elements: `<button>` and `<span>`. The parent component is our `<Counter>` and is not named. It produces an HTML `<counter>` element which is a `DocumentFragment`, a special type of HTML element. (reference link)
+Two types of these *Named Elements* are familiar HTML Elements: `<button>` and `<span>`. The parent component is our `<Counter>` and is not associated to any html element. This allows us to produce a HTML `<counter>` element which is a `DocumentFragment`, a special type of HTML element. (reference link)
 
-Let's see how we can make our XElement `<Counter>` component **do** some stuff: Add, subtract, display the current count. This is what the code looks like:
+Let's see how we can make our XElement `<Counter>` component **do** some stuff: Add, subtract and display the current count. This is what the code looks like:
 
 ```astro
 ---
@@ -135,9 +137,9 @@ We pass through a function, this can even by `async` to execute entirely on the 
 
 ### `store`
 
-XElement also provides a `store`: a special non-persistent data object that is available to all `XElement` components. This lets you *store* your data and allows it to be used elsewhere on the page.
+XElement also provides a `store`: a special non-persistent data object that is available to all `XElement` components. This lets you literally *store* your data and allows it to be used elsewhere on the page.
 
-In this example we are keeping track of our counter's `count` in this store object.
+In this example we are keeping track of our counter's `count` value in the store object.
 
 ### `id`
 
@@ -147,13 +149,13 @@ In this example, we can update the counter's displayed count by referencing, the
 
 ### Summary
 
-In this example, what we are asking our  parent element, the `<Counter>` to **do**  is initialise the `store` with a `count` of `0`. 
+In this example, what we are asking our  parent element, the `<Counter>` to **do**  is initialise the `store` with a `count` of `0`.
 
-And, we are telling the buttons that when they receive a `click` event, they should increment or decrement the `store.count` and update the `display.textContent`.
+We are then telling the buttons that when they receive a `click` event, they should increment or decrement the `store.count` and update the `display.textContent`.
 
 This `<Counter>` example renders the following HTML to the page:
 
-```html
+```astro
 <counter>
     <button>+</button> 
     <span id="display">0</span>
@@ -162,16 +164,18 @@ This `<Counter>` example renders the following HTML to the page:
 
 ```
 
-## Next Steps:
+## Next Steps
 
 ## API reference
 
-Visit the API reference doc to find all the `XElement` API reference points and information on how to use each one correctly.
+Visit the API reference doc to find all the XElement API's reference points and more information on how to use each one.
 
 ## Guides
-Explore our guides to see common/popular ways to use XElement in your project.
+
+Explore our guides to explore of the ways to use XElement in your project.
 
 ## Tutorials
+
 Learn about using XElement by building some sample web components in an example site.
 
-
+<!-- TODO! Make up Tutorials -->
