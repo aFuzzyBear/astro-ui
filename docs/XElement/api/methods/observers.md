@@ -10,7 +10,7 @@ Each observer is already setup for you, you just need to provide it a function t
 
 They also come with their own set of options to provide an extra level of control over the observations made on the element.
 
-These `[options={}]` vary between observers, for instance, the 'Resize Observer' accepts no additional properties, where as the 'Mutation Observer'  can accept up to seven different configuration properties.
+These `[options={}]` vary between observers, for instance, the  "Resize Observer" accepts no additional properties, where as the 'Mutation Observer'  can accept up to seven different configuration properties.
 
 There is more information on each observer and their respective properties together in their allotted sections.
 
@@ -42,7 +42,7 @@ This makes it easier to access only `this` xelement DOM properties.
 
 -----
 
-## `@visible` : CallBack ( event, store, options={ ... })
+## `@visible` : CallBack ( event, store, options)
 
 The `@visible` is a `XElement`'s [Intersection observer](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) method.
 
@@ -56,7 +56,7 @@ This indicates that the given function should only run when the element is visib
 
 This is equivalent to Astro's `client:visible` hydration selector.
 
-### `@visible:once` : CallBack ( event, store, options={ ... } )
+### `@visible:once` : CallBack ( event, store, options)
 
 `@visible:once` method only runs once when it becomes visible on the viewport, it then removes and disconnects itself from the Element.
 
@@ -66,7 +66,7 @@ This is equivalent to Astro's `client:visible` hydration selector.
 }}
 ```
 
-### `@visible={(,,options={...})}` : Object
+### `options={ }` : Object
 
 The `@visible` observer is setup by default to accept only the basic values that the observe provides.
 
@@ -125,7 +125,7 @@ You can still utilize the `document.resize` event target by using it inside your
 
 -----
 
-## <a href="#observe">`@observe` : CallBack ( event, store, options={ . . . } )</a>
+## <a href="#observe">`@observe` : CallBack ( event, store, options)</a>
 
 The `@observe` is a `XElement`'s [Mutation observer](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) method.
 
@@ -139,7 +139,7 @@ By default it would observe all the aforementioned attributes unless specified, 
 }}
 ```
 
-### <a name="observeOnce">`@observe:once` : CallBack ( event, store, options={ . . . } )</a>
+### <a name="observeOnce">`@observe:once` : CallBack ( event, store, options)</a>
 
 The `@observe:once` method only runs **once** when the element has been observed only the *once*, it then removes and disconnect itself from the Element.
 
@@ -149,7 +149,7 @@ The `@observe:once` method only runs **once** when the element has been observed
 }}
 ```
 
-### <a name="observeOptions"> `options={...}` : Object { . . . }</a>
+### <a name="observeOptions"> `options={...}` : Object {}</a>
 
 With the `@observe` method you can interact and change the options as you see fit.
 
@@ -171,9 +171,11 @@ Here are the following options that it accepts and the manner it is expressed.
 By default the `MutationObserver` requires at least one of the aforementioned options, we have instead turned on three of the most common options by default for you.
 
 -----
-
-
-## <a name="furtherInfo">Further Information:</a>
-
-For further information on the using the Intersection Observer:
-- [MDN : Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver)
+<article>
+  
+  
+  ## <a name="furtherInfo">Further Information:</a>
+  
+  For further information on the using the Intersection Observer:
+  - [MDN : Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver)
+</article>

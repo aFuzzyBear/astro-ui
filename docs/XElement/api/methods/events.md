@@ -25,7 +25,7 @@ We expose some options on customising the nature of the Event Handler itself, pr
 Events are written out in the manner displayed below.
 
 ```astro
-@event={(event, store,options={ . . . })=>{
+@event={(event, store,options={option:value})=>{
     // Act upon event
 }}
 ```
@@ -52,12 +52,12 @@ This should make it easier for you to write your instructions to the element, si
 
 Here we illustrate the main mechanism for interacting with the `Event` Interface, along with some options that are associated to controlling the behaviour with the `@event` handler.
 
-### `@event` : EventTarget< Callback(event,store,options={ . . . }) >
+### `@event` : EventTarget< Callback(event,store,options) >
 
 The `@eventTarget` property is `@` followed by an event name that indicates the given function should listen to that given event name.
 
 ```js
-@click | @fullscreenchange | @mouseenter ...
+@click | @fullscreenchange | @mouseenter ......
 ```
 
 You can apply any event you wish to any element, however events that don't apply to certain elements will gracefully fail silently.
@@ -77,7 +77,7 @@ To apply an event on an element simply apply the `@event` method inside your `XE
 
 This behaviour comes without any Event capturing properties attached, it would propagate through the branch that it is attached to.
 
-To direct for the propagation properties you can do by passing in the third optional parameter `options={once:'true',...}`.
+To direct for the propagation properties you can do by passing in the third optional parameter `options={once:'true',.....}`.
 
 You can apply as many events as you wish to on your element, you are not limited to using only one event listener per element.
 
@@ -97,7 +97,7 @@ The `@event:remove` property is the **removal of event listeners** of a given ty
 
 This is the equivalent to using [`removeEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener).
 
-### `@event:once` : EventTarget< Callback(event,store,options={ . . . }) 
+### `@event:once` : EventTarget< Callback(event,store,options)
 
 The `@event:once` property that the given function should listen to the given event name and **fire only once**, removing itself when done.
 
@@ -105,7 +105,7 @@ The `@event:once` property that the given function should listen to the given ev
 @click:once={() => console.log('Im a one time deal')}
 ```
 
-### `@event:prevent` : EventTarget< Callback(event,store,options={ . . . }) 
+### `@event:prevent` : EventTarget< Callback(event,store,options)
 
 The `@event:prevent` property followed by an event name indicates that the given function should **prevent the default behaviour** of that particular event listeners effects.
 
@@ -113,11 +113,11 @@ The `@event:prevent` property followed by an event name indicates that the given
 @click:prevent={() => console.log('Prevent default behaviour in full effect')}
 ```
 
-### `options={ . . . }`
+### `options` : Object{}
 
 Events have effects on the dom, where one event might bubble up through to the parent or it might be captured on the element.
 
-To exert your own control over the event itself, you can pass in the third optional argument: `options={ . . .}`.
+To exert your own control over the event itself, you can pass in the third optional argument: `options`.
 
 Below describes the options that this can take and their respective inputs.
 
