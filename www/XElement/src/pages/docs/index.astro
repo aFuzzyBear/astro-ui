@@ -1,0 +1,10 @@
+---
+	import getFilesRecursively from '../scripts/getFiles.mjs'
+	 
+        let docsFiles = getFilesRecursively('../../docs/XElement')
+        let docsData = []
+        for(const files in docsFiles){
+            console.log(files)
+        }
+
+---
