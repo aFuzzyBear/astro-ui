@@ -12,8 +12,16 @@ For a happy developer is a productive developer.
 
 ## Table of Contents
 
-- [Basic Properties](Basic_Properties)
-- [Client Side Interactivity]()
+- [Basic Properties](Properties)
+- [Methods](methods/overview.md)
+  - [define:vars](methods/define_vars.md)
+  - [@animate && @timings](methods/animate.md)
+  - [@do](methods/do.md)
+  - [@events](methods/events.md)
+  - [@observers](methods/observers.md)
+  - [Fetch](methods/fetch.md)
+  - [Import](methods/import.md)
+  - [Store](methods/store.md)
 
 ## How to use
 

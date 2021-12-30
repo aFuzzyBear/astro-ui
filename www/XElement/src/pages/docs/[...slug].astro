@@ -1,0 +1,33 @@
+---
+import { Markdown } from 'astro/components';
+console.log(Astro)
+export async function getStaticPaths(){
+    let docsFiles = await Astro.fetchContent('../../../../../docs/XElement/**/*.md')
+    return docsFiles.map(doc=>{
+        return {
+            params:{
+                slug: doc.file.pathname.split('/').splice(8).join('/').toLowerCase().replace('.md','')
+            },
+            props:{
+                doc
+            }
+        }
+    })
+}
+const {slug}=Astro.request.params
+const {doc} = Astro.props
+console.log(doc.content.source)
+---
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{slug}</title>
+    </head>
+    <body>
+        
+        <Markdown content={doc.content.source}/>
+    </body>
+    </html>
