@@ -2,22 +2,17 @@
 
 Welcome to the home of XElement, an Astro **Customisable HTML Web Component Generator**.
 
-XElement allows you to create dynamic HTML elements *enhanced* with interactivity (e.g. animations, transitions, event listeners) natively on an Astro page or in a component...
+XElement allows you to create dynamic HTML elements with interactivity (e.g. animations, transitions, event listeners) natively in an Astro page or component... without the need for writing and importing a component in one of the many JavaScript frameworks Astro supports (React, Vue, Svelte, Solid, Preact).
 
-All without the need for writing a component in one of the many JavaScript frameworks Astro supports (React, Vue, Svelte, Solid, Preact).
+XElement web components give you the option to choose *when* and *how* to run JavaScript or TypeScript on the client-side on a per-component basis, similar to the way Astro controls the hydration of framework components via `client:*` directives.
 
-XElement web components give you the option to choose *when* and *how* to run JavaScript or TypeScript on the client-side on a per-element basis.
-
-Unlike other framework components, XElement-generated components can even contain other framework components. This allows you to combine with other frameworks, expanding Astro and component design with some very interesting results.
-
-At it's core is the ability for you to create all these kinds of wonderful components to work effortlessly with Astro, all from a single intuitive interface, collocation like you have never experienced.
+Unlike other framework components, XElement-generated components can even contain other framework components. This allows you to combine the outputs of otherwise isolated islands of interactivity.
 
 ----------
 
-## Getting Started
+## Getting Started:
 
 1. Add `XElement` to your Astro project via the terminal
-
 ```bash
 npm i astro-xelement -D
 ```
@@ -30,23 +25,22 @@ import XElement from 'astro-XElement'
 ---
 ```
 
-That is it, you are now ready to start using `XElement`!
+That is it, you are now ready to start using `XElement`! Choose your next step...
 
-## < HelloWorld >
+## Examples
 
-Visit our ['Getting Started'](Getting_Started.md) guide to take you through making your first set of `XElements`, including a `<hello-world>` and `<counter>` component.
+Visit our ['Getting Started'](Getting_Started.md) guide to take you through making your first set of `XElements`.
 
 ## API reference
 
-Visit the API reference doc to find all the `XElement` API reference points and information on how to use each one in more detail.
+Visit the API reference doc to find all the `XElement` API reference points and information on how to use each one correctly.
 
 ## Guides
-
-Explore our guides to see of the many different ways to use XElement in your project.
+Explore our guides to see common/popular ways to use XElement in your project.
 
 ## Tutorials
+Learn about using XElement by building some sample web components in an example site.
 
-Learn about using XElement by building some sample web components in an example site. 
 
 ## Showcase
 
@@ -74,9 +68,7 @@ Our github repo is active and we welcome any issues or PR requests. This is the 
 
 This project owes a tremendous amount of gratitude and thanks to jonathantneal for his continuous support, guidance and hacking away at it. Pivotal in turning this whimsical fantasy into creation.
 
-sarah11918 for her careful editorial support in creating these documents.
-
-Special acknowledgements to the Astro Core team for their dedication and hard work towards building Astro as a fantastic framework for Frontend development.
+Special acknowledgement to the Astro Core team for their dedication and hard work towards building Astro as a fantastic framework for Frontend development.
 
 ### Further Mentions
 
@@ -85,6 +77,7 @@ Its only fair to those who have assisted in this project from their support and 
 - Chris Bongers - dailytechtips
 - Okikio
 - p13rnd
+- sarah11918
 - Tony-Sull - Navillus.dev
 
 Thank you all for being patient and brave when it came to testing and exploring `XElement` for us, and for helping us to realise its potential.
