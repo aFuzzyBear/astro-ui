@@ -1,0 +1,30 @@
+---
+    import {Markdown} from 'astro/components'
+    const {contents}= Astro.props
+    const {content} = contents
+    const {headers,source} = Astro.props.contents.content
+---
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <main class="main">
+            <section class="documentation">
+                <Markdown content={source}/>
+            </div>
+        </main>
+    </body>
+    </html>
+    <style lang="scss">
+        .main{
+            @apply grid grid-cols-10
+        }
+        .documentation{
+            @apply col-start-3 col-end-10 flex flex-col
+        }
+    </style>

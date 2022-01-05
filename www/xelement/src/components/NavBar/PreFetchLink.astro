@@ -15,13 +15,13 @@ const {text,path,target,classList} = Astro.props as Props
     <XElement @is="a"
         class={classList ?? null}
         @do={(element)=>{
-           const prefetch = document.createElement('link')
-           Object.assign(prefetch,{
+           const prefetch = document.createElement('link',{
                rel:'prefetch',
                as:'document',
                href:element.href,
                type:'text/html'
            })
+           
            
            element.addEventListener('pointerenter',()=>{
               document.head.appendChild(prefetch)

@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+    ***FOUC Hack***
+
+    To prevent FOUC on the page between transitions
+    Have CSS turn off the HTML page in effect,
+    Turn it back on as the last thing it does before closing the door
+*/
+html,body{visibility: hidden;opacity:0;}
+
+
+*,::before,::after{
+    font-size: calc(1em + 1vw);
+}
+
+
+/**
+    ***FOUC Hack***
+    Telling CSS to turn the lights back on
+    Before it closes the proverbial door on it's self
+*/
+html,body{
+    visibility: visible;
+    opacity: 1;
+}

@@ -13,15 +13,15 @@ For a happy developer is a productive developer.
 ## Table of Contents
 
 - [Basic Properties](Properties)
-- [Methods](methods/overview.md)
-  - [define:vars](methods/define_vars.md)
-  - [@animate && @timings](methods/animate.md)
-  - [@do](methods/do.md)
-  - [@events](methods/events.md)
-  - [@observers](methods/observers.md)
-  - [Fetch](methods/fetch.md)
-  - [Import](methods/import.md)
-  - [Store](methods/store.md)
+- [Methods](methods/overview)
+  - [define:vars](methods/define_vars)
+  - [@animate && @timings](methods/animate)
+  - [@do](methods/do)
+  - [@events](methods/events)
+  - [@observers](methods/observers)
+  - [Fetch](methods/fetch)
+  - [Import](methods/import)
+  - [Store](methods/store)
 
 ## How to use
 
