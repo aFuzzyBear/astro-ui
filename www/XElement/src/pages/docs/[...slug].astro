@@ -49,23 +49,8 @@ export async function getStaticPaths(){
             return acc
         },{})
     }    
-    // const groupRoutes=(data,property)=>{
-    //     const recursiveFunc =(item,keys)=>{
-    //         console.log(item)
-    //         console.log("keys:", keys)
-    //         return (keys.length > 1) 
-    //                 ? recursiveFunc(item[keys[0]],keys.slice(1)) 
-    //                 : item[keys[0]]
-    //     }
-    //     return data.reduce((results,item)=>{
-    //         let directory = item[property]
-    //         const group = recursiveFunc(item,directory)
-    //         results[group] = results[group] || []
-    //         results[group].push(item)
-    //         return results
-    //     })
-    // }
-    console.log(groupBy(routeConfig,'dir'))
+
+    // console.log(groupBy(routeConfig,'dir'))
     // groupBy(routeConfig,'dir')
     // console.log(groupRoutes(routeConfig,'dir'))
 
