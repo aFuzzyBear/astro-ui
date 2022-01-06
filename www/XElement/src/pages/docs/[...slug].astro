@@ -20,14 +20,13 @@ export async function getStaticPaths(){
         }
     }).filter(item=>!(item.params.slug.includes('readme'))).filter(item=>!(item.params.slug.includes('sarahedits')))
     
-    let routeConfig = staticPaths.map(item=>{
+    // This function is to setup the routes for the config file
+    const routeConfig = staticPaths.map(item=>{
         let route = item.params.slug,
             name = route.split('/').pop(),
             dir = route.split('/').splice(0,route.split('/').length-1),
             path = route
-        const routeObj = {dir,route:{
-            name,path
-        }}
+        const routeObj = {dir,route:{name,path}}
         return routeObj
         }).sort((a,b)=>{
             let aDir = a.dir, bDir = b.dir
@@ -35,21 +34,31 @@ export async function getStaticPaths(){
             if(aDir < bDir) return -1
             if(aDir == bDir) return 0
         })
+
     /**This is the function that Im having trouble with */    
-    let groupBy = (objectsArray,property)=>{
+    const groupBy = (objectsArray,property)=>{
         return objectsArray.reduce((results,obj)=>{
-            (results[obj[property]] = results[obj[property]] || []).push(obj.route)
+            //This might look smart but its not helpful, 
+            // (results[obj[property]] = results[obj[property]] || []).push(obj.route)
+            let directory = obj[property]
+            if(!results[directory]){
+                results[directory] = []
+            }
+            if(directory.length > 1){
+               //I need to figure out how to get this to go n-levels deep and return a concatanated response, 
+            }else{
+                results[directory].push(obj.route)
+            }
             return results
         },{})
     }
-    
-    console.log(groupBy(routeConfig,'dir'))
- 
+    // console.log(groupBy(routeConfig,'dir'))
+
     const generateRouteConfig = async() =>{
         try {
             await fs.writeFile(`${process.cwd()}/src/config/docsRoutes.json`,JSON.stringify(routeConfig,null,2))
         } catch (error) {
-            throw new Error('you fucked up writing the file')            
+            throw new Error('error writing the config file')            
         }
     }
     
