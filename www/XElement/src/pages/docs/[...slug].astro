@@ -58,7 +58,7 @@ export async function getStaticPaths(){
         try {
             await fs.writeFile(`${process.cwd()}/src/config/docsRoutes.json`,JSON.stringify(routeConfig,null,2))
         } catch (error) {
-            throw new Error('error writing the config file')            
+            throw new Error('error writing the file')            
         }
     }
     
