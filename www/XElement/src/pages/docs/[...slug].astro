@@ -4,25 +4,30 @@ import fs from 'node:fs/promises'
 import path from "node:path";
 
 export async function getStaticPaths(){
+    let docsPath = new URL('../../../../../docs/',import.meta.url).pathname
+    let docs
     let docsFiles = await Astro.fetchContent('../../../../../docs/XElement/**/*.md')
     let staticPaths = docsFiles.map(doc=>{
+        const docPath = doc.file.pathname.slice(docsPath.length)
         return {
             params:{
-                slug: doc.file.pathname.split('/').splice(8).join('/').toLowerCase().replace('.md','')
+                slug: docPath.split('/').filter(x=>x !== 'XElement').join('/').toLowerCase().replace('.md','')
             },
             props:{
+                docPath,
                 doc
             }
         }
-    }).filter(item=>item.params.slug !== 'readme').filter(item=>!(item.params.slug.includes('sarahedits')))
+    }).filter(item=>!(item.params.slug.includes('readme'))).filter(item=>!(item.params.slug.includes('sarahedits')))
+    
     let routeConfig = staticPaths.map(item=>{
         let route = item.params.slug,
             name = route.split('/').pop(),
             dir = route.split('/').splice(0,route.split('/').length-1),
             path = route
-        const routeObj = {
-            name,dir,path
-        }
+        const routeObj = {dir,route:{
+            name,path
+        }}
         return routeObj
         }).sort((a,b)=>{
             let aDir = a.dir, bDir = b.dir
@@ -30,30 +35,16 @@ export async function getStaticPaths(){
             if(aDir < bDir) return -1
             if(aDir == bDir) return 0
         })
-    function groupBy(objArr,property){
-        const recursiveFunc =(item,...keys)=>{
-            return (keys.length > 1) 
-                    ? recursiveFunc(item[keys[0]],keys.slice(1)) 
-                    : item[keys[0]]
-        }
-        return objArr.reduce((acc,obj)=>{
-            let directory = obj[property]
-            let group = recursiveFunc(obj,directory)//This doesnt work =(
-            acc[directory] = acc[directory] || []
-            if(directory.length === 1){
-                    acc[directory].push(obj)
-            }
-            if(directory.length > 1){
-                //How do I make this n-levels deep?
-            }
-            return acc
+    /**This is the function that Im having trouble with */    
+    let groupBy = (objectsArray,property)=>{
+        return objectsArray.reduce((results,obj)=>{
+            (results[obj[property]] = results[obj[property]] || []).push(obj.route)
+            return results
         },{})
-    }    
-
-    // console.log(groupBy(routeConfig,'dir'))
-    // groupBy(routeConfig,'dir')
-    // console.log(groupRoutes(routeConfig,'dir'))
-
+    }
+    
+    console.log(groupBy(routeConfig,'dir'))
+ 
     const generateRouteConfig = async() =>{
         try {
             await fs.writeFile(`${process.cwd()}/src/config/docsRoutes.json`,JSON.stringify(routeConfig,null,2))
