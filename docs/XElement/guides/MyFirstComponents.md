@@ -1,6 +1,11 @@
+---
+setup: |
+    import HelloWorld from '../../../www/XElement/src/components/examples/HelloWorld.astro'
+
+---
 # My First Components
 
-This page will provide you with an introduction on how to start using XElement in your projects. 
+This page will provide you with an introduction on how to start using XElement in your projects.
 
 Here we are going to be building out two sets of components, demonstrating some of the methods that you can use to enhance your elements.
 
@@ -66,6 +71,16 @@ const animationTiming = {
 ```
 
 Now, you should see the text 'Hello-World' fade nicely in to view.
+
+```js codesandbox=react?style=width:400px
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+ReactDOM.render(
+  <h1>Hello remark-codesandbox!</h1>,
+  document.getElementById('root')
+);
+```
 
 -----------------------
 
@@ -179,3 +194,5 @@ Explore our guides to explore of the ways to use XElement in your project.
 Learn about using XElement by building some sample web components in an example site.
 
 <!-- TODO! Make up Tutorials -->
+
+
