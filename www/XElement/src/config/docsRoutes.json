@@ -1,130 +1,164 @@
 [
   {
-    "name": "overview",
     "dir": [
       "api"
     ],
-    "path": "api/overview"
+    "route": {
+      "name": "overview",
+      "path": "api/overview"
+    }
   },
   {
-    "name": "properties",
     "dir": [
       "api"
     ],
-    "path": "api/properties"
+    "route": {
+      "name": "properties",
+      "path": "api/properties"
+    }
   },
   {
-    "name": "animate",
     "dir": [
       "api",
       "methods"
     ],
-    "path": "api/methods/animate"
+    "route": {
+      "name": "animate",
+      "path": "api/methods/animate"
+    }
   },
   {
-    "name": "define_vars",
     "dir": [
       "api",
       "methods"
     ],
-    "path": "api/methods/define_vars"
+    "route": {
+      "name": "define_vars",
+      "path": "api/methods/define_vars"
+    }
   },
   {
-    "name": "do",
     "dir": [
       "api",
       "methods"
     ],
-    "path": "api/methods/do"
+    "route": {
+      "name": "do",
+      "path": "api/methods/do"
+    }
   },
   {
-    "name": "events",
     "dir": [
       "api",
       "methods"
     ],
-    "path": "api/methods/events"
+    "route": {
+      "name": "events",
+      "path": "api/methods/events"
+    }
   },
   {
-    "name": "fetch",
     "dir": [
       "api",
       "methods"
     ],
-    "path": "api/methods/fetch"
+    "route": {
+      "name": "fetch",
+      "path": "api/methods/fetch"
+    }
   },
   {
-    "name": "import",
     "dir": [
       "api",
       "methods"
     ],
-    "path": "api/methods/import"
+    "route": {
+      "name": "import",
+      "path": "api/methods/import"
+    }
   },
   {
-    "name": "observers",
     "dir": [
       "api",
       "methods"
     ],
-    "path": "api/methods/observers"
+    "route": {
+      "name": "observers",
+      "path": "api/methods/observers"
+    }
   },
   {
-    "name": "overview",
     "dir": [
       "api",
       "methods"
     ],
-    "path": "api/methods/overview"
+    "route": {
+      "name": "overview",
+      "path": "api/methods/overview"
+    }
   },
   {
-    "name": "store",
     "dir": [
       "api",
       "methods"
     ],
-    "path": "api/methods/store"
+    "route": {
+      "name": "store",
+      "path": "api/methods/store"
+    }
   },
   {
-    "name": "interactivity",
     "dir": [
       "blog"
     ],
-    "path": "blog/interactivity"
+    "route": {
+      "name": "interactivity",
+      "path": "blog/interactivity"
+    }
   },
   {
-    "name": "introduction",
     "dir": [
       "blog"
     ],
-    "path": "blog/introduction"
+    "route": {
+      "name": "introduction",
+      "path": "blog/introduction"
+    }
   },
   {
-    "name": "overview",
     "dir": [
       "blog"
     ],
-    "path": "blog/overview"
+    "route": {
+      "name": "overview",
+      "path": "blog/overview"
+    }
   },
   {
-    "name": "xelementvsframworks",
     "dir": [
       "blog"
     ],
-    "path": "blog/xelementvsframworks"
+    "route": {
+      "name": "xelementvsframworks",
+      "path": "blog/xelementvsframworks"
+    }
   },
   {
-    "name": "myfirstcomponents",
     "dir": [
       "guides"
     ],
-    "path": "guides/myfirstcomponents"
+    "route": {
+      "name": "myfirstcomponents",
+      "path": "guides/myfirstcomponents"
+    }
   },
   {
-    "name": "styling",
     "dir": [
       "guides"
     ],
-    "path": "guides/styling"
+    "route": {
+      "name": "styling",
+      "path": "guides/styling"
+    }
   }
 ]

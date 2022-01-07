@@ -1,5 +1,9 @@
 ---
 import Slots from '../components/Slots.astro'
+import Sandy from '../components/sandpack/Sandpack.jsx'
+import DateTime from '../components/DateTime.astro'
+import Counter from '../components/Counter.jsx'
+
 ---
 
 <html lang="en">
@@ -22,5 +26,10 @@ import Slots from '../components/Slots.astro'
 			<h2 >Default</h2>
 			<h3 slot="outro">Outro</h3>
 		</Slots>
+		<DateTime></DateTime>
+			<Counter {count=0} client:load>
+				<h1>Hello, React!</h1>
+			</Counter>
+			<Sandy client:only></Sandy>
 	</body>
 </html>

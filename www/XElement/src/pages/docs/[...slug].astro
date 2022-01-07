@@ -5,7 +5,6 @@ import path from "node:path";
 
 export async function getStaticPaths(){
     let docsPath = new URL('../../../../../docs/',import.meta.url).pathname
-    let docs
     let docsFiles = await Astro.fetchContent('../../../../../docs/XElement/**/*.md')
     let staticPaths = docsFiles.map(doc=>{
         const docPath = doc.file.pathname.slice(docsPath.length)
@@ -34,7 +33,6 @@ export async function getStaticPaths(){
             if(aDir < bDir) return -1
             if(aDir == bDir) return 0
         })
-
     /**This is the function that Im having trouble with */    
     const groupBy = (objectsArray,property)=>{
         return objectsArray.reduce((results,obj)=>{
@@ -45,14 +43,16 @@ export async function getStaticPaths(){
                 results[directory] = []
             }
             if(directory.length > 1){
-               //I need to figure out how to get this to go n-levels deep and return a concatanated response, 
+               //I need to figure out how to get this to go n-levels deep and return a concatenated response, 
+               
+               
             }else{
                 results[directory].push(obj.route)
             }
             return results
         },{})
     }
-    // console.log(groupBy(routeConfig,'dir'))
+    console.log(groupBy(routeConfig,'dir'))
 
     const generateRouteConfig = async() =>{
         try {
@@ -62,7 +62,7 @@ export async function getStaticPaths(){
         }
     }
     
-    await generateRouteConfig()
+    // await generateRouteConfig()
     return staticPaths
 }
 
