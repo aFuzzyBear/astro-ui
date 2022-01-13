@@ -7,7 +7,16 @@ export default function Sandy() {
     <Sandpack 
       // You can change these examples!
       // Try uncommenting any of these lines
-      theme="dark"
+      theme={{
+        palette: {
+          accent: "rebeccapurple",
+        },
+        syntax: {
+          tag: "#006400",
+          string: "rgb(255, 165, 0)",
+          plain: "tomato",
+        },
+      }}
       template="react"
     />
   );

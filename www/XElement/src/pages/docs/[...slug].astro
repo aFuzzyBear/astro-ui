@@ -1,72 +1,77 @@
 ---
 import DocumentLayout from '../../layouts/DocumentLayout.astro'
 import fs from 'node:fs/promises'
-import path from "node:path";
+import path from 'node:path'
+import postFileIndexToToml from '../../scripts/buildToml.js'
 
-export async function getStaticPaths(){
-    let docsPath = new URL('../../../../../docs/',import.meta.url).pathname
-    let docsFiles = await Astro.fetchContent('../../../../../docs/XElement/**/*.md')
-    let staticPaths = docsFiles.map(doc=>{
-        const docPath = doc.file.pathname.slice(docsPath.length)
-        return {
-            params:{
-                slug: docPath.split('/').filter(x=>x !== 'XElement').join('/').toLowerCase().replace('.md','')
+export async function getStaticPaths() {
+    const docdir = '../../../../../docs/XElement/'
+
+    const paths = Object.keys(
+        import.meta.glob('../../../../../docs/XElement/**/*.md')
+    ).map(
+        (slug) => {
+          return ({
+            params: {
+                slug: slug.slice(docdir.length, -3).toLowerCase(),
             },
-            props:{
-                docPath,
-                doc
-            }
-        }
-    }).filter(item=>!(item.params.slug.includes('readme'))).filter(item=>!(item.params.slug.includes('sarahedits')))
-    
-    // This function is to setup the routes for the config file
-    const routeConfig = staticPaths.map(item=>{
-        let route = item.params.slug,
-            name = route.split('/').pop(),
-            dir = route.split('/').splice(0,route.split('/').length-1),
-            path = route
-        const routeObj = {dir,route:{name,path}}
-        return routeObj
-        }).sort((a,b)=>{
-            let aDir = a.dir, bDir = b.dir
-            if(aDir > bDir) return 1
-            if(aDir < bDir) return -1
-            if(aDir == bDir) return 0
-        })
-    /**This is the function that Im having trouble with */    
-    const groupBy = (objectsArray,property)=>{
-        return objectsArray.reduce((results,obj)=>{
-            //This might look smart but its not helpful, 
-            // (results[obj[property]] = results[obj[property]] || []).push(obj.route)
-            let directory = obj[property]
-            if(!results[directory]){
-                results[directory] = []
-            }
-            if(directory.length > 1){
-               //I need to figure out how to get this to go n-levels deep and return a concatenated response, 
-               
-               
-            }else{
-                results[directory].push(obj.route)
-            }
-            return results
-        },{})
-    }
-    console.log(groupBy(routeConfig,'dir'))
+            props: {
+                slug: slug.slice(docdir.length, -3).toLowerCase(),
+                path: new URL(slug, import.meta.url).pathname,
+            },
+        })}
+    ).filter(x=>!(x.props.slug.includes('sarahedits'))).filter(x=>!(x.props.slug.includes('readme')))
+    const hash = Object.create(null)
 
-    const generateRouteConfig = async() =>{
-        try {
-            await fs.writeFile(`${process.cwd()}/src/config/docsRoutes.json`,JSON.stringify(routeConfig,null,2))
-        } catch (error) {
-            throw new Error('error writing the file')            
+    /** Attaches a nested menu to an array of static paths. */
+    const withNestedMenu = (paths) => {
+      const root = { name: 'root' }
+
+      for (const path of paths) {
+        let item = root
+
+        const segments = path.props.slug.split('/')
+        const filtered = segments.filter(x=> x!=='').filter(x=> !(x.includes('readme')))
+        for (const [index, name] of Object.entries(filtered)) {
+          if(!item.items){
+            item.items = []
+          }
+          let isItem = index === String(filtered.length - 1)
+          if (isItem) {
+            item.items.push({ name, href: `/docs/${path.props.slug.toLowerCase()}` })
+          } else {
+            item.items = item.items || []
+
+            item = (
+              hash[name] = (
+                hash[name] ||
+                item.items[item.items.push({ name, items: [] }) - 1]
+              )
+            )
+          }
         }
+      }
+
+      for (const path of paths) {
+        path.props.menu = root.items
+        postFileIndexToToml({
+          path:path.props.path,
+          url:path.props.slug,
+          title: path.props.slug.split('/').join('-')
+       })
+      }
+
+      return paths
     }
     
-    // await generateRouteConfig()
-    return staticPaths
+    return withNestedMenu(paths)
 }
 
-const {slug}=Astro.request.params
-const {doc} = Astro.props
+const contents = await import(Astro.props.path).then(exports => ({
+    contents: exports.frontmatter,
+}))
+const props = Astro.props
+
+
 ---
-    <DocumentLayout contents={doc}></DocumentLayout>
+<DocumentLayout contents={contents} props={props}/>

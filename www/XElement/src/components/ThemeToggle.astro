@@ -1,0 +1,75 @@
+---
+import XElement from 'astro-xelement'
+import { Icon } from 'astro-icon'
+const {div:ToggleContainer,button:ToggleButton}=XElement
+---
+
+<ToggleContainer>
+    <ToggleButton 
+        @do={()=>{
+            if (
+                localStorage.getItem('color-theme') === 'dark' ||
+            (!('color-theme' in localStorage) &&
+                    window.matchMedia('(prefers-color-scheme: dark)').matches)
+            ) {
+                    icon_moon.classList.remove('hidden')
+                    icon_sun.classList.add('hidden')
+                    icon_coffee.classList.add('hidden')
+            } else {
+                    icon_sun.classList.remove('hidden')
+                    icon_moon.classList.add('hidden')
+                    icon_coffee.classList.add('hidden')
+            }
+        }}
+        @click={()=>{
+           const colourTheme = localStorage.getItem('color-theme')
+           const classList = document.documentElement.classList
+
+           switch (colourTheme) {
+               case 'light':
+                   localStorage.setItem('color-theme', 'warm');
+                   classList.add('warm');
+                   icon_coffee.classList.remove('hidden')
+                   icon_moon.classList.add('hidden')
+                   icon_sun.classList.add('hidden')
+                   break;
+                case 'warm':
+                    localStorage.setItem('color-theme','dark')
+                    classList.remove('warm');
+                    classList.add('dark');
+                    icon_moon.classList.remove('hidden')
+                    icon_coffee.classList.add('hidden')
+                    icon_sun.classList.add('hidden')
+                    break
+                case 'dark':
+                    localStorage.setItem('color-theme', 'light');
+                    classList.remove('dark');
+                    icon_sun.classList.remove('hidden')
+                    icon_moon.classList.add('hidden')
+                    icon_coffee.classList.add('hidden')
+                    break;
+           }
+            
+        }}
+    >
+        <Icon id="icon_moon" name="noto:last-quarter-moon-face"/>
+        <Icon id="icon_coffee" name="ph:coffee-duotone"/>
+        <Icon id="icon_sun" name="noto:sun"/>
+    </ToggleButton>
+</ToggleContainer>
+<style lang="scss">
+    [astro-icon]{
+        width: 2rem;
+    }
+</style>
+<script hoist>
+  if (
+    localStorage.getItem('color-theme') === 'dark' ||
+    (!('color-theme' in localStorage) &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches)
+  ) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+</script>

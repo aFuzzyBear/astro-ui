@@ -24,7 +24,15 @@ export default /** @type {import('astro').AstroUserConfig} */ ({
 				//@ts-ignore
 				
 				// Define custom templates or override existing ones
-				customTemplates: {},
+				customTemplates: {
+					astro:{
+						extends:'node'
+					},
+					'xelement':{
+						extends:'astro',
+						entry:'src/pages/index.astro'
+					}
+				},
 				// Whether to automatically deploy code blocks via CodeSandbox API
 				autoDeploy: false,
 			  }],
@@ -42,8 +50,10 @@ export default /** @type {import('astro').AstroUserConfig} */ ({
 	},
 	renderers: ['@astrojs/renderer-react'],
 	vite:{
+		ssr: {
+			external: ["svgo"],
+		  },
 		server:{
-	
 		}
 	}
 });

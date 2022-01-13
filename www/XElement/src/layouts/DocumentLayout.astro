@@ -1,8 +1,20 @@
 ---
     import {Markdown} from 'astro/components'
-    const {contents}= Astro.props
-    const {content} = contents
-    const {headers,source} = Astro.props.contents.content
+    import Stylesheet from 'astro-stylesheet'
+    import Sidebar from '../components/sidebar/Sidebar.astro'
+    import ThemeToggle from '../components/ThemeToggle.astro'
+    import postFileIndexToToml from '../scripts/buildToml.js'
+
+    const {contents,props}= Astro.props
+    const content = contents.contents 
+    const {astro} = content
+    const {headers,source} = astro
+    const indexObj = {
+        path:props.path,
+        url:props.slug,
+        title:content.title ?? ""
+    }
+    // postFileIndexToToml(indexObj)
 ---
     <!DOCTYPE html>
     <html lang="en">
@@ -10,21 +22,66 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <Stylesheet list={[
+            {
+                href:"/src/styles/tailwind.scss",
+                media:"screen"
+            },
+            {
+                href:"/src/styles/DocumentStyles.scss",
+                media:"screen"
+            },
+        ]}/>
+        <title>{content.title}</title>
     </head>
-    <body>
-        <main class="main">
-            <section class="documentation">
-                <Markdown content={source}/>
+    <body class="document__body">
+        <header class="navbar navbar__header">
+            <div class="navbar__logo">
+                <span>
+                    logo
+                </span>
             </div>
+            <div class="navbar__feature">
+                <span>
+                    Feature Bar
+                </span>
+                <span>
+                    Feature Bar
+                </span>
+                <span>
+                    Feature Bar
+                </span>
+                <span>
+                    Feature Bar
+                </span>
+            </div>
+            <div class="navbar__search">
+                <ThemeToggle/>
+                <span>
+                    Search thingie
+                </span>
+            </div>
+        </header>
+        <div class="break__row"></div>
+        <main class="main">
+            <section class="leftbar">
+                <Sidebar menu={props.menu} headers={headers} />
+            </section>
+            <article class="documentation">
+                <Markdown content={source}/>
+            </article>
+            <section class="rightbar">
+                <div class="">
+                    <h1>
+                        Something
+                    </h1>
+                </div>
+            </section>
         </main>
+        <footer class="footer__wrapper"></footer>
     </body>
     </html>
     <style lang="scss">
-        .main{
-            @apply grid grid-cols-10
-        }
-        .documentation{
-            @apply col-start-3 col-end-10 flex flex-col
-        }
+   
+
     </style>
