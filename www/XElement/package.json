@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "search":"stork build --input src/config/StorkFileIndex.toml --output public/xelement.st",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "npm search && astro build",
     "preview": "astro preview"
   },
   "devDependencies": {

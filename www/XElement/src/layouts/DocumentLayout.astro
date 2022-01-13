@@ -4,7 +4,7 @@
     import Sidebar from '../components/sidebar/Sidebar.astro'
     import ThemeToggle from '../components/ThemeToggle.astro'
     import postFileIndexToToml from '../scripts/buildToml.js'
-
+    import StorkSearch from '../components/StorkSearch.astro'
     const {contents,props}= Astro.props
     const content = contents.contents 
     const {astro} = content
@@ -57,6 +57,7 @@
             </div>
             <div class="navbar__search">
                 <ThemeToggle/>
+                <StorkSearch/>
                 <span>
                     Search thingie
                 </span>

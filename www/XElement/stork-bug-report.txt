@@ -1,0 +1,93 @@
+panicked at 'range end index 2 out of range for slice of length 1', src/index_versions/v3/search/entry_and_intermediate_excerpts.rs:144:33
+
+Stack:
+
+Error
+    at l.wbg.__wbg_new_59cb74e423758ede (https://files.stork-search.net/stork.js:1:2411)
+    at https://files.stork-search.net/stork.wasm:wasm-function[209]:0x36f09
+    at https://files.stork-search.net/stork.wasm:wasm-function[829]:0x4a5f5
+    at https://files.stork-search.net/stork.wasm:wasm-function[342]:0x3fade
+    at https://files.stork-search.net/stork.wasm:wasm-function[493]:0x459dc
+    at https://files.stork-search.net/stork.wasm:wasm-function[647]:0x492fa
+    at https://files.stork-search.net/stork.wasm:wasm-function[691]:0x49ac6
+    at https://files.stork-search.net/stork.wasm:wasm-function[551]:0x47397
+    at https://files.stork-search.net/stork.wasm:wasm-function[518]:0x465be
+    at https://files.stork-search.net/stork.wasm:wasm-function[303]:0x3d6c0
+
+
+l.wbg.__wbg_error_4bb6c2a97407129a @ stork.js:246
+$func209 @ stork.wasm:0x36fea
+$func829 @ stork.wasm:0x4a5f5
+$func342 @ stork.wasm:0x3fade
+$func493 @ stork.wasm:0x459dc
+$func647 @ stork.wasm:0x492fa
+$func691 @ stork.wasm:0x49ac6
+$func551 @ stork.wasm:0x47397
+$func518 @ stork.wasm:0x465be
+$func303 @ stork.wasm:0x3d6c0
+$func33 @ stork.wasm:0x1943b
+$func226 @ stork.wasm:0x384da
+$func388 @ stork.wasm:0x41d82
+$func278 @ stork.wasm:0x3be61
+$func60 @ stork.wasm:0x22a20
+$func483 @ stork.wasm:0x45497
+$func165 @ stork.wasm:0x331f4
+$func681 @ stork.wasm:0x4994b
+$wasm_search @ stork.wasm:0x3c64b
+y @ stork.js:161
+t.resolveSearch @ searchData.ts:41
+e.performSearch @ entity.ts:178
+e.handleInputEvent @ entityDom.ts:370
+inputInputEvent @ entityDom.ts:110
+entity.ts:187 StorkError: Could not parse data from wasm_search. If you see this, please file a bug: https://jil.im/storkbug null
+    at new t (storkError.ts:3:5)
+    at Object.t.resolveSearch (searchData.ts:48:11)
+    at e.performSearch (entity.ts:178:20)
+    at e.handleInputEvent (entityDom.ts:370:17)
+    at HTMLInputElement.inputInputEvent (entityDom.ts:110:14)
+e.performSearch @ entity.ts:187
+e.handleInputEvent @ entityDom.ts:370
+inputInputEvent @ entityDom.ts:110
+stork.js:246 panicked at 'assertion failed: `(left == right)`
+  left: `true`,
+ right: `false`: cannot recursively acquire mutex', /rustc/59eed8a2aac0230a8b53e89d4e99d55912ba6b35/library/std/src/sys/wasm/../unsupported/mutex.rs:23:9
+
+Stack:
+
+Error
+    at l.wbg.__wbg_new_59cb74e423758ede (https://files.stork-search.net/stork.js:1:2411)
+    at https://files.stork-search.net/stork.wasm:wasm-function[209]:0x36f09
+    at https://files.stork-search.net/stork.wasm:wasm-function[829]:0x4a5f5
+    at https://files.stork-search.net/stork.wasm:wasm-function[342]:0x3fade
+    at https://files.stork-search.net/stork.wasm:wasm-function[493]:0x459dc
+    at https://files.stork-search.net/stork.wasm:wasm-function[647]:0x492fa
+    at https://files.stork-search.net/stork.wasm:wasm-function[691]:0x49ac6
+    at https://files.stork-search.net/stork.wasm:wasm-function[178]:0x3460d
+    at https://files.stork-search.net/stork.wasm:wasm-function[556]:0x4758c
+    at https://files.stork-search.net/stork.wasm:wasm-function[533]:0x46c2e
+
+
+l.wbg.__wbg_error_4bb6c2a97407129a @ stork.js:246
+$func209 @ stork.wasm:0x36fea
+$func829 @ stork.wasm:0x4a5f5
+$func342 @ stork.wasm:0x3fade
+$func493 @ stork.wasm:0x459dc
+$func647 @ stork.wasm:0x492fa
+$func691 @ stork.wasm:0x49ac6
+$func178 @ stork.wasm:0x3460d
+$func556 @ stork.wasm:0x4758c
+$func533 @ stork.wasm:0x46c2e
+$func165 @ stork.wasm:0x33094
+$func681 @ stork.wasm:0x4994b
+$wasm_search @ stork.wasm:0x3c64b
+y @ stork.js:161
+t.resolveSearch @ searchData.ts:41
+e.performSearch @ entity.ts:178
+e.handleInputEvent @ entityDom.ts:370
+inputInputEvent @ entityDom.ts:110
+13entity.ts:187 StorkError: Could not parse data from wasm_search. If you see this, please file a bug: https://jil.im/storkbug null
+    at new t (storkError.ts:3:5)
+    at Object.t.resolveSearch (searchData.ts:48:11)
+    at e.performSearch (entity.ts:178:20)
+    at e.handleInputEvent (entityDom.ts:370:17)
+    at HTMLInputElement.inputInputEvent (entityDom.ts:110:14)

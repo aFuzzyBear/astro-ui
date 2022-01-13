@@ -45,9 +45,13 @@ export default async function postFileIndexToToml(data) {
     [input]
     base_directory = "xelement-docs"
     url_prefix = "https://www.astro-ui.com/xelement"
+    frontmatter_handling = "Omit"
     files = [
         ${reducing}
     ]
+
+    [output]
+    save_nearest_html_id = true
     `
     return await writeToml(literal)
           
