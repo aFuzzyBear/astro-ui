@@ -1,4 +1,5 @@
 ---
+  import PrefetchLink from '../NavBar/PreFetchLink.astro'
 Astro.self = $$Component
 ---
 <ul class="sidebar__parent">
@@ -8,7 +9,7 @@ Astro.self = $$Component
         <li>
           {
             item.href
-              ? <a href={item.href}>{item.name}</a>
+              ? <PrefetchLink src={item.href}>{item.name}</PrefetchLink>
             : <h2>{item.name}</h2>
           }
           {

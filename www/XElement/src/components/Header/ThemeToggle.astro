@@ -5,7 +5,7 @@ const {div:ToggleContainer,button:ToggleButton}=XElement
 ---
 
 <ToggleContainer>
-    <ToggleButton 
+    <ToggleButton
         @do={()=>{
             if (
                 localStorage.getItem('color-theme') === 'dark' ||
@@ -13,53 +13,52 @@ const {div:ToggleContainer,button:ToggleButton}=XElement
                     window.matchMedia('(prefers-color-scheme: dark)').matches)
             ) {
                     icon_moon.classList.remove('hidden')
-                    icon_sun.classList.add('hidden')
-                    icon_coffee.classList.add('hidden')
-            } else {
+   
+            } else if(localStorage.getItem('color-theme') === 'warm'){
+                    icon_warm.classList.remove('hidden')
+            } 
+            else {
                     icon_sun.classList.remove('hidden')
-                    icon_moon.classList.add('hidden')
-                    icon_coffee.classList.add('hidden')
+                    
             }
         }}
         @click={()=>{
            const colourTheme = localStorage.getItem('color-theme')
-           const classList = document.documentElement.classList
+           const html = document.documentElement.classList
 
            switch (colourTheme) {
                case 'light':
                    localStorage.setItem('color-theme', 'warm');
-                   classList.add('warm');
-                   icon_coffee.classList.remove('hidden')
-                   icon_moon.classList.add('hidden')
-                   icon_sun.classList.add('hidden')
+                   html.add('warm');
+                    icon_warm.classList.remove('hidden')
+                    icon_sun.classList.add('hidden')
+                    icon_moon.classList.add('hidden')
                    break;
                 case 'warm':
                     localStorage.setItem('color-theme','dark')
-                    classList.remove('warm');
-                    classList.add('dark');
+                    html.remove('warm');
+                    html.add('dark');
+                    icon_warm.classList.add('hidden')
                     icon_moon.classList.remove('hidden')
-                    icon_coffee.classList.add('hidden')
-                    icon_sun.classList.add('hidden')
                     break
                 case 'dark':
                     localStorage.setItem('color-theme', 'light');
-                    classList.remove('dark');
+                    html.remove('dark');
                     icon_sun.classList.remove('hidden')
                     icon_moon.classList.add('hidden')
-                    icon_coffee.classList.add('hidden')
                     break;
            }
             
         }}
     >
-        <Icon id="icon_moon" name="noto:last-quarter-moon-face"/>
-        <Icon id="icon_coffee" name="ph:coffee-duotone"/>
-        <Icon id="icon_sun" name="noto:sun"/>
+        <Icon id="icon_moon"   class="hidden" name="noto:last-quarter-moon-face"/>
+        <Icon id="icon_warm" class="hidden" name="ph:coffee-duotone"/>
+        <Icon id="icon_sun"    class="hidden" name="noto:sun"/>
     </ToggleButton>
 </ToggleContainer>
 <style lang="scss">
     [astro-icon]{
-        width: 2rem;
+        @apply w-8 transition-all;
     }
 </style>
 <script hoist>
@@ -69,7 +68,11 @@ const {div:ToggleContainer,button:ToggleButton}=XElement
       window.matchMedia('(prefers-color-scheme: dark)').matches)
   ) {
     document.documentElement.classList.add('dark');
-  } else {
+  } else if(localStorage.getItem('color-theme') === 'warm'){
+      document.documentElement.classList.add('warm');
+  }
+  else {
     document.documentElement.classList.remove('dark');
+    document.documentElement.classList.remove('warm');
   }
 </script>

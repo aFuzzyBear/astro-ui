@@ -10,7 +10,7 @@
     Turn it back on as the last thing it does before closing the door
 */
 // html,body{opacity: 0;visibility: hidden}
-:root{opacity: 0;visibility: hidden}
+html,body{opacity: 0;visibility: hidden}
 
 
 *,::before,::after{
@@ -26,13 +26,13 @@
 }
 
 html{
-    @apply bg-slate-200
+    @apply bg-white transition-colors ;
 }
-:root.dark{
-    @apply bg-slate-800
+html.warm{
+    @apply bg-orange-100;
 }
-:root.warm{
-    @apply bg-indigo-600
+html.dark{
+    @apply bg-slate-700;
 }
 /**
     ***FlexBox Hacks***
@@ -56,7 +56,7 @@ html{
 //     visibility: visible;
 //     opacity: 1;
 // }
-:root{
+html,body{
     visibility: visible;
     opacity: 1;
 }

@@ -1,7 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 
-
 let files = []
 const getFilesRecursively = (dir)=>{
     const filesInDir = fs.readdirSync(dir)

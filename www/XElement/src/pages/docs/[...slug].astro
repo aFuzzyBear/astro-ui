@@ -54,11 +54,7 @@ export async function getStaticPaths() {
 
       for (const path of paths) {
         path.props.menu = root.items
-        postFileIndexToToml({
-          path:path.props.path,
-          url:path.props.slug,
-          title: path.props.slug.split('/').join('-')
-       })
+
       }
 
       return paths

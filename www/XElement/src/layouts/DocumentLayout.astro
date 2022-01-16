@@ -2,9 +2,11 @@
     import {Markdown} from 'astro/components'
     import Stylesheet from 'astro-stylesheet'
     import Sidebar from '../components/sidebar/Sidebar.astro'
-    import ThemeToggle from '../components/ThemeToggle.astro'
+    import ThemeToggle from '../components/Header/ThemeToggle.astro'
+    import Header from '../components/Header/Header.astro'
     import postFileIndexToToml from '../scripts/buildToml.js'
-
+    import XElement from 'astro-xelement'
+    const {article:Article} = XElement
     const {contents,props}= Astro.props
     const content = contents.contents 
     const {astro} = content
@@ -67,9 +69,21 @@
             <section class="leftbar">
                 <Sidebar menu={props.menu} headers={headers} />
             </section>
-            <article class="documentation">
+            <Article class="documentation"
+                @do={(element)=>{
+                    const headings = [...element.querySelectorAll('h1, h2, h3, h4, h5, h6')]
+                    function link(heading){
+                        const link = `<a aria-hidden="true" tabindex="-1" href="#${heading.id}"><span class="hidden">This is the heading anchor for the following "${heading.textContent}" content</span><span class="heading__icon heading__icon__link">#</span></a>`
+                        return link
+                    }
+                    headings.forEach(heading=>{
+                        heading.insertAdjacentHTML('afterBegin',link(heading))
+                    })
+               
+                }}
+            >
                 <Markdown content={source}/>
-            </article>
+            </Article>
             <section class="rightbar">
                 <div class="">
                     <h1>
