@@ -12,6 +12,7 @@ yarn-error.log*
 
 # environment variables
 .env
+.eve.local
 .env.production
 
 # macOS-specific files
