@@ -1,4 +1,4 @@
-import * as fs from 'node:fs/promises'
+// import * as fs from 'node:fs/promises'
 import toml from 'toml-patch'
 import path from 'path';
 
@@ -36,7 +36,7 @@ export default async function postFileIndexToToml(data) {
             return acc
 
         },"")
-        result += `{ ${mod} },\n`
+        result += `{${mod}},\n`
         return result
     },'')
 
