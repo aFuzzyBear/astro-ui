@@ -4,6 +4,7 @@
     import Sidebar from '../components/sidebar/Sidebar.astro'
     import ThemeToggle from '../components/Header/ThemeToggle.astro'
     import Header from '../components/Header/Header.astro'
+    import TableOfContents from '../components/TableOfContents.astro'
     import postFileIndexToToml from '../scripts/buildToml.js'
     import XElement from 'astro-xelement'
     const {article:Article} = XElement
@@ -67,13 +68,13 @@
         <div class="break__row"></div>
         <main class="main">
             <section class="leftbar">
-                <Sidebar menu={props.menu} headers={headers} />
+                <Sidebar menu={props.menu}/>
             </section>
-            <Article class="documentation"
+            <Article class="documentation prose js-documentation"
                 @do={(element)=>{
                     const headings = [...element.querySelectorAll('h1, h2, h3, h4, h5, h6')]
                     function link(heading){
-                        const link = `<a aria-hidden="true" tabindex="-1" href="#${heading.id}"><span class="hidden">This is the heading anchor for the following "${heading.textContent}" content</span><span class="heading__icon heading__icon__link">#</span></a>`
+                        const link = `<a aria-hidden="true" tabindex="-1" href="#${heading.id}"><span class="sr-only">This is the heading anchor for the following "${heading.textContent}" content</span><span class="heading__icon heading__icon__link">#</span></a>`
                         return link
                     }
                     headings.forEach(heading=>{
@@ -90,6 +91,7 @@
                         Something
                     </h1>
                 </div>
+                <TableOfContents {headers}/>
             </section>
         </main>
         <footer class="footer__wrapper"></footer>

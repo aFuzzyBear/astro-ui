@@ -51,14 +51,15 @@ const {div:ToggleContainer,button:ToggleButton}=XElement
             
         }}
     >
-        <Icon id="icon_moon"   class="hidden" name="noto:last-quarter-moon-face"/>
+        <Icon id="icon_moon"   class="hidden" name="ph:moon-stars-fill"/>
         <Icon id="icon_warm" class="hidden" name="ph:coffee-duotone"/>
-        <Icon id="icon_sun"    class="hidden" name="noto:sun"/>
+        <Icon id="icon_sun"    class="hidden" name="ph:sun-fill"/>
     </ToggleButton>
 </ToggleContainer>
 <style lang="scss">
     [astro-icon]{
-        @apply w-8 transition-all;
+        color:aqua;
+        @apply w-8 transition-all ;
     }
 </style>
 <script hoist>

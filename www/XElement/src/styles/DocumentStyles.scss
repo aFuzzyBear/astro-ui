@@ -6,7 +6,7 @@
 .document__body{
     @apply flex flex-col p-4;
     min-width: 100%;
-    min-height: 99.5vh;
+    height:clamp(99.5vh,99.9vh,99.9vh)
 }
 .navbar{
     @apply flex flex-row flex-wrap justify-around
@@ -41,7 +41,8 @@
 
     }
     & .rightbar {
-         grid-area: rightbar; 
+         grid-area: rightbar;
+         height: 100%;
     }
 }
 code{

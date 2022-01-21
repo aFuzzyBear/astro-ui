@@ -1,7 +1,12 @@
 
     [input]
     base_directory = "xelement-docs"
-    url_prefix = "http://localhost:3000/"
+    url_prefix = "http://localhost:3000/docs/"
+    exclude_html_selector = "pre.language"
+    minimum_indexed_substring_length = 2
+    frontmatter_handling = "Omit"
+    stemming = "English"
+    title_boost = "Ridiculous"
     files = [
         {path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/Overview.md',url = 'api/overview',title = 'api overview'},
 {path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/Properties.md',url = 'api/properties',title = 'api properties'},
@@ -23,4 +28,7 @@
 {path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/store.md',url = 'api/methods/store',title = 'api methods store'},
 
     ]
+    [output]
+    excerpt_buffer = 5
+    save_nearest_html_id = true
     

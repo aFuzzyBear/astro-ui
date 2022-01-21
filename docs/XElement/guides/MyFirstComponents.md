@@ -4,7 +4,6 @@ setup: |
     import Sandy from '../../../www/XElement/src/components/sandpack/Sandpack.jsx'
 
 ---
-
 # My First Components
 
 This page will provide you with an introduction on how to start using XElement in your projects.
@@ -110,6 +109,7 @@ const animationTiming = {
      title="Astro-XElement default starter template"
      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+     loading="lazy"
    ></iframe>
 
 
@@ -209,6 +209,8 @@ This `<Counter>` example renders the following HTML to the page:
 </counter>
 
 ```
+
+-----------------------
 
 ## Next Steps
 

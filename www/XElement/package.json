@@ -4,14 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "search": "stork build --input src/config/StorkFileIndex.toml --output public/xelement.st",
+    "search": "stork build --input src/config/Stork.toml --output public/xelement.st",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview"
   },
   "devDependencies": {
     "@codesandbox/sandpack-react": "^0.10.11",
-    "astro": "^0.22.8",
+    "@tailwindcss/typography": "^0.5.0",
+    "astro": "0.22.10",
     "astro-icon": "^0.5.3",
     "astro-stylesheet": "^3.0.0",
     "astro-xelement": "^3.1.0",

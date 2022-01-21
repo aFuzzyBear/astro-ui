@@ -3,7 +3,7 @@ import toml from 'toml-patch'
 import path from 'path';
 
 const tomlFilePath = path.join(process.cwd(),'/src/config/basic.toml')
-const indexFilePath = path.join(process.cwd(),'/src/config/StorkFileIndex.toml')
+const indexFilePath = path.join(process.cwd(),'/src/config/Stork.toml')
 
 async function readToml(){
     try {
@@ -44,10 +44,18 @@ export default async function postFileIndexToToml(data) {
     let literal = `
     [input]
     base_directory = "xelement-docs"
-    url_prefix = "https://www.astro-ui.com/xelement"
+    url_prefix = "http://localhost:3000/docs/"
+    exclude_html_selector = "pre.language"
+    minimum_indexed_substring_length = 2
+    frontmatter_handling = "Omit"
+    stemming = "English"
+    title_boost = "Ridiculous"
     files = [
         ${reducing}
     ]
+    [output]
+    excerpt_buffer = 5
+    save_nearest_html_id = true
     `
     return await writeToml(literal)
           

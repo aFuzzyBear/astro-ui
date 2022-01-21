@@ -1,8 +1,5 @@
 ---
 import DocumentLayout from '../../layouts/DocumentLayout.astro'
-import fs from 'node:fs/promises'
-import path from 'node:path'
-import postFileIndexToToml from '../../scripts/buildToml.js'
 
 export async function getStaticPaths() {
     const docdir = '../../../../../docs/XElement/'
@@ -22,7 +19,6 @@ export async function getStaticPaths() {
         })}
     ).filter(x=>!(x.props.slug.includes('sarahedits'))).filter(x=>!(x.props.slug.includes('readme')))
     const hash = Object.create(null)
-
     /** Attaches a nested menu to an array of static paths. */
     const withNestedMenu = (paths) => {
       const root = { name: 'root' }
@@ -53,19 +49,24 @@ export async function getStaticPaths() {
       }
 
       for (const path of paths) {
+        // postFileIndexToToml({
+        //   path:path.props.path,
+        //   url:`${path.props.slug}`,
+        //   title:path.props.slug.split('/').join(' ')
+        // })
         path.props.menu = root.items
 
       }
 
       return paths
     }
-    
     return withNestedMenu(paths)
 }
 
 const contents = await import(Astro.props.path).then(exports => ({
     contents: exports.frontmatter,
 }))
+
 const props = Astro.props
 
 

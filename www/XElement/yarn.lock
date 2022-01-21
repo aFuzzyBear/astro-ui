@@ -673,6 +673,16 @@
     require-relative "^0.8.7"
     svelte-hmr "^0.14.7"
 
+"@tailwindcss/typography@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/typography/-/typography-0.5.0.tgz#47886ec46ac41e1211d24fea05301046d9b30906"
+  integrity sha512-1p/3C6C+JJziS/ghtG8ACYalbA2SyLJY27Pm33cVTlAoY6VQ7zfm2H64cPxUMBkVIlWXTtWHhZcZJPobMRmQAA==
+  dependencies:
+    lodash.castarray "^4.4.0"
+    lodash.isplainobject "^4.0.6"
+    lodash.merge "^4.6.2"
+    lodash.uniq "^4.5.0"
+
 "@trysound/sax@0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@trysound/sax/-/sax-0.2.0.tgz#cccaab758af56761eb7bf37af6f03f326dd798ad"
@@ -1060,10 +1070,10 @@ astro-xelement@^3.1.0:
   resolved "https://registry.yarnpkg.com/astro-xelement/-/astro-xelement-3.1.0.tgz#067087603606c1b9ba8f43f09ef5ce0e80edfee8"
   integrity sha512-ASx1ZRDljoMdoiTAzROwwBMrR2zTXnjhsrGx4zBwzBGievdKUXEp6FKtNksacVNtSWZUoKte8yrjlgsj69kr6w==
 
-astro@^0.22.8:
-  version "0.22.8"
-  resolved "https://registry.yarnpkg.com/astro/-/astro-0.22.8.tgz#dbabc3c5c923115e53b6a0b906155a9f3f0fd37a"
-  integrity sha512-UBe8WE+gD3hXDsIASrZgzO2I2T+UKg1kMyQ5kT5RP1K45hsT76W2L+PbVukcHjPgL4A5HN+eM/w2WxSierbfaQ==
+astro@0.22.10:
+  version "0.22.10"
+  resolved "https://registry.yarnpkg.com/astro/-/astro-0.22.10.tgz#fef095c4e0992f778847a79f2ae563ed4382b2f1"
+  integrity sha512-QP5ZcG5cOpYLU6bUPw4BtQESeURu7P74z2mhlW8Fkxxvli5BuRll7SI1+F4mC8oYNhdSLJN/x/MA8HWQAjeU+w==
   dependencies:
     "@astrojs/compiler" "^0.7.4"
     "@astrojs/language-server" "^0.8.6"
@@ -1082,6 +1092,7 @@ astro@^0.22.8:
     "@web/parse5-utils" "^1.3.0"
     astring "^1.7.5"
     ci-info "^3.2.0"
+    common-ancestor-path "^1.0.1"
     connect "^3.7.0"
     eol "^0.9.1"
     es-module-lexer "^0.9.3"
@@ -1532,6 +1543,11 @@ commander@^7.2.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-7.2.0.tgz#a36cb57d0b501ce108e4d20559a150a391d97ab7"
   integrity sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==
+
+common-ancestor-path@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/common-ancestor-path/-/common-ancestor-path-1.0.1.tgz#4f7d2d1394d91b7abdf51871c62f71eadb0182a7"
+  integrity sha512-L3sHRo1pXXEqX8VU28kfgUY+YGsk09hPqZiZmLacNib6XNTCM8ubYeT7ryXQw8asB1sKgcU5lkB7ONug08aB8w==
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -3601,10 +3617,30 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.2.4.tgz#eca284f75d2965079309dc0ad9255abb2ebc1632"
   integrity sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==
 
+lodash.castarray@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/lodash.castarray/-/lodash.castarray-4.4.0.tgz#c02513515e309daddd4c24c60cfddcf5976d9115"
+  integrity sha1-wCUTUV4wna3dTCTGDP3c9ZdtkRU=
+
 lodash.isequal@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
   integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
+
+lodash.isplainobject@^4.0.6:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
+  integrity sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=
+
+lodash.merge@^4.6.2:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
+  integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
+
+lodash.uniq@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
+  integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
 lodash@^4.17.12, lodash@^4.17.21, lodash@^4.17.5:
   version "4.17.21"
