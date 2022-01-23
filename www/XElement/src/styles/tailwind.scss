@@ -1,4 +1,8 @@
 @use './variables.scss';
+@font-face {
+    font-family: 'ArcaneNine';
+    src: url('/fonts/ArcaneNine.ttf');
+}
 /**
     ***FOUC Hack***
 
@@ -34,13 +38,16 @@ html,body{opacity: 0;visibility: hidden}
 
     //Headings
     h1{
-        @apply text-3xl
+        @apply text-3xl;
     }
     h2{
-        @apply text-2xl
+        @apply text-2xl;
     }
     h3{
-        @apply text-xl
+        @apply text-xl;
+    }
+    h1,h2,h3,h4,h5,h6 {
+        font-family:'ArcaneNine';
     }
     p{
         @apply text-lg

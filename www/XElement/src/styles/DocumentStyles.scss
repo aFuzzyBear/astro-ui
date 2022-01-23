@@ -6,15 +6,18 @@
 .document__body{
     @apply flex flex-col p-4;
     min-width: 100%;
-    height:clamp(99.5vh,99.9vh,99.9vh)
+    
+
 }
 .navbar{
-    @apply flex flex-row flex-wrap justify-around
-    p-2 pb-3;
-    ;
+    @apply flex flex-row flex-wrap justify-between
+    p-2 h-[50%] overflow-hidden; 
+    
     &__header{
     }
     &__logo{
+        height: max-content;
+        width: max-content;
     }
     &__feature{
         @apply flex flex-wrap flex-row justify-evenly gap-4
