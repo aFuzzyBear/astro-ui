@@ -10,7 +10,7 @@
 export default /** @type {import('astro').AstroUserConfig} */ ({
 	// Comment out "renderers: []" to enable Astro's default component support.
 	buildOptions:{
-		site:"https://www.astro-ui.com/xelement"
+		site:"astro-ui-site-9upbi9bkc-afuzzybear.vercel.app"
 	},
 	markdownOptions: {
 		render: [
