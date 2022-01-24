@@ -11,8 +11,12 @@ import BaseLayout from '../layouts/BaseLayout.astro'
     const content = contents.contents 
     const {astro} = content
     const {headers,source} = astro
+    const baseInfo={
+        pageTitle: content.page_title,
+        pageDescription: content.page_description
+    }
 ---
-    <BaseLayout>
+    <BaseLayout pageInfo={baseInfo} >
                 <Header class="navbar navbar__header"/>
         <div class="break__row"></div>
         <main class="layout">
