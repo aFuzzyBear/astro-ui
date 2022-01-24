@@ -1,8 +1,12 @@
+---
+page_title: "XElement Vs Frameworks"
+page_descriptions: "A critique between the many JS UI Frameworks and XElement"
+---
 # XElement Vs Frameworks
 
 It should be noted before we go any further, this is not intended to be a slight nor a direct comparison between any of the frameworks that are mentioned.
 
-Each are highly specialised, thoroughly developed tools that serve their own unique purpose in their own individual way.
+Each are highly specialized, thoroughly developed tools that serve their own unique purpose in their own individual way.
 
 What we are looking to do is draw upon the shared similarities that inspired XElement, and how they all fit relative to their relationship with Astro.
 
@@ -24,15 +28,13 @@ Single Page Applications is what we have been accustomed to developing for some 
 
 Each framework comes with their own set of renderer functions, with React it is: `ReactDOM.render()`, Vue has `Vue.component()` etc.
 
-And each framework has their own unique blend of render functions and behaviours, that make their frameworks unique in a sense.
+And each framework has their own unique blend of render functions and behaviors, that make their frameworks unique in a sense.
 
 In essence its an 'application in a box', similar to the way the jack-in-the-box toy works, once the Javascript has been received, parsed, executed, rendered out, it then pops up on the screen.
 
 Within this shell of the application you now have your content, once all the data fetching is done, and the site is no longer suspended of all interactions. Here you have your pages, your static content, and beautifully crafted UI components, everywhere.
 
-You need a navbar, well thats a functional component. Need a Container, write up a function for that. State or Stateless, it doesnt really matter, they are all just JavaScript functions at the end of the day. 
-
-
+You need a navbar, well thats a functional component. Need a Container, write up a function for that. State or Stateless, it doesn't really matter, they are all just JavaScript functions at the end of the day.
 
 ## An Brief Exploration into the `<Counter>`
 
@@ -83,6 +85,7 @@ Similar to the (P)React method, but wholly different in its execution.
 Vue wants to have the component be written in their own `.vue` component syntax, using `<templates>` and `<scripts>`
 
 ```astro
+
 <template>
 	<div class="button-area">
 		<button @click="counter--" class="dec-button">-</button>
@@ -101,6 +104,7 @@ export default {
 	},
 };
 </script>
+
 ```
 
 Svelte does so in a similar style, but compiles differently to the others. 
@@ -124,8 +128,7 @@ Given the examples of the different frameworks, there is striking similarities b
 
 One of the shared similarities between all the frameworks is how they bring in the different languages of the web together within their own scope to build out their components.
 
-This practice of collocation, having your HTML and CSS along side your JavaScript is extremely powerful for the developer as it allows for easier maintainability, and scaleability.
-
+This practice of collocation, having your HTML and CSS along side your JavaScript is extremely powerful for the developer as it allows for easier maintainability, and scalability.
 
 
 ## `<Counter>`
@@ -136,7 +139,7 @@ With out further ado, let's create our own `<Counter>` component to be next to o
 ---
 import XElement from 'astro-`xelement`'
 
-const {..., button:Button, span:Display, Counter} = XElement
+const {button:Button, span:Display, Counter} = XElement
 
 ---
 
@@ -167,16 +170,16 @@ const {..., button:Button, span:Display, Counter} = XElement
 
 ```
 
-All we are doing here is creating four distinct HTML elements: `const {..., button:Button, span:Display, Counter} = XElement}`.
+All we are doing here is creating four distinct HTML elements: `const {button:Button, span:Display, Counter} = XElement}`.
 
 Two of these *Named Elements* are known HTML Elements, two `<button>`'s and a `<span>`, the parent component is our `Counter`, this is deliberately unreferenced, it results in a html `<counter>` element which is a `DocumentFragment`, a special type of HTML element and one we would explain in more detail later on.
  <!-- TODO: Link to the HTML FRAGMENT AND ITS BEHAVIOUR ONCE WRITTEN UP -->
 
 To apply the JavaScript we use one of many special `@` decorators that comes with `XElement` to inform the element of what type of action we wish it to perform.
 
-Breaking this magic trick out, in our `<Counter>` parent element, we are asking it to **do** is initialise the `store` with a `count` of `0`. The `store` is a special non-persistent data object that is available to all `XElement` components. This lets you *store* your data and allow it to be used elsewhere.
+Breaking this magic trick out, in our `<Counter>` parent element, we are asking it to **do** is initialize the `store` with a `count` of `0`. The `store` is a special non-persistent data object that is available to all `XElement` components. This lets you *store* your data and allow it to be used elsewhere.
 
-Giving the `id` to the `<Display>` allows us to target that element from elsewhere in the component tree. Now we are mearley telling the buttons that when they receive a `click` event to increment the `store.count` or decrement the count value updating the `display.textContent` as well.
+Giving the `id` to the `<Display>` allows us to target that element from elsewhere in the component tree. Now we are merely telling the buttons that when they receive a `click` event to increment the `store.count` or decrement the count value updating the `display.textContent` as well.
 
 And voila, that is us, we have our very own bona fide `XCounter`...sorry `<Counter>`, and the great thing is, it can be displayed many times and in as many different places around your Astro site as you wish.
 

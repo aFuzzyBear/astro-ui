@@ -1,3 +1,8 @@
+---
+page_title: "Styling with XElement"
+page_description: "Discussing the various ways to style your XElements"
+---
+
 # Styling XElement
 
 On this page we will be exploring the many ways you can apply your styles to your component.
@@ -6,7 +11,7 @@ Since XElement doesn't name-squat over any of the existing html attributes you c
 
 It works surprisingly well with a myriad of different styling DX practices, this guide will demonstrate some of them, but please understand this, we have placed **zero** opinions or constraints on how styles are applied to your XElement.
 
-This way you can apply your styles using the special Astro `<style lang="">` to scope styles to your element, or you can even attach them externally using stylesheets or preprocessors like Sass.
+This way you can apply your styles using the special Astro `<style lang="">` to scope styles to your element, or you can even attach them externally using stylesheets or preprocessor's like Sass.
 
 You can pass down styles from parent components using `Astro.props`, even apply TailwindCSS Directives to them directly, in short there there is no one way to style your XElement, instead you can style it using your own preferred way.
 
@@ -39,7 +44,7 @@ This would result in Astro respecting the styles for this `<Box/>` element.
 
 Using Sass is more of a homologue of using whichever preprocessor that you prefer to work with. Just as it happens the we really like using Sass.
 
-There is a power in using preprocessors like Sass. For they allow you to import other module based stylesheets into your class, use nested features, linking style names, loops, functions and so much more.
+There is a power in using preprocessor like Sass. For they allow you to import other module based stylesheets into your class, use nested features, linking style names, loops, functions and so much more.
 
 ```astro
 <Box class="box box__shape">
@@ -60,7 +65,7 @@ This above example demonstrates using nested routing inside your `scss` to make 
 
 ### TailwindCSS Example
 
-We are all fans of Tailwindcss, its cutting edge utility first approach to modular CSS design is really starting to take a foothold in the developer community.
+We are all fans of TailwindCSS, its cutting edge utility first approach to modular CSS design is really starting to take a foothold in the developer community.
 
 There are many ways you can apply TailwindCSS in you Astro components. The same is true when using it with XElement. This can lead to some truly wonderful UI elements.
 
