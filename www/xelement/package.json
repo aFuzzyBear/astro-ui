@@ -10,6 +10,7 @@
     "preview": "astro preview"
   },
   "devDependencies": {
+    "@codesandbox/sandpack-react":"latest",
     "@tailwindcss/typography": "^0.5.0",
     "astro": "0.22.10",
     "astro-icon": "^0.5.3",
