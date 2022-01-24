@@ -6,18 +6,15 @@ import BaseLayout from '../layouts/BaseLayout.astro'
     import Header from '../components/Header/Header.astro'
     import TableOfContents from '../components/TableOfContents.astro'
     import XElement from 'astro-xelement'
+
     const {article:Article} = XElement
-    const {contents,props}= Astro.props
-    const content = contents.contents 
+    const {contents:{contents:content},props}= Astro.props
     const {astro} = content
     const {headers,source} = astro
-    const baseInfo={
-        pageTitle: content.page_title ?? "",
-        pageDescription: content.page_description
-    }
+    
 ---
-    <BaseLayout pageInfo={baseInfo} >
-                <Header class="navbar navbar__header"/>
+    <BaseLayout  >
+        <Header class="navbar navbar__header"/>
         <div class="break__row"></div>
         <main class="layout">
             <aside class=".grid-left .grid-sidebar">
@@ -46,7 +43,5 @@ import BaseLayout from '../layouts/BaseLayout.astro'
                 <TableOfContents {headers}/>
             </aside>
         </main>
-        <footer class="footer__wrapper"></footer
-    
-    
+        <footer class="footer__wrapper"></footer>
     </BaseLayout>

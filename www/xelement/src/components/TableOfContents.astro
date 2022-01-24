@@ -3,7 +3,6 @@ import XElement from 'astro-xelement'
 const {headers}=Astro.props
 const {div:TOC} = XElement
 const activeID = false
-console.log(Astro.request.url.href)
 ---
     <TOC class="toc"
         @do={(element)=>{
