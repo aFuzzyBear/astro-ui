@@ -9,14 +9,8 @@
 // @ts-check
 export default /** @type {import('astro').AstroUserConfig} */ ({
 	// Comment out "renderers: []" to enable Astro's default component support.
-<<<<<<< HEAD
-	renderers: [],
-	vite:{
-		server:{
-	
-=======
 	buildOptions:{
-		site:"https://www.astro-ui.com/xelement/"
+		site:"astro-ui.com/xelement/"
 	},
 	markdownOptions: {
 		render: [
@@ -62,7 +56,6 @@ export default /** @type {import('astro').AstroUserConfig} */ ({
 			external: ["svgo"],
 		  },
 		server:{
->>>>>>> www-xelement
 		}
 	}
 });

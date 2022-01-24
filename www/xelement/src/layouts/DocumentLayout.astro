@@ -5,19 +5,13 @@
     import ThemeToggle from '../components/Header/ThemeToggle.astro'
     import Header from '../components/Header/Header.astro'
     import TableOfContents from '../components/TableOfContents.astro'
-    import postFileIndexToToml from '../scripts/buildToml.js'
     import XElement from 'astro-xelement'
     const {article:Article} = XElement
     const {contents,props}= Astro.props
     const content = contents.contents 
     const {astro} = content
     const {headers,source} = astro
-    const indexObj = {
-        path:props.path,
-        url:props.slug,
-        title:content.title ?? ""
-    }
-    // postFileIndexToToml(indexObj)
+ 
 ---
     <!DOCTYPE html>
     <html lang="en">
