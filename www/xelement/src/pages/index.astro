@@ -1,18 +1,9 @@
 ---
 // Component imports and setup JavaScript go here!
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Counter from '../components/Counter.astro'
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>Welcome to Astro</title>
-		<style>
-		
-		</style>
-	</head>
-
-	<body>
-		<h1>Does This work</h1>
-	</body>
-</html>
+<BaseLayout>
+	<p>Hello world</p>
+	<Counter/>
+</BaseLayout>
