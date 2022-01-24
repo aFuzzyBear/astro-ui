@@ -8,8 +8,12 @@ import BaseLayout from '../layouts/BaseLayout.astro'
     import XElement from 'astro-xelement'
 
     const {article:Article} = XElement
-    const {contents:{contents:content},props}= Astro.props
-    const {astro} = content
+
+    const {content:{menu,
+        data:{ page_title,
+            page_description,
+            astro
+        }}}=Astro.props
     const {headers,source} = astro
     
 ---
@@ -18,7 +22,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         <div class="break__row"></div>
         <main class="layout">
             <aside class=".grid-left .grid-sidebar">
-                <Sidebar menu={props.menu}/>
+                <Sidebar menu={menu}/>
             </aside>
             <Article class="documentation prose js-documentation .grid-main"
                 @do={(element)=>{
@@ -29,7 +33,6 @@ import BaseLayout from '../layouts/BaseLayout.astro'
                     headings.forEach(heading=>{
                         heading.insertAdjacentHTML('afterBegin',link(heading))
                     })
-               
                 }}
             >
                 <Markdown content={source}/>
