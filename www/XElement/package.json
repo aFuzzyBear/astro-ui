@@ -4,11 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+<<<<<<< HEAD
+=======
+    "search": "stork build --input src/config/Stork.toml --output public/xelement.st",
+>>>>>>> www-xelement
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "astro": "^0.21.13",
     "autoprefixer": "^10.4.1",
     "postcss": "^8.4.5",
@@ -17,5 +22,29 @@
   },
   "dependencies": {
     "tiny-glob": "^0.2.9"
+=======
+    "@codesandbox/sandpack-react": "^0.10.11",
+    "@tailwindcss/typography": "^0.5.0",
+    "astro": "0.22.10",
+    "astro-icon": "^0.5.3",
+    "astro-stylesheet": "^3.0.0",
+    "astro-xelement": "^3.1.0",
+    "autoprefixer": "^10.4.1",
+    "dotenv": "^11.0.0",
+    "i18next": "^21.6.6",
+    "postcss": "^8.4.5",
+    "postcss-import": "^14.0.2",
+    "postcss-preset-env": "^7.1.0",
+    "rehype-autolink-headings": "^6.1.1",
+    "remark-codesandbox": "^0.10.0",
+    "remark-sources": "^1.1.0",
+    "sass": "^1.45.1",
+    "tailwindcss": "^3.0.8",
+    "tiny-glob": "^0.2.9",
+    "toml-patch": "^0.2.3"
+  },
+  "dependencies": {
+    "i18next-browser-languagedetector": "^6.1.2"
+>>>>>>> www-xelement
   }
 }

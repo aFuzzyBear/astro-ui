@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+---
+title: XElement Data Store
+
+
+
+---
+
+>>>>>>> www-xelement
 # XElement Data Store
 
 Off all of the additional powers that XElement provides to enhance your elements, none is more powerful than the `store`.
@@ -32,4 +42,9 @@ To use it you need to declare it as part of the optional parameters to pass into
 }}
 ```
 
+<<<<<<< HEAD
 This would then let the object `store.answer` to be accessed from any other xelement on the page.
+=======
+This would then let the object `store.answer` to be accessed from any other xelement on the page.
+
+>>>>>>> www-xelement

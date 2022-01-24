@@ -1,0 +1,53 @@
+/**
+    Document Layout, Main Stylesheet
+
+*/
+
+.document__body{
+    @apply flex flex-col p-4;
+    min-width: 100%;
+    
+
+}
+.navbar{
+    @apply flex flex-row flex-wrap justify-between
+    p-2 h-[50%] overflow-hidden; 
+    
+    &__header{
+    }
+    &__logo{
+        height: max-content;
+        width: max-content;
+    }
+    &__feature{
+        @apply flex flex-wrap flex-row justify-evenly gap-4
+    }
+    &__search{
+        @apply flex flex-wrap flex-row justify-around gap-3 items-center
+    }
+}
+
+.main{
+    @apply mt-4;
+    display: grid; 
+    grid-template-columns: 0.25fr 1fr 0.25fr; 
+    grid-template-rows: 1fr; 
+    gap: 0px 1.5em; 
+    grid-template-areas: 
+      "leftbar article-area rightbar"; 
+
+   & .documentation{
+        grid-area: article-area;
+   }
+   & .leftbar{
+        grid-area: leftbar;
+
+    }
+    & .rightbar {
+         grid-area: rightbar;
+         height: 100%;
+    }
+}
+code{
+
+}

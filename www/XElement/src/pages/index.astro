@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 	async function getStaticPaths(){
         let docsFiles = await Astro.fetchContent('../../../../docs/XElement/**/*.md')
         return docsFiles.map(doc=>({
@@ -11,12 +12,23 @@
             }
 		))
     }
+=======
+import Slots from '../components/Slots.astro'
+import Sandy from '../components/sandpack/Sandpack.jsx'
+import DateTime from '../components/DateTime.astro'
+import Counter from '../components/Counter.jsx'
+
+>>>>>>> www-xelement
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<<<<<<< HEAD
+=======
+		<link rel="stylesheet" href={Astro.resolve('../styles/tailwind.scss')}>
+>>>>>>> www-xelement
 		<meta name="viewport" content="width=device-width" />
 		<title>Welcome to Astro</title>
 		<style>
@@ -26,6 +38,20 @@
 	</head>
 
 	<body>
+<<<<<<< HEAD
 		<h1>Welcome to <a href="https://astro.build/">Astro</a></h1>
+=======
+		<h1 class="text-purple-500">Welcome to <a href="https://astro.build/">Astro</a></h1>
+		<Slots>
+			<h1 slot="intro">Intro</h1>
+			<h2 >Default</h2>
+			<h3 slot="outro">Outro</h3>
+		</Slots>
+		<DateTime></DateTime>
+			<Counter {count=0} client:load>
+				<h1>Hello from React</h1>
+			</Counter>
+		<Sandy client:only/>
+>>>>>>> www-xelement
 	</body>
 </html>

@@ -13,6 +13,7 @@ For a happy developer is a productive developer.
 ## Table of Contents
 
 - [Basic Properties](Properties)
+<<<<<<< HEAD
 - [Methods](methods/overview.md)
   - [define:vars](methods/define_vars.md)
   - [@animate && @timings](methods/animate.md)
@@ -22,6 +23,17 @@ For a happy developer is a productive developer.
   - [Fetch](methods/fetch.md)
   - [Import](methods/import.md)
   - [Store](methods/store.md)
+=======
+- [Methods](methods/overview)
+  - [define:vars](methods/define_vars)
+  - [@animate && @timings](methods/animate)
+  - [@do](methods/do)
+  - [@events](methods/events)
+  - [@observers](methods/observers)
+  - [Fetch](methods/fetch)
+  - [Import](methods/import)
+  - [Store](methods/store)
+>>>>>>> www-xelement
 
 ## How to use
 

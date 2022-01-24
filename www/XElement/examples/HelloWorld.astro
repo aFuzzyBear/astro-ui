@@ -1,0 +1,28 @@
+---
+import XElement from 'astro-xelement'
+
+const {h1:HelloWorld} = XElement
+
+//Declaring the Keyframe sequence inside Astro
+const fadeIn = [
+    { 
+        opacity: 0
+    },
+    {
+        opacity: 1
+    }
+];
+// Also declaring the timing options
+const animationTiming = {
+    duration: 1500,
+    easing: 'ease-in',
+    fill: 'both'
+};
+
+---
+<HelloWorld
+    @animate ={fadeIn}
+    @timings ={animationTiming}
+>
+    !! Hello World !!
+<HelloWorld>

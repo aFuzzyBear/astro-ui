@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 import { Markdown } from 'astro/components';
 console.log(Astro)
 export async function getStaticPaths(){
@@ -31,3 +32,78 @@ console.log(doc.content.source)
         <Markdown content={doc.content.source}/>
     </body>
     </html>
+=======
+import DocumentLayout from '../../layouts/DocumentLayout.astro'
+
+export async function getStaticPaths() {
+    const docdir = '../../../../../docs/XElement/'
+
+    const paths = Object.keys(
+        import.meta.glob('../../../../../docs/XElement/**/*.md')
+    ).map(
+        (slug) => {
+          return ({
+            params: {
+                slug: slug.slice(docdir.length, -3).toLowerCase(),
+            },
+            props: {
+                slug: slug.slice(docdir.length, -3).toLowerCase(),
+                path: new URL(slug, import.meta.url).pathname,
+            },
+        })}
+    ).filter(x=>!(x.props.slug.includes('sarahedits'))).filter(x=>!(x.props.slug.includes('readme')))
+    const hash = Object.create(null)
+    /** Attaches a nested menu to an array of static paths. */
+    const withNestedMenu = (paths) => {
+      const root = { name: 'root' }
+
+      for (const path of paths) {
+        let item = root
+
+        const segments = path.props.slug.split('/')
+        const filtered = segments.filter(x=> x!=='').filter(x=> !(x.includes('readme')))
+        for (const [index, name] of Object.entries(filtered)) {
+          if(!item.items){
+            item.items = []
+          }
+          let isItem = index === String(filtered.length - 1)
+          if (isItem) {
+            item.items.push({ name, href: `/docs/${path.props.slug.toLowerCase()}` })
+          } else {
+            item.items = item.items || []
+
+            item = (
+              hash[name] = (
+                hash[name] ||
+                item.items[item.items.push({ name, items: [] }) - 1]
+              )
+            )
+          }
+        }
+      }
+
+      for (const path of paths) {
+        // postFileIndexToToml({
+        //   path:path.props.path,
+        //   url:`${path.props.slug}`,
+        //   title:path.props.slug.split('/').join(' ')
+        // })
+        path.props.menu = root.items
+
+      }
+
+      return paths
+    }
+    return withNestedMenu(paths)
+}
+
+const contents = await import(Astro.props.path).then(exports => ({
+    contents: exports.frontmatter,
+}))
+
+const props = Astro.props
+
+
+---
+<DocumentLayout contents={contents} props={props}/>
+>>>>>>> www-xelement

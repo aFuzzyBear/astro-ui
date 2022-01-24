@@ -1,6 +1,18 @@
+<<<<<<< HEAD
 # My First Components
 
 This page will provide you with an introduction on how to start using XElement in your projects. 
+=======
+---
+title: "My First Components"
+setup: |
+    import Sandy from '../../../www/XElement/src/components/sandpack/Sandpack.jsx'
+
+---
+# My First Components
+
+This page will provide you with an introduction on how to start using XElement in your projects.
+>>>>>>> www-xelement
 
 Here we are going to be building out two sets of components, demonstrating some of the methods that you can use to enhance your elements.
 
@@ -36,7 +48,11 @@ Let's make our `<HelloWorld>` component fade in, using the **Web Animation API**
 
 ```astro
 ---
+<<<<<<< HEAD
 import XElement from 'astro-`xelement`'
+=======
+import XElement from 'astro-xelement'
+>>>>>>> www-xelement
 
 const {h1:HelloWorld} = XElement
 
@@ -67,6 +83,49 @@ const animationTiming = {
 
 Now, you should see the text 'Hello-World' fade nicely in to view.
 
+<<<<<<< HEAD
+=======
+<!-- ```js codesandbox=purple-snowflake-3b0dk?file=/src/pages/index.astro
+---
+import XElement from 'astro-xelement'
+
+const {h1:HelloWorld} = XElement
+
+//Declaring the Keyframe sequence inside Astro
+const fadeIn = [
+    { 
+        opacity: 0
+    },
+    {
+        opacity: 1
+    }
+];
+// Also declaring the timing options
+const animationTiming = {
+    duration: 1500,
+    easing: 'ease-in',
+    fill: 'both'
+};
+
+---
+<HelloWorld
+    @animate ={fadeIn}
+    @timings ={animationTiming}
+>
+    !! Hello World !!
+<HelloWorld>
+
+``` -->
+<iframe src="https://codesandbox.io/embed/astro-xelement-default-starter-template-mp9f5?fontsize=14&hidenavigation=1&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="Astro-XElement default starter template"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+     loading="lazy"
+   ></iframe>
+
+
+>>>>>>> www-xelement
 -----------------------
 
 ## `<Counter>`
@@ -87,7 +146,11 @@ We can define all of these elements from XElement at once:
 
 ```astro
 ---
+<<<<<<< HEAD
 import XElement from 'astro-`xelement`'
+=======
+import XElement from 'astro-xelement'
+>>>>>>> www-xelement
 const {..., button:Button, span:Display, Counter} = XElement
 ---
 ```
@@ -100,7 +163,11 @@ Let's see how we can make our XElement `<Counter>` component **do** some stuff: 
 
 ```astro
 ---
+<<<<<<< HEAD
 import XElement from 'astro-`xelement`'
+=======
+import XElement from 'astro-xelement'
+>>>>>>> www-xelement
 const {..., button:Button, span:Display, Counter} = XElement
 ---
 <Counter
@@ -164,6 +231,11 @@ This `<Counter>` example renders the following HTML to the page:
 
 ```
 
+<<<<<<< HEAD
+=======
+-----------------------
+
+>>>>>>> www-xelement
 ## Next Steps
 
 ## API reference
@@ -179,3 +251,8 @@ Explore our guides to explore of the ways to use XElement in your project.
 Learn about using XElement by building some sample web components in an example site.
 
 <!-- TODO! Make up Tutorials -->
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> www-xelement
