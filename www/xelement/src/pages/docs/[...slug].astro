@@ -68,7 +68,6 @@ const contents = await import(Astro.props.path).then(exports => ({
 }))
 
 const props = Astro.props
-console.log(contents)
 
 ---
 <DocsLayout contents={contents} props={props}/>
