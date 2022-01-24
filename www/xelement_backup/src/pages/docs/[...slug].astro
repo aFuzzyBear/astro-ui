@@ -1,0 +1,9 @@
+---
+export async function getStaticPaths() {
+  return [
+    { params: { id: '1' } },
+    { params: { id: '2' } }
+  ];
+}
+const {id} = Astro.request.params;
+---

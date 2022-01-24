@@ -3,6 +3,7 @@ dist
 
 # dependencies
 node_modules/
+.snowpack/
 
 # logs
 npm-debug.log*
@@ -11,6 +12,10 @@ yarn-error.log*
 
 # environment variables
 .env
+<<<<<<< HEAD
+=======
+.eve.local
+>>>>>>> www-xelement
 .env.production
 
 # macOS-specific files

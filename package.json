@@ -26,10 +26,11 @@
     "lerna": "^4.0.0"
   },
   "devDependencies": {
-    "astro": "^0.22.8",
-    "astro-stylesheet": "file:components/Stylesheet"
+    "astro": "latest"
   },
   "workspaces": [
-    "components/*"
+    "components/*",
+    "docs/*",
+    "www/*"
   ]
 }
