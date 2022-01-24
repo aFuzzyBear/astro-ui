@@ -1,3 +1,9 @@
+---
+api_title: "@animate"
+page_title: "Animate with XElement"
+page_description: "XElement comes with native support over the Web Animation API, using @animate and @timings you can pass through your animation keyframes and its timings, and you are good to go"
+
+---
 # Animate XElement
 
 The great thing about `XElement` is that if you want it to sing and dance, it would only take a couple of lines to implement, and you would have a full blown Madonna on your hands.
@@ -67,10 +73,8 @@ This is where we introduce `@animate`'s companion method `@timings` which accept
 With the `@timings` you can specify the length of time you want the animation to last for, its easing qualities and anything else you wish to define.
 
 
-
 -----
 
 ## Further Information
 
 We will have a guide written to demonstrate using the Web Animation API with XElement and all the different ways you can instruct it and control animations using XElement
-

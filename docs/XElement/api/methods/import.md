@@ -1,3 +1,9 @@
+---
+api_title: "await import()"
+page_title: "Dynamically Import files on the client"
+page_description: "XElement allows you to dynamically call scripts from either internal or external scripts from anywhere"
+---
+
 # Dynamic Imports
 
 XElement allows you to dynamically import and utilize scripts from anywhere around the internet.

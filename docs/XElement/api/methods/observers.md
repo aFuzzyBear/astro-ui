@@ -75,7 +75,7 @@ These can be overwritten by passing in your own set of controls that you wish to
 ```astro
 
 options={
-  [root : HTMLElement] : document.querySelector('#something')
+  [root : HTMLElement] : document.querySelector('#someElement')
   [rootMargin : string] : "10px 10px 10px 10px" || "10%",
   [threshold : number[]] : [0.25,0.5,1]
 }
@@ -125,7 +125,7 @@ You can still utilize the `document.resize` event target by using it inside your
 
 -----
 
-## <a href="#observe">`@observe` : CallBack ( event, store, options)</a>
+## `@observe` : CallBack ( event, store, options)
 
 The `@observe` is a `XElement`'s [Mutation observer](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) method.
 
@@ -139,7 +139,7 @@ By default it would observe all the aforementioned attributes unless specified, 
 }}
 ```
 
-### <a name="observeOnce">`@observe:once` : CallBack ( event, store, options)</a>
+### `@observe:once` : CallBack ( event, store, options)
 
 The `@observe:once` method only runs **once** when the element has been observed only the *once*, it then removes and disconnect itself from the Element.
 
@@ -149,7 +149,7 @@ The `@observe:once` method only runs **once** when the element has been observed
 }}
 ```
 
-### <a name="observeOptions"> `options={...}` : Object {}</a>
+### `options={...}` : Object {}
 
 With the `@observe` method you can interact and change the options as you see fit.
 
@@ -171,11 +171,7 @@ Here are the following options that it accepts and the manner it is expressed.
 By default the `MutationObserver` requires at least one of the aforementioned options, we have instead turned on three of the most common options by default for you.
 
 -----
-<article>
-  
-  
-  ## <a name="furtherInfo">Further Information:</a>
+  ## Further Information
   
   For further information on the using the Intersection Observer:
   - [MDN : Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver)
-</article>

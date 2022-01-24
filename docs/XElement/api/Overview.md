@@ -1,3 +1,8 @@
+---
+page_title: "XElement API Overview"
+page_description: "Overview of all off XElement's API"
+
+---
 # `XElement` API
 
 Welcome to our **API** section of the documentation, here you will find all you need to know about `XElement` API's, what they are, how they work and most importantly how to use it correctly.

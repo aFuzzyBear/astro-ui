@@ -1,3 +1,8 @@
+---
+api_title: "@Methods"
+page_title: "Overview of XElement Methods"
+page_description: "A collective overview of XElements methods, here you can get a good understanding of XElements methods and how to use them, you can then explore each in more detail"
+---
 
 # `XElement` Methods Overview
 

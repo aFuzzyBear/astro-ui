@@ -1,3 +1,9 @@
+---
+api_title: "@do"
+page_title: "Do something special"
+page_description: "Each XElement can let you 'do' whatever you wish, by writing simple vanilla JS/TS that gets scoped and deployed to only that XElement" 
+
+---
 # `@do` : Callback (element, store)
 
 The `@do` is the main entry for applying your code to the top-level of the component.

@@ -1,3 +1,8 @@
+---
+api_title: "define:vars"
+page_title: "define:vars"
+page_description: "Define your own client-sided variables from Astro's Server-side, be able to define values that would operate over the entire scope of the element"
+---
 # define:vars
 
 This feature was a community requested feature for Astro. Which managed to make its way in by `v0.21`.
@@ -52,7 +57,7 @@ This lets you abstract away a lot of the code that you may write, by having it r
 
 So you can do things like:
 
-```
+```astro
 ---
 import FancyFunction from '../fancy.js'
 
@@ -65,7 +70,7 @@ const msg = "So long and thanks for the fish!"
 const answer = 42
 
 const data = {
-    a:1,
+    a:2,
     b:{
         c:'3P0'
     }

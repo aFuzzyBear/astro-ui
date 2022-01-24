@@ -1,3 +1,10 @@
+---
+
+api_title: "@events"
+page_title: "XElement Event Handlers"
+page_description: "Overview on XElement's Event Handlers, gain a better insight on how XElement lets you use any* Event Trigger that you wish your XElement to react to"
+
+---
 # XElement Events
 
 `XElement` is able to react to any `Event` possible.
