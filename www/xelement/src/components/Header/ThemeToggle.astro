@@ -18,41 +18,41 @@ const onLoad = ()=>{
     else {
             return icon_sun.classList.remove('hidden')
     }
+
 }
 const onClick = ()=>{
     const colourTheme = localStorage.getItem('color-theme')
     const html = document.documentElement.classList
-    switch (colourTheme) {
-        case 'light':
-            localStorage.setItem('color-theme', 'warm');
-            html.add('warm');
-            icon_warm.classList.remove('hidden')
-            icon_sun.classList.add('hidden')
-            icon_moon.classList.add('hidden')
-        break;
-        case 'warm':
-            localStorage.setItem('color-theme','dark')
-            html.remove('warm');
-            html.add('dark');
-            icon_warm.classList.add('hidden')
-            icon_moon.classList.remove('hidden')
-        break
-        case 'dark':
-            localStorage.setItem('color-theme', 'light');
-            html.remove('dark');
-            icon_sun.classList.remove('hidden')
-            icon_moon.classList.add('hidden')
-        break;
-    }            
+    if(colourTheme === 'light'){
+        localStorage.setItem('color-theme', 'warm');
+        html.add('warm');
+        icon_warm.classList.remove('hidden')
+        icon_sun.classList.add('hidden')
+        icon_moon.classList.add('hidden')
+
+    }
+    if(colourTheme === 'warm'){
+        localStorage.setItem('color-theme','dark')
+        html.remove('warm');
+        html.add('dark');
+        icon_warm.classList.add('hidden')
+        icon_moon.classList.remove('hidden')
+
+    }
+    if(colourTheme === 'dark'){
+        localStorage.setItem('color-theme', 'light');
+        html.remove('dark');
+        icon_sun.classList.remove('hidden')
+        icon_moon.classList.add('hidden')
+        
+    }
 }
 
 ---
 
-<ToggleContainer>
+<ToggleContainer @do={onLoad}>
 
-    <ToggleButton
-        @do={onLoad}
-        @click={onClick}
+    <ToggleButton  @click={onClick}
     >
             <Icon id="icon_moon" class="hidden" name="ph:moon-stars-fill"/>
             <Icon id="icon_warm" class="hidden" name="ph:coffee-duotone"/>
