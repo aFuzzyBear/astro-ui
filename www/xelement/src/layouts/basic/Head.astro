@@ -1,0 +1,21 @@
+---
+import {SEO} from 'astro-seo'
+import {SocialImage} from 'astro-social-images'
+import Stylesheet from 'astro-stylesheet'
+---
+   <SEO  
+      title={Astro.props.pageTitle} 
+      description={Astro.props.pageDescription}
+      openGraph={
+        {
+            basic:{
+                title:Astro.props.pageTitle,
+            }
+        }
+      }
+      twitter= {
+          {creator:"Astro Community"}
+      }
+   />
+   <SocialImage 
+      

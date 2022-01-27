@@ -1,10 +1,12 @@
 ---
 import XElement from 'astro-xelement'
 import { Icon } from 'astro-icon'
+
 const {div:ToggleContainer,button:ToggleButton}=XElement
 ---
 
 <ToggleContainer>
+
     <ToggleButton
         @do={()=>{
             if (
@@ -19,17 +21,16 @@ const {div:ToggleContainer,button:ToggleButton}=XElement
             } 
             else {
                     icon_sun.classList.remove('hidden')
-                    
             }
         }}
+
         @click={()=>{
            const colourTheme = localStorage.getItem('color-theme')
            const html = document.documentElement.classList
-
            switch (colourTheme) {
                case 'light':
-                   localStorage.setItem('color-theme', 'warm');
-                   html.add('warm');
+                    localStorage.setItem('color-theme', 'warm');
+                    html.add('warm');
                     icon_warm.classList.remove('hidden')
                     icon_sun.classList.add('hidden')
                     icon_moon.classList.add('hidden')
@@ -49,11 +50,10 @@ const {div:ToggleContainer,button:ToggleButton}=XElement
                     break;
            }
             
-        }}
-    >
-        <Icon id="icon_moon"   class="hidden" name="ph:moon-stars-fill"/>
+        }}>
+        <Icon id="icon_moon" class="hidden" name="ph:moon-stars-fill"/>
         <Icon id="icon_warm" class="hidden" name="ph:coffee-duotone"/>
-        <Icon id="icon_sun"    class="hidden" name="ph:sun-fill"/>
+        <Icon id="icon_sun"  class="hidden" name="ph:sun-fill"/>
     </ToggleButton>
 </ToggleContainer>
 <style lang="scss">
