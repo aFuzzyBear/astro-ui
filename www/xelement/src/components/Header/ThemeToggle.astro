@@ -4,7 +4,9 @@ import { Icon } from 'astro-icon'
 
 const {div:ToggleContainer,button:ToggleButton}=XElement
 
-const onLoad = ()=>{
+const onLoad = (element)=>{
+    const btn = element.querySelector('button')
+    console.log(btn)
     if (
         localStorage.getItem('color-theme') === 'dark' ||
     (!('color-theme' in localStorage) &&
@@ -18,7 +20,7 @@ const onLoad = ()=>{
     else {
             return icon_sun.classList.remove('hidden')
     }
-
+    
 }
 const onClick = ()=>{
     const colourTheme = localStorage.getItem('color-theme')
@@ -50,15 +52,14 @@ const onClick = ()=>{
 
 ---
 
-<ToggleContainer @do={onLoad}>
-
-    <ToggleButton  @click={onClick}
-    >
-            <Icon id="icon_moon" class="hidden" name="ph:moon-stars-fill"/>
-            <Icon id="icon_warm" class="hidden" name="ph:coffee-duotone"/>
-            <Icon id="icon_sun"  class="hidden" name="ph:sun-fill"/>
+<ToggleContainer @do={onLoad} @click={onClick}>
+    <ToggleButton  id="toggle_btn">
+        <Icon id="icon_moon" class="hidden" name="ph:moon-stars-fill"/>
+        <Icon id="icon_warm" class="hidden" name="ph:coffee-duotone"/>
+        <Icon id="icon_sun"  class="hidden" name="ph:sun-fill"/>
     </ToggleButton>
 </ToggleContainer>
+
 <style lang="scss">
     [astro-icon]{
         color:aqua;
