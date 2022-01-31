@@ -1,0 +1,29 @@
+{
+  "name": "astro-fonts",
+  "version": "0.1.0",
+  "description": "A Specialised Astro Font Component, letting you utilise any of the fonts availble to you using the 'google-webfonts-helper' API. This lets you to download font files to the local filesystem or use the fonts remotely. This one componet is your one-stop for Fonts. ",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aFuzzyBear/astro-academy.git"
+  },
+  "keywords": [
+    "astro",
+    "astro component",
+    "astro font component",
+    "google webfont helper",
+    "font component"
+  ],
+  "author": "aFuzzyBear",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aFuzzyBear/astro-academy/issues"
+  },
+  "exports":{
+    ".":"./Fonts.astro"
+  },
+  "files": ["index.js","Fonts.astro"]
+}
