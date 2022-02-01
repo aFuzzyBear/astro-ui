@@ -19,7 +19,7 @@ npm i astro-fonts -D
 And import it:
 
 ```astro
-import Font from 'astro-fonts'
+import { Font } from 'astro-fonts'
 ```
 
 ## How to use
@@ -35,16 +35,16 @@ You can use this component within the `<head>` of your Layout or Components, sim
 ```ts
 export interface Props {
   name: string;
-  styles?:string[] | string;
+  styles?: string[] | string;
   weights?: number[] | string;
-  local?:boolean;
-  remote?:boolean;
+  local?: boolean;
+  remote?: boolean;
 }
 ```
 
 Then let the component control the use of the font within your project.
 
------
+---
 
 ## How it works
 
@@ -56,9 +56,9 @@ The stylesheet would contain `@font-face` style rules pertaining to the importin
 
 ### Downloading Fonts
 
-You can opt to choose to save the font-files to the filesystem. by applying the `local` prop to the `<Font name="" local/>` would instruct the component to download the files alongside their companion stylesheet. Saving you the laborious hassle of downloading and setting up the `@font-face'` style rules for yourself. 
+You can opt to choose to save the font-files to the filesystem. by applying the `local` prop to the `<Font name="" local/>` would instruct the component to download the files alongside their companion stylesheet. Saving you the laborious hassle of downloading and setting up the `@font-face'` style rules for yourself.
 
------
+---
 
 ## `name` : string
 
@@ -68,9 +68,9 @@ This prop is required. Here specify they name of any font that is present on [`g
 
 Currently you do need to pass in the name in its Capital format
 
------
+---
 
-## `styles` : string[  ] | string
+## `styles` : string[ ] | string
 
 Here you can specify the type of styles you wish to include for your font requirements.
 
@@ -80,9 +80,9 @@ By default the component would request only 'normal' styles, however any value p
 styles="italics" | {['normal','italics']}
 ```
 
------
+---
 
-## `weights` : number[  ] | string
+## `weights` : number[ ] | string
 
 Here you can specify the many different weights for your font as you wish to include.
 
@@ -92,7 +92,7 @@ By default the component would request only a weight of only '400', however any 
 styles="italics" | {['normal','italics']}
 ```
 
------
+---
 
 ## `local`? : boolean
 
@@ -108,7 +108,7 @@ In this example a total of 8 font files would be downloaded and saved on to the 
 
 The `@font-face` rule set would also be amended to reflect the location of the font files.
 
------
+---
 
 ## `remote`? : boolean
 
@@ -116,7 +116,7 @@ If you wish to only have your font files served remotely you can do so by specif
 
 This would instruct the component to not save anything to the filesystem instead only print to the `<head>` the corresponding `<link href="...">` elements in its place.
 
------
+---
 
 ## Credits
 
