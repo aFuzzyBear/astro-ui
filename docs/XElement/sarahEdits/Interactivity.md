@@ -1,7 +1,7 @@
 # Client Side Interactivity
 
 
-`XElement` allows you to write your own client-side code in Astro for an HTML element, in either JavaScript or TypeScript. This code is packaged as independent, async `<script type="modules">` modules which are scoped to the element in question.
+XElement allows you to write your own client-side code in Astro to enhance HTML elements, using either JavaScript or TypeScript. This code is packaged as independent, async `<script type="modules">` modules which are scoped directly to the element in question.
 
 This non-blocking, asynchronous approach allows the DOM and all of its contents to be loaded first, then the JS is executed last. Each `XElement` is rendered at build time, and the page has perhaps one of the fastest fast time to interactivity as a result of our methods.
 
