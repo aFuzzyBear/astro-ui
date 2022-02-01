@@ -1,0 +1,35 @@
+---
+  import ThemeToggle from './ThemeToggle.astro'
+  import StorkSearch from './StorkSearch.astro'
+  import {Icon} from 'astro-icon'
+---
+<header class="navbar navbar__header">
+    <div class="navbar__logo">
+        <!-- <Icon name="astro-ui"/> -->
+    </div>
+    <div class="navbar__feature">
+        <h3>
+            API
+        </h3>
+        <h3>
+            Blog
+        </h3>
+        <h3>
+            Guides
+        </h3>
+        <h3>
+            Tutorials
+        </h3>
+    </div>
+    <div class="navbar__search">
+        <ThemeToggle/>
+        <StorkSearch/>
+    </div>
+</header>
+<style lang="scss">
+    [astro-icon]{
+        fill:navy;
+        height:5rem;
+        width:5rem;
+    }
+</style>
