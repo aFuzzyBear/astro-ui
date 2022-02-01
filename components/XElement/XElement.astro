@@ -5,6 +5,8 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const { transformWithEsbuild } = require('vite')
 
+
+
 const {
 	'@is': tag = null,
 	...attrs
@@ -15,6 +17,13 @@ const XElement: string = tag == null || /^(#text|fragment)$/i.test(tag) ? Fragme
 
 /** Formats the given value so that it can be placed into an attribute. */
 const toAttributeString = (value: any) => String(value).replace(/\b__vite_ssr_dynamic_import__\b/, 'import').replace(/\b__vite_ssr_import_0__\.default\b/, 'fetch')
+
+/** Error Handling */
+const handleError = (error)=> {
+		let errorMsg = `🐱‍🚀\t Dont Panic!\t👍\nThere seem's to be an error with your most recent XElement Component:\n "<${XElement}>", it is producing the following error:\n${error}`
+		console.error(errorMsg)
+		throw new Error(errorMsg)
+	}
 
 /** Listeners to attach onto the event. */
 let listenerString: string = ''
@@ -29,7 +38,7 @@ const typeOf = (value: any) => value === null ? 'null' : typeof value
 
 /** Returns the function-safe serialized value. */
 const serialize = (value: any) => {
-	switch (typeOf(value)) {
+		switch (typeOf(value)){
 		case 'function':
 			return String(value)
 
@@ -57,92 +66,102 @@ const serialize = (value: any) => {
 for (const name in attrs) {
 	if (name.startsWith('@')) {
 		const data = attrs[name]
-
 		if (typeOf(data) === 'function') {
-			delete attrs[name]
+			
+				delete attrs[name]
+				const safeData = toAttributeString(data)
+				/** Normalized type of the event. */
+				let type = name.slice(1)
 
-			/** Normalized type of the event. */
-			let type = name.slice(1)
+				/** Options extracted from the type. */
+				let opts: { [key: string]: boolean } = {}
 
-			/** Options extracted from the type. */
-			let opts: { [key: string]: boolean } = {}
+				/** Values extracted from the type to populate Options. */
+				let read: RegExpExecArray
 
-			/** Values extracted from the type to populate Options. */
-			let read: RegExpExecArray
+				while ((read = /:\w+$/.exec(type))) {
+					opts[type.slice(read.index + 1)] = true
 
-			while ((read = /:\w+$/.exec(type))) {
-				opts[type.slice(read.index + 1)] = true
+					type = type.slice(0, read.index)
+				}
+				//All weekend long, I was wondering how would Jonathan write this, and this is the closest I can come to experincing magic without being a wizard, 
+				function userOptions():void{
+					let hasOptions = (/\([^,)]+,[^,)]+,([^)]+)/).exec(safeData) 
+					return	hasOptions ? hasOptions[1].split('=')[1] : undefined
+				}
+				function secondTry(){
+					let getParams = data.length
+					console.log('Param length',name,getParams)
+				}
+				// secondTry()
+				/** Apply the JS payload delivery*/
+				switch (type) {
+					case 'do':
+						listenerOfOnce = `(${safeData})($,$$);`
+						break
+					case 'more':
+						listenerString += `(${safeData})($,$$);`
+						break
+					case 'resize':
+						listenerString += `new ResizeObserver((e,o)=>${
+							opts.once
+								? `!o.disconnect()&&`
+								: ``
+						}(${safeData})(e[0],$$)).observe($);`
+						break
 
-				type = type.slice(0, read.index)
-			}
+					case 'observe':
+						listenerString += `new MutationObserver((e,o)=>${
+							opts.once
+								? `!o.disconnect()&&`
+								: ``
+						}(${safeData})(e[0],$$)).observe($,${userOptions() === undefined ? '{attributes:true,childList:true,subtree:true}' : userOptions()});`
+						break
 
-			/** Apply the JS payload delivery*/
-			switch (type) {
-				case 'do':
-					listenerOfOnce = `(${toAttributeString(data)})($,$$);`
-					break
+					case 'visible':
+						listenerString += `new IntersectionObserver((e,o)=>e[0].isIntersecting${
+							opts.once
+								? `&&!o.disconnect()`
+								: ``
+						}&&(${safeData})(e[0],$$),${userOptions()}).observe($);`
+						break
 
-				case 'resize':
-					listenerString += `new ResizeObserver((e,o)=>${
-						opts.once
-							? `!o.disconnect()&&`
-						: ``
-					}(${toAttributeString(data)})(e[0],$$)).observe($);`
-					break
-
-				case 'observe':
-					listenerString += `new MutationObserver((e,o)=>${
-						opts.once
-							? `!o.disconnect()&&`
-						: ``
-					}(${toAttributeString(data)})(e[0])).observe($,${
-						opts.attr ?
-							`attributes:true`
-						: opts.children ?
-							`childList:true`
-						: opts.sub ?
-							`subtree:true`
-						: opts.data ?
-							`characterData:true`
-						: `attributes:true,childList:true,subtree:true,characterData:true`
-						});`
-					break
-
-				case 'visible':
-					listenerString += `new IntersectionObserver((e,o)=>e[0].isIntersecting${
-						opts.once
-							? `&&!o.disconnect()`
-						: ``
-					}&&(${toAttributeString(data)})(e[0],$$)).observe($);`
-					break
-
-				default:
-					// Add Event Listeners
-					listenerString += `$.${
-						opts.remove ?`removeEventListener` : `addEventListener`
-					}(${
-						JSON.stringify(type)
-					},${
-						`e=>{${
-							opts.prevent ? `e.preventDefault();` : ''
+					default:
+						// Add Event Listeners
+						listenerString += `$.${
+							opts.remove 
+							? `removeEventListener` 
+							: `addEventListener`
 						}(${
-							toAttributeString(data)
-						})(e,$$)}`
-					}${
-						opts.once
-							? ',{once:true}'
-						: opts.useCapture
-							? `,{useCapture:true}`
-						: ''
-					});`
-					break
+							JSON.stringify(type)
+						},${
+							`e=>{${
+								opts.prevent 
+								? `e.preventDefault();` 
+								: ''
+							}(${
+								safeData
+							})(e,$$)}`
+						},${
+							opts.once
+							? '{once:true}'
+							: userOptions()=== undefined
+							? '{useCapture:false}'
+							: userOptions()
+						});`
+						break
 			}
-		} else if (name.includes('@animate') && typeOf(data) === 'object') {
+		}
+		if (name.includes('@animate') && typeOf(data) === 'object') {
 			/** Applying Web Animate API to the Element */
 			const [ keyFrames, options ] = [
 				attrs['@animate'],
 				attrs['@timings']
 			]
+				/** Handling timings Error */
+				if(typeOf(options) !== 'object'){
+							handleError(`🎨\tType Error: @timings ❗\nMia Culpa Michelangelo, it appears you tried to pass in:\nValue: ${data}\ntypeof: ${typeOf(data)}\nTo fix, wrap this in the following manner:\n\`@timings{\/\/This only accepts a single object,\n\t{"cssProperty":value}\n}\``)
+				}
 
 			delete attrs['@animate']
 			delete attrs['@timings']
@@ -152,26 +171,37 @@ for (const name in attrs) {
 			},${
 				JSON.stringify({ ...options })
 			});`
-		} 
+		}else if(name.includes('@animate') && typeOf(data) !== 'object'){
+			/** Handling Animate Error */
+			handleError(`🎨\tType Error: @animate❗\nSorry Picasso, it appears you tried to pass in:\nValue: ${data}\ntypeof: ${typeOf(data)}\nTo fix, wrap this in the following manner:\n\`@animate{\/\/It's a record of objects,\n\t{"cssProperty":value} ,\n\t{"cssProperty":value}\n}\``)
+		}else{
+			if(name.includes('@animate') || name.includes('@timings')){ return}
+			if(typeOf(data) !== 'function'){
+				handleError(`\t🤖 Type Error: ${name}\nHuh, it looks you  tried to pass in:\nValue: ${JSON.stringify(data)}\ntypeof: ${typeOf(data)}\nTo fix, wrap this in the following manner:\n${name}={ () => {...}}\n${name}={async() => {...}}\n${name}={ function(){...}}\n${name}={ async function(){...}}`)
+			}
+		}
 	}
 
 	if (name.includes('define:vars')){
 		const data = attrs['define:vars']
-
-		if (typeOf(data) === 'object') {
-			defineVarsString = `let ${
-				Object.entries(data).map(
-					([ name, value ]) => `${name.replace(/[^\w]/g, '')}=${
-						serialize(value)
-					}`
-				).join(',')
-			};`
-		}
-
 		delete attrs['define:vars']
+			if (typeOf(data) === 'object'){
+				defineVarsString = `let ${
+					Object.entries(data).map(
+						([ name, value ]) => `${name.replace(/[^\w]/g, '')}=${
+							serialize(value)
+						}`
+					).join(',')
+				};`
+			}else{
+				/** Handle define:vars Error */
+				handleError(`🙈\t Type Error: "define:vars"\t❗\nSorry but it would appear that you are trying to pass in:\nValue: ${data}\ntypeof: ${typeOf(data)}\nTo fix, wrap this in the following manner:\n\`define:vars={\n\t{\n\t\t["referenceName":${typeOf(data)}]:${data}\n\t}\n}\``)
+			}
+		
 	}
 }
 
+			
 /** Transforms the JS/TS input using ESBuild */
 const transformer = async (code: string): Promise<string> => await transformWithEsbuild(code, 'xelement.ts', { minify: true }).then(result => result.code)
 
@@ -201,7 +231,7 @@ const onLoadString: string = (
 				listenerOfOnce ?? ''
 			}}).call(this.previousSibling,this.remove()||this)`
 		)
-	: ''
+	: null
 )
 
 /** Matching ShadowRoot attribute. */

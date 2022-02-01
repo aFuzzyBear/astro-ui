@@ -1,3 +1,8 @@
+---
+page_title: "Introductions"
+page_description: "An Introduction to XElement"
+
+---
 # Formal Introductions
 
 Hello and welcome friend to `XElement`. It is a pleasure to have you here, and we wish that you enjoy the developer experience that `XElement` strives to provide you as you transition with Astro into becoming an astronaut in this digital frontier.

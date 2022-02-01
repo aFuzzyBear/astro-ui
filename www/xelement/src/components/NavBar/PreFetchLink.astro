@@ -1,0 +1,48 @@
+---
+
+/**@interface Props */
+export interface Props{
+    /**@param classList - Accepts a list of css selectors */
+    classList:string
+    /**@param href - Link href */
+    src:string
+    /**@param target - Link Target */
+    target?: "external"|"parent"|"top"|"framename"
+    /**@param - Link Target */
+    label?:string
+}
+import XElement from 'astro-xelement'
+
+const {src,target,classList,label} = Astro.props as Props
+const {a:PrefetchLink} = XElement 
+---
+
+    <PrefetchLink
+        class={classList ?? null}
+        href={src ?? '#'}
+        target={target === 'external' ? "_blank" 
+                : target === "parent" ? "_parent"
+                : target === "top" ? "_top"
+                : target === "framename" ? "framename"
+                : "_self" }
+        aria-label = {label ?? null}
+        @do={(element)=>{
+        const prefetch = document.createElement('link')
+        Object.assign(prefetch,{
+            rel:'prefetch',
+            as:'document',
+            href:element.href,
+            type:'text/html'
+        })
+        element.addEventListener('pointerenter',()=>{
+            document.head.appendChild(prefetch)
+        })
+        element.addEventListener('pointerleave',()=>{
+            if(document.head.contains(prefetch)){
+                document.head.removeChild(prefetch)
+            }
+        })
+    }}
+    >
+        <slot/>
+    </PrefetchLink>

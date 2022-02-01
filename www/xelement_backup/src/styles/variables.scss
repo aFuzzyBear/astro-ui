@@ -1,0 +1,91 @@
+/**
+    Global Variables
+*/
+:root{
+
+    //Site Colours
+    --color-slate:hsl(215, 36%, 17%);
+    --color-oldBook: hsla(36, 48%, 76%, 0.596);
+    --color-mintcream: hsl(150, 100%, 98%);
+
+    --color-black: hsl(0, 5%, 11%);
+    --color-blue-royal: hsl(225, 73%, 57%);
+    --color-blue-navy: hsl(240, 100%, 25%);
+    --color-green: hsl(120, 100%, 50%);
+}
+:root{
+    color-scheme: light dark;
+    /**
+        Light Theme 
+    */
+        --theme-bg-color:var(--color-mintcream);
+        --theme-text-color:var(--color-black);
+        
+        //Text Colours
+        --theme-body: var(--color-black);
+        --theme-headings:var(--color-black) ;
+        --theme-links: ;
+        --theme-bold: ;
+        --theme-counters: ;
+        --theme-bullets: ;
+        --theme-hr: ;
+        --theme-quotes: ;
+        --theme-quote-borders: ;
+        --theme-code: ;
+        --theme-code-bg: ;
+        --theme-code-border: ;
+        --theme-pre-code: ;
+        --theme-pre-bg: ;
+        --theme-pre-border: ;
+        --theme-th-borders:  
+        --theme-td-borders: ;
+        
+        &.warm{
+        /**
+        Warm Theme
+        */
+        color-scheme: light;
+        --theme-bg-color:var(--color-oldBook);
+        --theme-body: var(--color-black);
+        --theme-headings:var(--color-black) ;
+        --theme-links: ;
+        --theme-bold: ;
+        --theme-counters: ;
+        --theme-bullets: ;
+        --theme-hr: ;
+        --theme-quotes: ;
+        --theme-quote-borders: ;
+        --theme-code: ;
+        --theme-code-bg: ;
+        --theme-code-border: ;
+        --theme-pre-code: ;
+        --theme-pre-bg: ;
+        --theme-pre-border: ;
+        --theme-th-borders:  
+        --theme-td-borders: ;
+    }
+    &.dark{
+        /**
+           Dark Theme
+        */
+        color-scheme: dark;
+        --theme-bg-color:var(--color-slate);
+        --theme-body: var(--color-black);
+        --theme-headings:var(--color-black) ;
+        --theme-links: ;
+        --theme-bold: ;
+        --theme-counters: ;
+        --theme-bullets: ;
+        --theme-hr: ;
+        --theme-quotes: ;
+        --theme-quote-borders: ;
+        --theme-code: ;
+        --theme-code-bg: ;
+        --theme-code-border: ;
+        --theme-pre-code: ;
+        --theme-pre-bg: ;
+        --theme-pre-border: ;
+        --theme-th-borders:  
+        --theme-td-borders: ;
+    }
+}   

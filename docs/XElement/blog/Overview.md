@@ -1,3 +1,7 @@
+---
+page_title: "XElement a protracted explanation"
+page_description: "A deeper dive into XElement"
+---
 # XElement
 
 Welcome to the home of XElement, an Astro only, **Customisable HTML Web Component Generator**.

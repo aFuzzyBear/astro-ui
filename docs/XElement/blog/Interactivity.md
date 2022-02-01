@@ -1,3 +1,7 @@
+---
+page_title: "Client Side Interactivity"
+page_description: "An Exploration in providing Client Side Interactivity using XElement"
+---
 # Client Side Interactivity
 
 Where the magic happens, so to speak.

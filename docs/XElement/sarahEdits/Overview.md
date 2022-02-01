@@ -17,7 +17,6 @@ Unlike other framework components, XElement-generated components can even contai
 npm i astro-xelement -D
 ```
 
-
 2. Import `XElement` into any `.astro` file (page, layout, or component):
 
 ```astro

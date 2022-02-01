@@ -1,3 +1,8 @@
+---
+page_title: "XElement API Overview"
+page_description: "Overview of all off XElement's API"
+
+---
 # `XElement` API
 
 Welcome to our **API** section of the documentation, here you will find all you need to know about `XElement` API's, what they are, how they work and most importantly how to use it correctly.
@@ -12,8 +17,16 @@ For a happy developer is a productive developer.
 
 ## Table of Contents
 
-- [Basic Properties](Basic_Properties)
-- [Client Side Interactivity]()
+- [Basic Properties](Properties)
+- [Methods](methods/overview)
+  - [define:vars](methods/define_vars)
+  - [@animate && @timings](methods/animate)
+  - [@do](methods/do)
+  - [@events](methods/events)
+  - [@observers](methods/observers)
+  - [Fetch](methods/fetch)
+  - [Import](methods/import)
+  - [Store](methods/store)
 
 ## How to use
 
