@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
     import Sidebar from '../components/sidebar/Sidebar.astro'
     // import ThemeToggle from '../components/Header/ThemeToggle.astro'
     import Header from '../components/Header/Header.astro'
-    // import TableOfContents from '../components/TableOfContents.astro'
+    import TableOfContents from '../components/TableOfContents.astro'
     import XElement from 'astro-xelement'
 
     const {article:Article} = XElement
@@ -14,10 +14,17 @@ import BaseLayout from '../layouts/BaseLayout.astro'
             page_description,
             astro
         }}}=Astro.props
-    const {headers,source} = astro
-    
+    const {headers,html} = astro
 ---
-    <BaseLayout  >
+    <BaseLayout 
+        PageMeta={{page_title,page_description}}
+        PageStyles={[
+            {
+                href:Astro.resolve('../styles/docsLayout.scss'),
+                media:'screen'
+            }
+        ]}
+    >
         <Header class="navbar navbar__header"/>
         <div class="break__row"></div>
         <main class="layout">
@@ -35,7 +42,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
                     })
                 }}
             >
-                <Markdown content={source}/>
+                {html}
             </Article>
             <aside class="rightbar .grid-right">
                 <div class="">
@@ -43,7 +50,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
                         Something
                     </h1>
                 </div>
-                <!-- <TableOfContents {headers}/> -->
+                <TableOfContents {headers}/>
             </aside>
         </main>
         <footer class="footer__wrapper"></footer>
