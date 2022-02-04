@@ -26,7 +26,6 @@ const toggleTheme=(element)=>{
             self.ariaLabel=`Current Theme ${theme}`
             setTheme(theme)
         })
-        
     }
 }
 ---
@@ -34,27 +33,45 @@ const toggleTheme=(element)=>{
 <ToggleContainer 
     define:vars={{setTheme:setTheme}}
     @do={toggleTheme} >
-    <ToggleButton  data-theme="dark" aria-label="Toggle Theme">
-        <Icon name="ph:moon-stars-fill"/>
-    </ToggleButton>
-    <ToggleButton  data-theme="warm" aria-label="Toggle Theme">
-        <Icon name="ph:coffee-duotone"/>
-    </ToggleButton>
-    <ToggleButton  data-theme="light" aria-label="Toggle Theme">
-        <Icon name="ph:sun-fill"/>
-    </ToggleButton>
+        <ToggleButton  data-theme="light" aria-label="Toggle Theme">
+            <Icon name="ph:sun-fill"/>
+        </ToggleButton>
+        <ToggleButton  data-theme="warm" aria-label="Toggle Theme">
+            <Icon name="ph:coffee-duotone"/>
+        </ToggleButton>
+        <ToggleButton  data-theme="dark" aria-label="Toggle Theme">
+            <Icon name="ph:moon-stars-fill"/>
+        </ToggleButton>
+ 
 </ToggleContainer>
 
 <style lang="scss">
+    div{
+        height: 4rem;
+        padding:0.15rem;
+        width: fit-content;
+        text-align: center;
+        justify-items: center;
+    
+    }
     button{
-        will-change: auto;
-        @apply w-8 transition-all active:scale-75 scale-90;
+        @apply w-8 transition-all p-[0.15rem] border-current border-2 opacity-90 mx-[0.1rem];
+        &:first-child{
+            @apply rounded-l-lg;
+        }
+        &:last-child{
+            @apply rounded-r-lg;
+        }
+        &:hover{
+           @apply bg-[color:var(--tailwind-bg-code)] bg-opacity-30;
+        }
+       
     }
     [astro-icon]{
-        color:currentColor;
+        @apply fill-current transition-colors;
     }
     .js-active{
-        @apply bg-[color:var(--tailwind-bg-code)] bg-opacity-30 scale-110;
+        @apply bg-[color:var(--tailwind-bg-code)] bg-opacity-30 scale-110 shadow-md shadow-current;
     }
     
 </style>
