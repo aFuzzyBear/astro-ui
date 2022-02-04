@@ -1,0 +1,9 @@
+/**
+    Documentation Layout Stylesheet
+*/
+body{
+    @apply flex flex-col flex-wrap content-start justify-center align-middle
+}
+.layout{
+    @apply flex flex-row content-center justify-center items-start
+}

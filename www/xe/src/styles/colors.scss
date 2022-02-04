@@ -4,6 +4,7 @@
     //Theme Colors
     --base-color-snow: hsl(0, 100%, 99%);
     --base-color-darkVanilla: #d1bea8;
+    --base-color-lightTan:hsl(33, 44%, 76%);
     --base-color-light-tan:hsl(33, 44%, 86%);
     --base-color-slate:hsl(222, 47%, 11%);
     --base-color-light-greyish-blue:hsl(240, 5%, 84%);
@@ -16,6 +17,9 @@
     --base-color-dark-chocolate:hsl(2, 35%, 20%);
 
 }
+/**
+    Light Theme Colours
+*/
 :root{
     color-scheme: light;
     color:var(--base-color-dark-purple);
@@ -79,9 +83,13 @@
     --prism-important: ;
     --prism-inserted: ;
 }
+
+/**
+    Warm Theme Colours
+*/
 :root.warm{
     color-scheme: light;
-    color:var(--base-color-dark-chocolate);
+    color: var(--base-color-dark-chocolate);
     // --theme-bg-color:var(--base-color-darkVanilla);
     --theme-bg-color:var(--base-color-light-tan);
     //Text Colors
@@ -100,10 +108,10 @@
     --tailwind-headings-text: var(--base-color-dark-chocolate);
     --tailwind-hr:var(--base-color-dark-chocolate) ;
     --tailwind-links-text:rgb(49, 160, 49) ;
-    // --tailwind-links-text:rgb(49, 160, 49) ;
     --tailwind-pre-text:var(--base-color-dark-chocolate) ;
     --tailwind-quotes:var(--base-color-dark-chocolate) ;
     --tailwind-theme-captions:var(--base-color-chocolate);
+
     //Prism syntax highlighting
     --prism-bg: ;
     --prism-base: ;
@@ -186,8 +194,8 @@
     --tailwind-invert-quotes: green;
     --tailwind-invert-theme-captions: green;
     //Prism syntax highlighting
-    --prism-bg: ;
-    --prism-base: ;
+    --prism-bg: hsla(259, 40%, 40%,0.75);
+    --prism-base: var(--base-snow) ;
     --prism-comment: ;
     --prism-block-comment: ;
     --prism-prolog: ;

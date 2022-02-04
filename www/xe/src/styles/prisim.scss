@@ -1,8 +1,9 @@
 @use './colors.scss';
 /**
- * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * prism.js base stylesheet for Astro, XElement, JavaScript, CoffeeScript, CSS and HTML
  * Based on https://github.com/chriskempson/tomorrow-theme
- * @author Rose Pritchard
+ * @author aFuzzyBear
+ * @author Rose Pritchard - original author of Tomorrow Prism Theme
  */
 
  code[class*="language-"],
@@ -49,108 +50,108 @@
  }
  //Syntax Highlighting
  .token.comment {
-    color:var(--prism-comment)
+    color:var(--prism-comment);
  }
  .token.block-comment {
-     color:var(--prism-block-comment)
+     color:var(--prism-block-comment);
  }
  .token.prolog {
-    color:var(--prism-prolog)
+    color:var(--prism-prolog);
 }
  .token.doctype {
-    color:var(--prism-doctype)
+    color:var(--prism-doctype);
 }
  .token.cdata {
-    color:var(--prism-cdata)
+    color:var(--prism-cdata);
 }
  
  .token.punctuation {
-    color:var(--prism-)
+    color:var(--prism-);
 }
  
  .token.tag{
-    color:var(--prism-tag)
+    color:var(--prism-tag);
 }
  .token.attr-name{
-    color:var(--prism-attr-name)
+    color:var(--prism-attr-name);
 }
  .token.namespace{
-    color:var(--prism-namespace)
+    color:var(--prism-namespace);
 }
  .token.deleted {
-    color:var(--prism-deleted)
+    color:var(--prism-deleted);
 }
  
  .token.function-name {
-    color:var(--prism-function-name)
+    color:var(--prism-function-name);
 } 
  .token.boolean {
-    color:var(--prism-boolean)
+    color:var(--prism-boolean);
 }
  .token.number {
-    color:var(--prism-number)
+    color:var(--prism-number);
 }
  .token.function {
-    color:var(--prism-function)
+    color:var(--prism-function);
 }
  .token.property {
-    color:var(--prism-property)
+    color:var(--prism-property);
 }
  .token.class-name {
-    color:var(--prism-class-name)
+    color:var(--prism-class-name);
 }
  .token.constant {
-    color:var(--prism-constant)
+    color:var(--prism-constant);
 }
  .token.symbol {
-    color:var(--prism-symbol)
+    color:var(--prism-symbol);
 }
  
  .token.selector {
-    color:var(--prism-selector)
+    color:var(--prism-selector);
 }
  .token.important {
-    color:var(--prism-important)
+    color:var(--prism-important);
 }
  .token.atrule {
-    color:var(--prism-atrule)
+    color:var(--prism-atrule);
 }
  .token.keyword {
-    color:var(--prism-keywork)
+    color:var(--prism-keywork);
 }
  .token.builtin {
-    color:var(--prism-builtin)
+    color:var(--prism-builtin);
 }
  
  .token.string {
-    color:var(--prism-string)
+    color:var(--prism-string);
 }
  .token.char {
-    color:var(--prism-char)
+    color:var(--prism-char);
 }
  .token.attr-value {
-    color:var(--prism-attr-value)
+    color:var(--prism-attr-value);
 }
  .token.regex {
-    color:var(--prism-regex)
+    color:var(--prism-regex);
 }
  .token.variable {
-    color:var(--prism-variable)
+    color:var(--prism-variable);
 }
  
  .token.operator {
-    color:var(--prism-operator)
+    color:var(--prism-operator);
 }
  .token.entity {
-    color:var(--prism-entity)
+    color:var(--prism-entity);
 }
  .token.url {
-    color:var(--prism-url)
+    color:var(--prism-url);
 }
  
  .token.important,
  .token.bold {
-     color:var(--prism-important)
+     color:var(--prism-important);
      font-weight: bold;
  }
  .token.italic {
