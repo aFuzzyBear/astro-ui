@@ -1,4 +1,6 @@
 @use './colors.scss';
+@use './prisim.scss';
+
 @font-face {
     font-family: 'ArcaneNine';
     src: url('/fonts/ArcaneNine.ttf');
@@ -48,18 +50,41 @@ html,body{opacity: 0;visibility: hidden}
     }
     h1,h2,h3,h4,h5,h6 {
         font-family:'ArcaneNine';
+        > code{
+            @apply bg-transparent;
+        }
     }
     p{
         @apply text-lg
     }
     article{
-        @apply prose prose-p:[color:var(--theme-text-color)];
+        @apply prose;
+        a{
+            text-decoration:green underline;
+        }
+    }
+    code{
+        @apply bg-[color:var(--color-bg-code)];
+    }
+    pre{
+    }
+    .clay{
+        backdrop-filter: blur(5px);
+        
+        border-radius: 26px;
+        
+        box-shadow: 35px 35px 68px 0px hsl(33, 44%, 76%) , inset -8px -8px 16px 0px hsl(33, 44%, 76%) , inset 0px 11px 28px 0px rgb(255, 255, 255);
+        
     }
     
 }
 
 @layer components{
-
+ .prose{
+     >a{
+         text-decoration:green underline;
+     }
+ }
 }
 @layer utilities{
 
