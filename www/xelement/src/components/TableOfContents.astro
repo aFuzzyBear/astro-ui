@@ -32,7 +32,7 @@ const activeID = false
 					.filter(({ depth }) => depth < 4)
 					.map((header) => (
                         <li>
-                            <a href={`${Astro.request.url.href}#${header.slug}`}>
+                            <a href={`#${header.slug}`}>
                                 {header.text.replace('<','&#60').replace('>','&#62')}
                             </a>
                         </li>
