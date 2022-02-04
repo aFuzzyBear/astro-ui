@@ -24,7 +24,7 @@ html,body{opacity: 0;visibility: hidden}
 
 @layer base{
     *,::before,::after{
-        // border: 1px dashed rebeccapurple;
+        border: 1px dashed rebeccapurple;
         margin: 0;
         padding:0;
         box-sizing: border-box;
@@ -37,7 +37,9 @@ html,body{opacity: 0;visibility: hidden}
     html{
         @apply bg-[color:var(--theme-bg-color)] transition-colors ;
     }
-
+    body{
+        @apply flex flex-col flex-wrap content-start justify-center align-middle
+    }
     //Headings
     h1{
         @apply text-3xl;

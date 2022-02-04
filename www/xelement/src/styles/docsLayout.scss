@@ -1,9 +1,16 @@
 /**
     Documentation Layout Stylesheet
 */
-body{
-    @apply flex flex-col flex-wrap content-start justify-center align-middle
+
+.navbar{
+    &__header{
+        
+    }
 }
-.layout{
-    @apply flex flex-row content-center justify-center items-start
+
+main.layout{
+    @apply flex flex-row flex-wrap md:flex-nowrap items-start content-center justify-between w-full gap-2 pl-8;
+}
+.documentation{
+    @apply w-[clamp(50%,60%,55%)]
 }
