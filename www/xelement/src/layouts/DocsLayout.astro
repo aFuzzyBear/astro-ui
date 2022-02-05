@@ -46,8 +46,6 @@ import BaseLayout from '../layouts/BaseLayout.astro'
                 <Sidebar menu={menu}/>
             </aside>
             <div class="break__row"></div>
-            <StorkOutput/>
-            <div class="break__row"></div>
             <Article class="documentation prose js-documentation .grid-main"
                 @do={(element)=>{
                     const headings = [...element.querySelectorAll('h1, h2, h3, h4, h5, h6')]
