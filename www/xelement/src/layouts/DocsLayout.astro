@@ -29,10 +29,25 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         <Header class="navbar navbar__header"/>
         <main class="layout">
             <aside class=".grid-left .grid-sidebar">
+                <div class="sidebar__feature">
+                    <h3>
+                        API
+                    </h3>
+                    <h3>
+                        Blog
+                    </h3>
+                    <h3>
+                        Guides
+                    </h3>
+                    <h3>
+                        Tutorials
+                    </h3>
+                </div>
                 <Sidebar menu={menu}/>
             </aside>
             <div class="break__row"></div>
             <StorkOutput/>
+            <div class="break__row"></div>
             <Article class="documentation prose js-documentation .grid-main"
                 @do={(element)=>{
                     const headings = [...element.querySelectorAll('h1, h2, h3, h4, h5, h6')]
