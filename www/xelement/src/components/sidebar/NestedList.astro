@@ -4,7 +4,7 @@ import PrefetchLink from '../NavBar/PreFetchLink.astro'
 Astro.self = $$Component
 const {items} = Astro.props
 let filter = [...items.filter(item=>item.name ==='overview'),...items.filter(item=>item.name !=='overview').sort((a, b)=> a.name < b.name)]
-
+console.log(Astro.request.url)
 ---
 <ul class="sidebar__parent">
   {
@@ -13,7 +13,7 @@ let filter = [...items.filter(item=>item.name ==='overview'),...items.filter(ite
         <li class="sidebar_items">
           {
             item.href
-              ? <PrefetchLink class="sidebar_link" href={item.href}>{item.name}</PrefetchLink>
+              ? <PrefetchLink class={`sidebar_link ${Astro.request.url.pathname === item.href ? 'sidebar_link_active' : ''}`} href={item.href}>{item.name}</PrefetchLink>
             : <h2>{item.name}</h2>
           }
           {
@@ -34,6 +34,9 @@ let filter = [...items.filter(item=>item.name ==='overview'),...items.filter(ite
     &_link{
         margin-inline-start: 1rem;
         &:hover{
+          font-weight: 900;
+        }
+        &_active{
           font-weight: 900;
         }
       }
