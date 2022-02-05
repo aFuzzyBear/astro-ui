@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   purge: [
     './public/**/*', 
@@ -5,14 +7,16 @@ module.exports = {
   ],
   theme: {
     screen:{
-      'sm': {'min': '0px', 'max': '425px'},
-      'md': {'min': '426px', 'max': '768px'},
-      'lg': {'min': '768px', 'max': '1279px'},
-      'xl': {'min': '1280px', 'max': '1535px'},
-      '2xl': {'min': '1536px'},
+
     },
     fontFamily:{},
     extend: {
+      screens:{
+        "desktop":{'max':'1535px'},
+        "laptop":{'max':'1279px'},
+        "mobile":{'max':'425px'},
+        "tablet":{'max':'768px'},
+      },
       typography:{
         DEFAULT:{
           css:{
