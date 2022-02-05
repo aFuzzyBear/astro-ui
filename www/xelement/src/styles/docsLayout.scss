@@ -9,3 +9,21 @@ main.layout{
 .documentation{
     @apply w-[clamp(50%,60%,55%)]
 }
+
+.comments {
+    padding: 2em;
+    background-color:rgb(97, 197, 97);
+    max-width: 80%;
+    margin: 0 auto;
+    border-radius: 2em;
+}
+
+footer {
+   margin-top: 2em;
+}
+
+.howwedo {
+    width: 80%;
+    margin: 0 auto;
+    border-top: 2px solid black;
+}
