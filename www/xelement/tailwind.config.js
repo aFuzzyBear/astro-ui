@@ -6,7 +6,7 @@ module.exports = {
     './src/**/*.{astro,js,jsx,ts,tsx,vue}'
   ],
   theme: {
-    screen:{
+    screens:{
 
     },
     fontFamily:{},
