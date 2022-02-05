@@ -19,8 +19,7 @@
 </header>
 <style lang="scss">
     [astro-icon]{
-        height:5rem;
-        width:5rem;
+        @apply  fill-current;
     }
     .navbar{
         @apply flex flex-row flex-wrap content-center justify-between items-center;
@@ -29,16 +28,16 @@
 
         };
         &_logo{
-
+            @apply pl-4 mobile: sm:w-20 transition-all;
         };
         &_feature{
-            @apply flex flex-row  text-6xl text-center overflow-hidden;
+            @apply flex flex-row sm:text-xl lg:text-6xl text-center overflow-hidden;
             font-family: 'ArcaneNine';
             line-height: 2;            
             > span{
                 &:hover{
                     @apply  h-fit text-[color:var(--tailwind-bg-pre)] transition-all;
-                    transform: translateY(-10%);    
+                    transform: translateY(-4%);    
                 }
                 /* &[title]:hover::after{
                     content:attr(title);
