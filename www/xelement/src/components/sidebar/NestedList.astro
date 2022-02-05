@@ -4,7 +4,6 @@ import PrefetchLink from '../NavBar/PreFetchLink.astro'
 Astro.self = $$Component
 const {items} = Astro.props
 let filter = [...items.filter(item=>item.name ==='overview'),...items.filter(item=>item.name !=='overview').sort((a, b)=> a.name < b.name)]
-console.log(Astro.request.url)
 ---
 <ul class="sidebar__parent">
   {
