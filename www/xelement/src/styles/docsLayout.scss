@@ -9,3 +9,13 @@ main.layout{
 .documentation{
     @apply w-[clamp(50%,60%,55%)]
 }
+
+
+/**
+    ***Sticky Right Sidebar***
+*/
+
+.sticky-div {
+    position:sticky;
+    top: 0;
+}
