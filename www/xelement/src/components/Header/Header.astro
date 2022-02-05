@@ -3,33 +3,55 @@
   import StorkSearch from '../Stork/StorkSearch.astro'
   import {Icon} from 'astro-icon'
 ---
-<header class="navbar navbar__header">
-    <div class="navbar__logo">
-        <!-- <Icon name="astro-ui"/> -->
+<header class="navbar navbar_header">
+    <div class="navbar_logo">
+        <Icon name="astro-ui"/>
     </div>
-    <div class="navbar__feature">
-        <h3>
-            API
-        </h3>
-        <h3>
-            Blog
-        </h3>
-        <h3>
-            Guides
-        </h3>
-        <h3>
-            Tutorials
-        </h3>
+    <div class="navbar_feature">
+        <span title="does this work">Astro</span><span>-</span><span>UI</span><span>:</span><span>&#60;</span><span>XElement</span><span>&#47;</span><span>&#62;</span>
     </div>
-    <div class="navbar__search">
-        <ThemeToggle/>
-        <StorkSearch/>
+    <div class="navbar_right">
+        <div class="navbar_themeToggle"><ThemeToggle/></div>
+        <div class="navbar_search">
+            <StorkSearch/>
+        </div>
     </div>
 </header>
 <style lang="scss">
     [astro-icon]{
-        fill:navy;
         height:5rem;
         width:5rem;
+    }
+    .navbar{
+        @apply flex flex-row flex-wrap content-center justify-between items-center;
+        @apply pb-4 h-[25%];
+        &_header{
+
+        };
+        &_logo{
+
+        };
+        &_feature{
+            @apply flex flex-row  text-6xl text-center overflow-hidden;
+            font-family: 'ArcaneNine';
+            line-height: 2;            
+            > span{
+                &:hover{
+                    @apply  h-fit text-[color:var(--tailwind-bg-pre)] transition-all;
+                    transform: translateY(-10%);    
+                }
+                /* &[title]:hover::after{
+                    content:attr(title);
+                    position: a
+                } */
+            }
+            
+        };
+        &_right{
+            @apply flex flex-row items-center
+        }
+        &_themeToggle{
+            @apply w-fit h-fit items-baseline
+        };
     }
 </style>
