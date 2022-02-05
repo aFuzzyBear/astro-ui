@@ -2392,11 +2392,6 @@ astring@^1.7.4, astring@^1.7.5:
   resolved "https://registry.yarnpkg.com/astring/-/astring-1.8.1.tgz#a91c4afd4af3523e11f31242a3d5d9af62bb6cc6"
   integrity sha512-Aj3mbwVzj7Vve4I/v2JYOPFkCGM2YS7OqQTNSxmUR+LECRpokuPgAYghePgr6SALDo5bD5DlfbSaYjOzGJZOLQ==
 
-astro-fonts@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/astro-fonts/-/astro-fonts-0.1.0.tgz#99c5275b112ea848c3b5c7dc561826e539825021"
-  integrity sha512-UWqVuQEE2lTBtpG5JXY+YGhvKhaLwULa6no80kdvCCz51oAqkddVp16zHq61fb2zMUFkcm+vArCgYCTH16xLcQ==
-
 astro-icon@^0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/astro-icon/-/astro-icon-0.5.3.tgz#095b6be506a2a021ef7e6ce0cce83e2699d46862"
