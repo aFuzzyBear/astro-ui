@@ -1,32 +1,9 @@
 ---
-
-/**@interface Props */
-export interface Props{
-    /**@param classList - Accepts a list of css selectors */
-    classList:string
-    /**@param href - Link href */
-    src:string
-    /**@param target - Link Target */
-    target?: "external"|"parent"|"top"|"framename"
-    /**@param - Link Target */
-    label?:string
-}
 import XElement from 'astro-xelement'
+const {a:PrefetchLink} = XElement
+const {...attrs} = Astro.props as Props
 
-const {src,target,classList,label} = Astro.props as Props
-const {a:PrefetchLink} = XElement 
----
-
-    <PrefetchLink
-        class={classList ?? null}
-        href={src ?? '#'}
-        target={target === 'external' ? "_blank" 
-                : target === "parent" ? "_parent"
-                : target === "top" ? "_top"
-                : target === "framename" ? "framename"
-                : "_self" }
-        aria-label = {label ?? null}
-        @do={(element)=>{
+const prefetch = (element)=>{
         const prefetch = document.createElement('link')
         Object.assign(prefetch,{
             rel:'prefetch',
@@ -42,7 +19,9 @@ const {a:PrefetchLink} = XElement
                 document.head.removeChild(prefetch)
             }
         })
-    }}
-    >
-        <slot/>
-    </PrefetchLink>
+    }
+---
+<PrefetchLink {...attrs}
+    @do={prefetch}>
+    <slot/>
+</PrefetchLink>
