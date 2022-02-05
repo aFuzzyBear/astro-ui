@@ -2,11 +2,6 @@
     Documentation Layout Stylesheet
 */
 
-.navbar{
-    &__header{
-        
-    }
-}
 
 main.layout{
     @apply flex flex-row flex-wrap md:flex-nowrap items-start content-center justify-between w-full gap-2 pl-8;
