@@ -1,3 +1,9 @@
+---
+api_title: "fetch()"
+page_title: "Fetch Data with XElement"
+page_description: "You can utlitize browser native Fetch API to obtain data on the client and be able to use it within that element"
+
+---
 # Fetch Data
 
 `XElement` allows you to use the native `fetch` api as one normally would if they are using fetch elsewhere in Astro, or in the browser.
@@ -78,12 +84,12 @@ This `async` fetchData function, accepts a `callback` function, this is known as
 
 So here we `await` the fetched response taking the id of the request from the `store`. We *then* turn the response into JSON and from there we *then* send that json as the data into our callback function `fn`.
 
-Given that there can be an unknown amount of time between requesting and receiving the response, its good practice to provide some form of *hold* music for the end-user, a suspended loading between two states separated through time. 
+Given that there can be an unknown amount of time between requesting and receiving the response, its good practice to provide some form of *hold* music for the end-user, a suspended loading between two states separated through time.
 
 In this next part we preform the actual *suspenseful* loading, and updating the content on the screen.
 
 ```jsx
-store.printTypicode=async()=>{
+store.printTypicode = async()=>{
           try{
             fetchDisplay.textContent="Loading..."
             await fetchData((data)=>{

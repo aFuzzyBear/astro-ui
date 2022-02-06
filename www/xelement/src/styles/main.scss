@@ -18,10 +18,6 @@ html,body{opacity: 0;visibility: hidden}
     Tailwind Directives
 */
 @tailwind base;
-@tailwind components;
-@tailwind utilities;
-@tailwind variants;
-
 @layer base{
     *,::before,::after{
         // border: 1px dashed rebeccapurple;
@@ -30,8 +26,6 @@ html,body{opacity: 0;visibility: hidden}
         box-sizing: border-box;
         /* overflow-x: hidden; */
         overflow-wrap: break-word;
-        scroll-behavior: smooth;
-        scroll-padding-top:3rem;
     }
 
     html{
@@ -79,8 +73,8 @@ html,body{opacity: 0;visibility: hidden}
         box-shadow: 35px 35px 68px 0px hsl(33, 44%, 76%) , inset -8px -8px 16px 0px hsl(33, 44%, 76%) , inset 0px 11px 28px 0px rgb(255, 255, 255);
         
     }
-    
 }
+    
 
 @layer components{
  .prose{
@@ -89,10 +83,19 @@ html,body{opacity: 0;visibility: hidden}
      }
  }
 
+@tailwind components;
+@layer components{
+    
 }
-@layer utilities{
 
+
+@tailwind utilities;
+@layer utilities{
+    
 }
+
+
+@tailwind variants;
 @layer variants{
 
 }

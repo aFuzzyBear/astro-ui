@@ -10,7 +10,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 
     const {article:Article} = XElement
 
-    const {content:{menu,
+    const {content:{menu, directory,
         data:{ page_title,
             page_description,
             astro
@@ -43,7 +43,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
                         Tutorials
                     </h3>
                 </div>
-                <Sidebar menu={menu}/>
+                <Sidebar menu={menu} directory={directory}/>
             </aside>
             <div class="break__row"></div>
             <Article class="documentation prose js-documentation .grid-main"
@@ -66,8 +66,9 @@ import BaseLayout from '../layouts/BaseLayout.astro'
                         Something
                     </h1>
                 </div>
-                <TableOfContents {headers}/>
             </aside>
         </main>
+        <div class="break-row"></div>
         <footer class="footer__wrapper"></footer>
     </BaseLayout>
+    
