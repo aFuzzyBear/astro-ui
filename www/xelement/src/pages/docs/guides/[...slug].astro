@@ -1,0 +1,11 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro'
+import filterPaths from '../../../scripts/build/getDocRoutes'
+import withNestedMenu from '../../../scripts/build/withNestedMenu'
+
+export async function getStaticPaths() {
+    const paths = filterPaths('guides')
+    return withNestedMenu(paths)
+}
+---
+    <DocsLayout content={Astro.props}/>
