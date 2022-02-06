@@ -3,9 +3,11 @@ import PrefetchLink from '../NavBar/PreFetchLink.astro'
 // Magic Recursive Call to the Same Component, 
 Astro.self = $$Component
 const {items} = Astro.props
+console.log(Astro.props)
 let filter = [...items.filter(item=>item.name ==='overview'),...items.filter(item=>item.name !=='overview').sort((a, b)=> a.name < b.name)]
 ---
 <ul class="sidebar__parent">
+  <h2>{Astro.props.directory}</h2>
   {
     filter.map(
       item => (
