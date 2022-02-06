@@ -26,6 +26,8 @@ html,body{opacity: 0;visibility: hidden}
         box-sizing: border-box;
         /* overflow-x: hidden; */
         overflow-wrap: break-word;
+        scroll-behavior:smooth;
+        scroll-margin-top:2rem;
     }
 
     html{
@@ -82,7 +84,7 @@ html,body{opacity: 0;visibility: hidden}
          text-decoration:green underline;
      }
  }
-
+}
 @tailwind components;
 @layer components{
     
