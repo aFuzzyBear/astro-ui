@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404</title>
+</head>
+<body>
+    <body>
+        <div class="four-o-four">
+            <span>
+                404
+            </span>
+            <span>
+                We arent saying that...
+            </span>
+            <span>
+                There was no page here...
+            </span>
+            <span>
+                But it was aliens...🛸
+            </span>
+        </div>
+    </body>
+</body>
+</html>
+<style lang="scss">
+    html{
+        margin:0;
+        padding:0;
+    }
+    body {
+        margin:0;
+        padding:0;
+        width:100%;
+        height:100vh;
+        background-image: url('/aliens-guy.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
+    }
+
+    .four-o-four {
+        @apply w-full h-full relative bg-indigo-700 bg-opacity-70;
+        @apply flex flex-col align-middle justify-center items-center;
+        & span {
+            @apply text-6xl text-black;
+            
+            &:first-child{
+                @apply text-white;
+            }
+        }
+    }
+</style>
