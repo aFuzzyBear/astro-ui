@@ -15,12 +15,27 @@ main.layout{
     ***Sticky Right Sidebar***
 */
 
-.sticky-div {
+.sticky-head {
     position:sticky;
     top: 0;
+    @apply bg-[color:var(--theme-bg-color)]
+}
+.sticky-rightbar {
+    position:sticky;
+    top: 50px;
+}
+
+.sticky-leftbar {
+    position:sticky;
+    top: 120px;
 }
 
 .heading__icon {
     margin-right: 0.25em;
+ }
+
+ .edit-on-github {
+     border-top: 2px solid;
+     padding-top: 0.5em;
  }
  
