@@ -12,23 +12,19 @@ import TypeIt from '../components/TypeIt.astro'
 <body>
     <body>
         <div class="four-o-four">
-                <span>
-                    404
-                </span>
-            <TypeIt>
-                <br/>
-                <span>
+                <div class="four-o-four-title">
+                    <span>
+                        404
+                    </span>
+                </div>
+            <TypeIt class="typeit">
                     We arent saying that...
-                </span>
                 <br/>
-                <span>
+                <br/>
                     There was no page here...
-                </span>
                 <br/>
                 <br/>
-                <span>
-                    But it was aliens...<br/>🛸
-                </span>
+                    But it was aliens...<span class="alien">🛸</span>
             </TypeIt>
         </div>
     </body>
@@ -50,16 +46,19 @@ import TypeIt from '../components/TypeIt.astro'
         background-size: cover;
         overflow: hidden;
     }
-
+    .alien{
+        @apply text-center;
+    }
     .four-o-four {
         @apply w-full h-full relative bg-indigo-700 bg-opacity-70;
         @apply flex flex-col align-middle justify-center items-center;
-        & span {
-            @apply text-6xl text-black;
-            
-            &:first-child{
-                @apply text-white;
-            }
+        
+    }
+    .typeit{
+        @apply text-green-600 text-justify text-4xl;
+        
+        :first-child(1){
+            @apply text-white;
         }
     }
 </style>
