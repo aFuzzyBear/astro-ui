@@ -3,7 +3,7 @@ import {SEO} from 'astro-seo'
 import {SocialImage} from 'astro-social-images'
 import Stylesheet from 'astro-stylesheet'
 import Font from 'astro-fonts'
-const {meta,styles}=Astro.props
+const {meta,styles=[]}=Astro.props
 const stylesheets = [
     {
         href:Astro.resolve('../../styles/main.scss'),
