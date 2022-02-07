@@ -16,8 +16,6 @@ export function globby(){
            },
        })}
    ).filter(
-       x=>!(x.props.directory.includes('sarahedits'))
-       ).filter(
            x=>!(x.props.directory.includes('readme'))
            )
 }
