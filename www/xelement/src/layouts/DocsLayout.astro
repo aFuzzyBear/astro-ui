@@ -36,16 +36,16 @@ const intersectionFn = (element)=>{
             <aside class=".grid-left .grid-sidebar sticky-div">
                 <div class="sidebar__feature">
                     <h3>
-                        API
+                        <a href="../api">API</a>
                     </h3>
                     <h3>
-                        Blog
+                        <a href="../blog">Blog</a>
                     </h3>
                     <h3>
-                        Guides
+                        <a href="../guides">Guides</a>
                     </h3>
                     <h3>
-                        Tutorials
+                        <a href="../sarah">Sarah's Edits</a>
                     </h3>
                 </div>
                 <Sidebar menu={menu} directory={directory}/>
@@ -65,8 +65,7 @@ const intersectionFn = (element)=>{
                             const link = element.querySelector(`[href*="#${entry.target.getAttribute('id')}"]`)
                             if(link){
                                 if(entry.isIntersecting){
-                                    element.querySelectorAll(`[href*='#']`).forEach(link => {
-                                });}
+                                   }
                                 if(entry.intersectionRatio > 0){
                                     const url = new window.URL(`${window.location.pathname}${link.hash}`,window.location)
                                     window.history.pushState({},'',url)
