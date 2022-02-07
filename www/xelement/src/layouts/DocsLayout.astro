@@ -16,6 +16,11 @@ import BaseLayout from '../layouts/BaseLayout.astro'
             astro
         }}}=Astro.props
     const {headers,html} = astro
+const intersectionFn = (element)=>{
+
+    const headings =[...document.querySelectorAll('.js-documentation > h1, h2, h3, h4, h5 ')]
+    headings.forEach(heading=>observer.observe(heading))
+}
 ---
     <BaseLayout 
         PageMeta={{page_title,page_description}}
@@ -55,6 +60,21 @@ import BaseLayout from '../layouts/BaseLayout.astro'
                     headings.forEach(heading=>{
                         heading.insertAdjacentHTML('afterBegin',link(heading))
                     })
+                    const observer = new IntersectionObserver(entries=>{
+                        entries.forEach(entry=>{
+                            const link = element.querySelector(`[href*="#${entry.target.getAttribute('id')}"]`)
+                            if(link){
+                                if(entry.isIntersecting){
+                                    element.querySelectorAll(`[href*='#']`).forEach(link => {
+                                });}
+                                if(entry.intersectionRatio > 0){
+                                    const url = new window.URL(`${window.location.pathname}${link.hash}`,window.location)
+                                    window.history.pushState({},'',url)
+                                }
+                            }
+                        },{root: document.getElementById('.js-documentation'),rootMargin: '0% 0% -80% 0%',threshold:[0]})
+                    })
+                    headings.forEach(heading=>observer.observe(heading))
                 }}
             >
                 {html}
