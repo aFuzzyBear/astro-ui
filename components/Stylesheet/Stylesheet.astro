@@ -2,15 +2,15 @@
 /**
  *  @function handleError
  *  @params err? - defaults to "No Stylesheets have been included"
- *  @throw Error to STDERR 
+ *  @throw Error to STDERR
  */
 function handelError(err){
     throw new ReferenceError(`❗ There is an Error with the <Stylesheet> component: \n${err}`)
 }
 
 /** Render Link Element */
-const renderLinkElement = ( path:string, media?:string, cors?:string, preload?:string, alternative?:boolean, title?:string ):HTMLLinkElement => 
-`<link ${preload ?`rel="preload" as="style" ` : `rel=${alternative ? `"alternative stylesheet"` : `"stylesheet"`}`} type="text/css" href="${path}" ${media ? `media="${media}"`: ''} ${cors ? `crossorigin="${cors}"` : ''} ${title && alternative ? `title="${title}"`:''} />`
+const renderLinkElement = ( path:string, media?:string, cors?:string, preload?:string, alternative?:boolean, title?:string ):HTMLLinkElement =>
+`<link ${preload ?`rel="preload stylesheet" as="style" ` : `rel=${alternative ? `"alternative stylesheet"` : `"stylesheet"`}`} type="text/css" href="${path}" ${media ? `media="${media}"`: ''} ${cors ? `crossorigin="${cors}"` : ''} ${title && alternative ? `title="${title}"`:''} />`
 
 type SanitizeList =
         "all" |
@@ -22,7 +22,7 @@ type SanitizeList =
         "sysUI"|
         "modern"|
         "monoUI"
-    
+
 interface PropsAttributes {
     /** HREF location of the file */
     href?: "npm:" | string ,
@@ -56,13 +56,13 @@ const sanitizerURLS = {
 
 // Acquiring values from props
 const {
-       list, 
+       list,
        sanitize="none",
-       href: hrefValue, 
-       media: mediaValue, 
-       cors, 
-       preload, 
-       alternative, 
+       href: hrefValue,
+       media: mediaValue,
+       cors,
+       preload,
+       alternative,
        title
        } = Astro.props as Props
 const attributesList = list || []
@@ -73,7 +73,7 @@ if(!hrefValue && (!Array.isArray(list) || list.length === 0)){
 
 if (hrefValue) {
     attributesList.push({
-        href: hrefValue, 
+        href: hrefValue,
         media: mediaValue,
         cors,
         preload,
@@ -92,7 +92,7 @@ const linkCSS = attributesList.map(
             alternative,
             title} = attribute
         let src = href.startsWith('npm:') && href.endsWith('.css')
-                    ? 'https://cdn.skypack.dev/' + href.slice(4) 
+                    ? 'https://cdn.skypack.dev/' + href.slice(4)
                     : href
          return renderLinkElement(src,media,cors,preload,alternative,title)
     }
@@ -103,7 +103,7 @@ const linkCSS = attributesList.map(
 /**Global to place the sanitized links into */
 let sanitizedArray = []
 
-/** 
+/**
  * @param input - Each value passed into the 'sanitize' prop
  * @returns Pushes rendered Link Element to the SanitizedArray Based on the Input
  */
@@ -121,7 +121,7 @@ async function createSanitizerLink(input:string):Promise<T>{
        return sanitizedArray.push(
         renderLinkElement(sanitizerURLS['default'],null,cors))
     }
-    if( input ===  "forms" || 
+    if( input ===  "forms" ||
         input ===  "assets" ||
         input ===  "typography" ||
         input ===  "reducedMotion" ||
@@ -132,7 +132,7 @@ async function createSanitizerLink(input:string):Promise<T>{
                 renderLinkElement(sanitizerURLS[input],null,cors)
             )
     }
-    
+
 }
 
 /**
@@ -156,13 +156,13 @@ async function generateSanitizedLinks(entry:string):Promise<T>{
             )
         }
     }
-   
+
 }
 
 
 
 /**
- * Function to populate the list of sanitized links 
+ * Function to populate the list of sanitized links
  */
 const populateSanitizer = async() =>{
     const worker = await generateSanitizedLinks(sanitize)
