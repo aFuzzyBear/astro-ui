@@ -1,6 +1,9 @@
 
 const paths = Object.keys(import.meta.glob('../../../../../docs/XElement/**/*.md'))
-
+    
+const fetchData = async(path)=>{
+    return await import(path).then(exports=>exports.frontmatter)
+  }
 export function globby(){
     const docdir = '../../../../../docs/XElement/'
     return paths.map(
@@ -16,7 +19,7 @@ export function globby(){
            },
        })}
    ).filter(
-           x=>!(x.props.directory.includes('readme'))
+          x=>!(x.props.directory.includes('readme'))
            )
 }
 

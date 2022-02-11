@@ -1,0 +1,16 @@
+---
+import PrefetchLink from '../components/NavBar/PreFetchLink.astro'
+const {content:{name,href,meta}}=Astro.props
+---
+    <div>
+        <PrefetchLink href={href}>
+            <h3>
+                {meta?.api_title ?? name} - {meta?.page_title}
+            </h3>
+            <div>
+                <p>
+                    {meta?.page_description}
+                </p>
+            </div>
+        </PrefetchLink>
+    </div>

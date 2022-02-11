@@ -1,5 +1,6 @@
 ---
 import Head from './Head.astro'
+import Header from '../../components/Header/Header.astro'
 
 const {PageMeta,PageStyles}=Astro.props.meta
 ---
@@ -12,6 +13,7 @@ const {PageMeta,PageStyles}=Astro.props.meta
     <Head meta={PageMeta} styles={PageStyles} />
 </head>
 <body>
+    <Header class="navbar navbar__header"/>
     <slot name="body"/>
 </body>
 </html>

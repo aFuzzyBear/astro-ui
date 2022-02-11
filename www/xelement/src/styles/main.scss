@@ -108,16 +108,32 @@ html,body{opacity: 0;visibility: hidden}
 /**
     ***FlexBox Hacks***
 */
+.flex{
+    &-row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      
+    &-column {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1;
+      }
+}
 .break{
     &_row{
         flex-basis: 100%;
-    height: 0;
+        height: 0;
     }
     &_column{
         flex-basis: 100%;
         width: 0;
     }
 }
+
 /**
     ***FOUC Hack***
     Telling CSS to turn the lights back on
