@@ -1,10 +1,10 @@
 ---
 import Layout from '../../../layouts/landingLayout.astro' 
+import getDocsRoutes from '../../../scripts/build/getDocRoutes'
+import withMetaData from '../../../scripts/build/withMetaData'
+let dataSet = []
+await withMetaData(getDocsRoutes('guides')).then(res=>res.map(x=>dataSet.push({directory:x.props.directory, menu:x.props.menu})))
 ---
-<Layout >
-    
-  <h1>
-    Index Page {Astro.request.url.pathname}
-  
-  </h1>
+<Layout content={dataSet[0]}>
+
 </Layout>

@@ -1,144 +1,45 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-    import {Markdown} from 'astro/components'
-    import Sidebar from '../components/sidebar/Sidebar.astro'
-    // import ThemeToggle from '../components/Header/ThemeToggle.astro'
-    import Header from '../components/Header/Header.astro'
-    import TableOfContents from '../components/TableOfContents.astro'
-    import StorkOutput from '../components/Stork/StorkOutput.astro'
-    import XElement from 'astro-xelement'
-
-    const {article:Article} = XElement
-
-    const {content:{menu, directory,
-        data:{ page_title,
+import LeftSideBar from './components/LeftSideBar.astro'
+import StorkOutput from '../components/Stork/StorkOutput.astro'
+import Article from '../components/Article.astro'
+import RightSideBar from './components/RightSideBar.astro'
+import Giscss from '../components/Giscuss.astro'
+const {
+    content:{menu, directory,
+        data:{ 
+            page_title,
             page_description,
-            astro
-        }}}=Astro.props
-    const {headers,html} = astro
-const intersectionFn = (element)=>{
-
-    const headings =[...document.querySelectorAll('.js-documentation > h1, h2, h3, h4, h5 ')]
-    headings.forEach(heading=>observer.observe(heading))
-}
-
-const githubEditUrl = `https://github.com/aFuzzyBear/astro-ui/blob/main/docs/XElement${Astro.request.url.pathname.replace(/\/docs/, '')}.md`;
----
-    <BaseLayout 
-        PageMeta={{page_title,page_description}}
-        PageStyles={[
-            {
-                href:Astro.resolve('../styles/docsLayout.scss'),
-                media:'screen'
+            astro:{
+                headers,html
             }
-        ]}
-    >
-        <Header class="navbar navbar__header"/>
-        <main class="layout">
-            <aside class=".grid-left .grid-sidebar sticky-leftbar">
-                <div class="sidebar__feature">
-                    <h3>
-                        <a href="/docs/api/overview">API</a>
-                    </h3>
-                    <h3>
-                        <a href="/docs/blog/overview">Blog</a>
-                    </h3>
-                    <h3>
-                        <a href="/docs/guides/myfirstcomponents">Guides</a>
-                    </h3>
-                    <h3>
-                        <a href="/docs/sarahedits/overview">Sarah's Edits</a>
-                    </h3>
-                    <h3>~~~</h3>
-                </div>
-                <Sidebar menu={menu} directory={directory}/>
-            </aside>
-            <div class="break__row"></div>
-            <Article class="documentation prose js-documentation .grid-main"
-                @do={(element)=>{
-                    const headings = [...element.querySelectorAll('h1, h2, h3, h4, h5, h6')]
-                    function link(heading){
-                        return `<a aria-hidden="true" tabindex="-1" href="#${heading.id}"><span class="sr-only">This is the heading anchor for the following "${heading.textContent}" content</span><span class="heading__icon heading__icon__link">#</span></a>`
-                    }
-                    headings.forEach(heading=>{
-                        heading.insertAdjacentHTML('afterBegin',link(heading))
-                    })
-                    const observer = new IntersectionObserver(entries=>{
-                        entries.forEach(entry=>{
-                            const link = element.querySelector(`[href*="#${entry.target.getAttribute('id')}"]`)
-                            if(link){
-                                if(entry.isIntersecting){
-                                   }
-                                if(entry.intersectionRatio > 0){
-                                    const url = new window.URL(`${window.location.pathname}${link.hash}`,window.location)
-                                    window.history.pushState({},'',url)
-                                }
-                            }
-                        },{root: document.getElementById('.js-documentation'),rootMargin: '0% 0% -80% 0%',threshold:[0]})
-                    })
-                    headings.forEach(heading=>observer.observe(heading))
-                }}
-            >
-                {html}
-            </Article>
-            <div class="break__row"></div>
-            <aside class="rightbar .grid-right sticky-rightbar">
-                <div class="">
-                    <h1>
-                        Something
-                    </h1>
-                    <TableOfContents headers={headers}/>
-                </div>
-                <div class="edit-on-github">
-                    <a href={githubEditUrl} target="_blank">
-                        <svg
-                            aria-hidden="true"
-                            focusable="false"
-                            data-prefix="fas"
-                            data-icon="pen"
-                            class="svg-inline--fa fa-pen fa-w-16"
-                            role="img"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512"
-                            height="1em"
-                            width="1em"
-                        >
-                            <path
-                                fill="currentColor"
-                                d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z"
-                            ></path>
-                        </svg>
-                        <span>Edit this page</span>
-                    </a>
-	            </div>
-            </aside>
-        </main>
+        }
+    }
+}=Astro.props
+
+---
+<BaseLayout 
+    PageMeta={{page_title,page_description}}
+    PageStyles={[
+        {
+            href:Astro.resolve('../styles/docsLayout.scss'),
+            media:'screen'
+        }
+    ]}
+>
+    <main class="layout">
+        <LeftSideBar menu={menu} dir={directory}/>
+        <div class="break__row"></div>
+        <Article >
+            {html}
+        </Article>
+        <div class="break__row"></div>
         <div class="break-row"></div>
-         
-        <footer class="footer__wrapper">
-            
-            <div class="howwedo">
-                 <h2>How did we do?</h2>
-                 <p>Please take a moment to let us know what you thought of the documentation on this page!</p>
-            </div>
-            
-            <div class="comments">
-           
-                <script src="https://giscus.app/client.js"
-                data-repo="sarah11918/doc_comments_test"
-                data-repo-id="R_kgDOGyypOg"
-                data-category="Announcements"
-                data-category-id="DIC_kwDOGyypOs4CBBQn"
-                data-mapping="pathname"
-                data-reactions-enabled="1"
-                data-emit-metadata="0"
-                data-input-position="bottom"
-                data-theme="light"
-                data-lang="en"
-                crossorigin="anonymous"
-                async>
-                </script>
-            </div>
-        </footer>
-    </BaseLayout>
-    
+            <RightSideBar headers={headers}/>
+        <div class="break-row"></div>
+    </main>
+        <Giscss/>    
+    <footer class="footer__wrapper">
+    </footer>
+</BaseLayout>
+
