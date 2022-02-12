@@ -1,4 +1,6 @@
 ---
+setup: |
+ import Counter from  '../../../../www/xelement/src/components/Counter.astro'
 title: "@do"
 meta_title: "Do something special"
 meta_description: "Each XElement lets you 'do' client-side interactivity. Here you can'do' whatever you wish, by writing simple vanilla JS/TS that gets scoped and encapsulated to only that XElement" 
@@ -7,6 +9,9 @@ order: 1
 next_page: './observers'
 ---
 # `@do` : Callback (element, store)
+
+
+<Counter></Counter>
 
 `@do` is the main entry point for applying your code to the top-level of the component.
 
