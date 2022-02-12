@@ -1,11 +1,11 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro'
 import filterPaths from '../../../scripts/build/getDocRoutes'
-import withNestedMenu from '../../../scripts/build/withNestedMenu'
+import withMetaData from '../../../scripts/build/withMetaData'
 
 export async function getStaticPaths() {
     const paths = filterPaths('sarahedits')
-    return withNestedMenu(paths)
+    return withMetaData(paths)
 }
 
 ---
