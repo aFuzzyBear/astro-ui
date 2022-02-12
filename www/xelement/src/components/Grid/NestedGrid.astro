@@ -1,6 +1,5 @@
 ---
 import ListBox from '../../components/ListBox.astro'
-console.log('dir',Astro.props.dir)
 // Magic Recursive Call to the Same Component, 
 Astro.self = $$Component
 let filter = [...Astro.props.items.filter(item=>item.name ==='overview'),...Astro.props.items.filter(item=>item.name !=='overview').sort((a, b)=> a.name < b.name)]
