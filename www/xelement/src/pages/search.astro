@@ -15,7 +15,7 @@ for(let route of await withMetaData(filteredPaths('all'))){
     list.push({
         url:`${directory}/${slug}/index.html`,
         title:`${directory} ${slug.split('/').join(' ')}`,
-        contents:html
+        src_url:`docs/${directory}/${slug}/index.html`
         })
 }
 let reducing = list.reduce((result,current)=>{
