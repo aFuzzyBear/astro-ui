@@ -55,7 +55,7 @@ async function writeToml(data){
     }
 }
 await writeToml(literal)
-exec('ls && cd ../ && echo "we are in a new dir ------------------------" && ls', (err, stdout, stderr) => {
+exec('curl -O https://files.stork-search.net/releases/v1.4.0/stork-amazon-linux && chmod +x stork-amazon-linux && ./stork-amazon-linux build --input public/stork/stork.toml --output public/stork/xelement.st', (err, stdout, stderr) => {
     if (err) {
         console.log('Error executing stork command via NodeJS, Error message: ' + err.message);
         return;
