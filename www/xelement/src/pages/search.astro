@@ -69,7 +69,7 @@ child.on('close', (code) =>{
             if(err) console.log(err.message);
         });
         runPerm.on('close', (code) =>{
-            const generate = spawn('./stork-amazon-linux build', ['--input', 'public/stork/stork.toml', '--output', 'public/stork/xelement.st']);
+            const generate = spawn('./stork-amazon-linux', ['build', '--input', 'public/stork/stork.toml', '--output', 'public/stork/xelement.st']);
             generate.on('error', (err) =>{
                 if(err) console.log(err.message);
             });
