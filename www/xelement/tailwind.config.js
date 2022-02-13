@@ -1,7 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  purge: [
+  content: [
     './public/**/*', 
     './src/**/*.{astro,js,jsx,ts,tsx,vue}'
   ],
