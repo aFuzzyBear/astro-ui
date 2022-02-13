@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "stork":"bash ./stork.sh",
+    "prebuild":"bash ./stork.sh",
     "build": "astro build",
     "preview": "astro preview"
   },
