@@ -55,29 +55,15 @@ async function writeToml(data){
     }
 }
 await writeToml(literal)
-const {stdout, stderr} = await exec_async('curl -O https://files.stork-search.net/releases/v1.4.0/stork-amazon-linux');
-if(!stderr){
-    exec('chmod +x stork-amazon-linux', (err, stdout, stderr) =>{
-        if(err){
-            console.log('Ran into issues with modifying permissions on file `stork-amazon-linux`. Error message: ' + err.message);
-            return;
-        }
-        // Log entire stdout
-        console.log(stdout);
-    })
-    exec('./stork-amazon-linux build --input public/stork/stork.toml --output public/stork/xelement.st', (err, stdout, stderr) => {
-        if (err) {
-            console.log('Error executing stork command via NodeJS, Error message: ' + err.message);
-            return;
-        }
-        // the *entire* stdout and stderr (buffered)
-        console.log(`stdout: ${stdout}`);
-        console.log(`stderr: ${stderr}`);
-    })
-} else {
-    console.log('Ran into issues with promisified exec command. Error message: ' + stderr.message);
-}
-
+exec('../stork-amazon-linux build --input public/stork/stork.toml --output public/stork/xelement.st', (err, stdout, stderr) => {
+    if (err) {
+        console.log('Error executing stork command via NodeJS, Error message: ' + err.message);
+        return;
+    }
+    // the *entire* stdout and stderr (buffered)
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+})
 
 ---
     <!DOCTYPE html>
