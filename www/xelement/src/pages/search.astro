@@ -59,6 +59,10 @@ const child = spawn('echo', ['Executing curl download']).on('exit', () =>{
         const runPerm = spawn('chmod', ['+x', 'stork-amazon-linux']).on('exit', () =>{
             const generate = spawn('./stork-amazon-linux build', ['--input', 'public/stork/stork.toml', '--output', 'public/stork/xelement.st']).on('exit', () =>{
                 console.log("Execution chain completed");
+            }).on('error' function(err){
+                if(err){
+                    console.log(err.message);
+                }
             })
         })
     })
