@@ -54,11 +54,11 @@ async function writeToml(data){
 }
 await writeToml(literal)
 
-const child = spawn('echo', ['Executing curl download']).on('exit', code =>{
-    const download = spawn('curl', ['-O', 'https://files.stork-search.net/releases/v1.4.0/stork-amazon-linux']).on('exit', code =>{
-        const runPerm = spawn('chmod', ['+x', 'stork-amazon-linux']).on('exit', code =>{
-            const generate = spawn('./stork-amazon-linux build', ['--input', 'public/stork/stork.toml', '--output', 'public/stork/xelement.st']).on('exit', code =>{
-                console.log("Execution chain completed with generate code of: ${code}");
+const child = spawn('echo', ['Executing curl download']).on('exit', () =>{
+    const download = spawn('curl', ['-O', 'https://files.stork-search.net/releases/v1.4.0/stork-amazon-linux']).on('exit', () =>{
+        const runPerm = spawn('chmod', ['+x', 'stork-amazon-linux']).on('exit', () =>{
+            const generate = spawn('./stork-amazon-linux build', ['--input', 'public/stork/stork.toml', '--output', 'public/stork/xelement.st']).on('exit', () =>{
+                console.log("Execution chain completed.");
             })
         })
     })
