@@ -13,7 +13,6 @@ for(let route of await withMetaData(filteredPaths('all'))){
         data:{title,
     }}}=route
     list.push({
-        path:`${directory}/${slug}/index.html`,
         url:`${directory}/${slug}/index.html`,
         title:`${directory} ${slug.split('/').join(' ')}`
         })
