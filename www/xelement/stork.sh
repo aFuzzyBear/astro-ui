@@ -8,5 +8,5 @@ echo "starting stork build"
 touch dist/res/stork/xelement.st
 chmod 777 dist/res/stork/xelement.st
 echo "added xelement.st file"
-./stork-amazon-linux build --input dist/res/stork/stork.toml - > dist/res/stork/xelement.st
+./stork-amazon-linux build --input dist/res/stork/stork.toml > dist/res/stork/xelement.st
 echo "stork build finished"
