@@ -55,7 +55,7 @@ async function writeToml(data){
     }
 }
 await writeToml(literal)
-exec('ls && cd ../ && ls', (err, stdout, stderr) => {
+exec('ls && cd ../ && echo "we are in a new dir ------------------------" && ls', (err, stdout, stderr) => {
     if (err) {
         console.log('Error executing stork command via NodeJS, Error message: ' + err.message);
         return;
