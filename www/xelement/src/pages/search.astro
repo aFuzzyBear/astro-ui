@@ -54,19 +54,32 @@ async function writeToml(data){
 }
 await writeToml(literal)
 
-const child = spawn('echo', ['Executing curl download']).on('exit', () =>{
-    const download = spawn('curl', ['-O', 'https://files.stork-search.net/releases/v1.4.0/stork-amazon-linux']).on('exit', () =>{
-        const runPerm = spawn('chmod', ['+x', 'stork-amazon-linux']).on('exit', () =>{
-            const generate = spawn('./stork-amazon-linux build', ['--input', 'public/stork/stork.toml', '--output', 'public/stork/xelement.st']).on('exit', () =>{
-                console.log("Execution chain completed");
-            }).on('error' function(err){
-                if(err){
-                    console.log(err.message);
-                }
+const child = spawn('echo', ['Executing curl download']);
+child.on('error', (err) =>{
+    if(err) console.log(err.message);
+});
+child.on('close', (code) =>{
+    const download = spawn('curl', ['-O', 'https://files.stork-search.net/releases/v1.4.0/stork-amazon-linux']);
+    download.on('error', (err) =>{
+        if(err) console.log(err.message);
+    });
+    download.on('close', (code) =>{
+        const runPerm = spawn('chmod', ['+x', 'stork-amazon-linux']);
+        runPerm.on('error', (err) =>{
+            if(err) console.log(err.message);
+        });
+        runPerm.on('close', (code) =>{
+            const generate = spawn('./stork-amazon-linux build', ['--input', 'public/stork/stork.toml', '--output', 'public/stork/xelement.st']);
+            generate.on('error', (err) =>{
+                if(err) console.log(err.message);
+            });
+            generate.on('close', (code) =>{
+                console.log("Generate completed with code: ", code);
             })
         })
     })
-})
+});
+
 /*exec('echo "Executing curl download" && curl -O https://files.stork-search.net/releases/v1.4.0/stork-amazon-linux && echo "Listing files and directories" && ls && echo "Adding run permissions to stork" && chmod +x stork-amazon-linux && echo "Running stork build" && ./stork-amazon-linux build --input public/stork/stork.toml --output public/stork/xelement.st', (err, stdout, stderr) => {
     if (err) {
         console.log('Error executing stork command via NodeJS, Error message: ' + err.message);
