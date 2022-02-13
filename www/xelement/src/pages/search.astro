@@ -55,12 +55,12 @@ async function createDir(path){
 }
 async function writeToml(data){
     try {
-        return await fs.writeFile(`./dist/stork/stork.toml`,data,{encoding:'utf8'})
+        return await fs.writeFile(`./dist/res/stork/stork.toml`,data,{encoding:'utf8'})
     } catch (error) {
         console.error("Error Writing the Toml File:",error);
     }
 }
-await createDir('dist/stork');
+await createDir('dist/res/stork');
 await writeToml(literal)
 
 
