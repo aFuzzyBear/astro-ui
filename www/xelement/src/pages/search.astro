@@ -13,8 +13,8 @@ for(let route of await withMetaData(filteredPaths('all'))){
         data:{title,
     }}}=route
     list.push({
-        path,
-        url:`${directory}/${slug}`,
+        path:`${directory}/${slug}/index.html`,
+        url:`${directory}/${slug}/index.html`,
         title:`${directory} ${slug.split('/').join(' ')}`
         })
 }
@@ -32,8 +32,8 @@ let reducing = list.reduce((result,current)=>{
 
 let literal = `
 [input]
-base_directory = "xelement-docs"
-url_prefix = "http://localhost:3000/docs/"
+base_directory = "dist/"
+url_prefix = "/docs/"
 exclude_html_selector = "pre.language"
 minimum_indexed_substring_length = 2
 frontmatter_handling = "Omit"
