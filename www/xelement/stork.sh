@@ -5,5 +5,6 @@ chmod +x stork-amazon-linux
 astro build --verbose
 echo "starting stork build"
 # echo "$(<dist/res/stork/stork.toml)"
+touch dist/res/stork/xelement.st
 ./stork-amazon-linux build --input dist/res/stork/stork.toml --output dist/res/stork/xelement.st
 echo "stork build finished"
