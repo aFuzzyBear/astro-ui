@@ -45,6 +45,14 @@ ${reducing}
 excerpt_buffer = 5
 save_nearest_html_id = true
 `
+
+async function createDir(path){
+    try{
+        return await fs.mkdir(path, {recursive: true});
+    } catch (error){
+        console.log("Cannot create directory for Stork: ", error);
+    }
+}
 async function writeToml(data){
     try {
         return await fs.writeFile(`./dist/stork/stork.toml`,data,{encoding:'utf8'})
@@ -52,6 +60,7 @@ async function writeToml(data){
         console.error("Error Writing the Toml File:",error);
     }
 }
+await createDir('dist/stork');
 await writeToml(literal)
 
 
