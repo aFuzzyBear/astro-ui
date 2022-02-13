@@ -6,7 +6,7 @@
     "dev": "astro dev --verbose",
     "start": "astro dev --verbose",
     "stork":"bash ./stork.sh",
-    "prebuild":"npm run stork",
+    "prebuild":"npm run stork --verbose",
     "build": "astro build --verbose",
     "preview": "astro preview --verbose"
   },
