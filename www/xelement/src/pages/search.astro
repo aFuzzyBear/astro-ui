@@ -1,8 +1,10 @@
 ---
 import  filteredPaths from '../scripts/build/filteredPaths';
 import  withMetaData from '../scripts/build/withMetaData';
+import util from 'util';
 import * as fs from 'node:fs/promises'
 import {exec} from 'node:child_process'
+const exec_async = util.promisify(exec);
 
 
 const list = []
@@ -53,16 +55,28 @@ async function writeToml(data){
     }
 }
 await writeToml(literal)
-exec('"./stork-amazon-linux build --input public/stork/stork.toml --output public/stork/xelement.st"', (err, stdout, stderr) => {
-  if (err) {
-    console.log('Error executing stork command via NodeJS, Error message: ' + err.message);
-    return;
-  }
-
-  // the *entire* stdout and stderr (buffered)
-  console.log(`stdout: ${stdout}`);
-  console.log(`stderr: ${stderr}`);
-})
+const {stdout, stderr} = await exec_async('curl -O https://files.stork-search.net/releases/v1.4.0/stork-amazon-linux');
+if(!stderr){
+    exec('chmod +x stork-amazon-linux', (err, stdout, stderr) =>{
+        if(err){
+            console.log('Ran into issues with modifying permissions on file `stork-amazon-linux`. Error message: ' + err.message);
+            return;
+        }
+        // Log entire stdout
+        console.log(stdout);
+    })
+    exec('./stork-amazon-linux build --input public/stork/stork.toml --output public/stork/xelement.st', (err, stdout, stderr) => {
+        if (err) {
+            console.log('Error executing stork command via NodeJS, Error message: ' + err.message);
+            return;
+        }
+        // the *entire* stdout and stderr (buffered)
+        console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
+    })
+} else {
+    console.log('Ran into issues with promisified exec command. Error message: ' + stderr.message);
+}
 
 
 ---
