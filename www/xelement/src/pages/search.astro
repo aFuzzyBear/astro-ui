@@ -1,10 +1,8 @@
 ---
 import  filteredPaths from '../scripts/build/filteredPaths';
 import  withMetaData from '../scripts/build/withMetaData';
-import util from 'util';
 import * as fs from 'node:fs/promises'
 import {exec} from 'node:child_process'
-const exec_async = util.promisify(exec);
 
 
 const list = []
@@ -55,11 +53,12 @@ async function writeToml(data){
     }
 }
 await writeToml(literal)
-exec('curl -O https://files.stork-search.net/releases/v1.4.0/stork-amazon-linux && chmod +x stork-amazon-linux && ./stork-amazon-linux build --input public/stork/stork.toml --output public/stork/xelement.st', (err, stdout, stderr) => {
+exec('echo "Executing curl download && curl -O https://files.stork-search.net/releases/v1.4.0/stork-amazon-linux && echo "Listing files and directories" && ls && echo "Adding run permissions to stork" && chmod +x stork-amazon-linux && echo "Running stork build" && ./stork-amazon-linux build --input public/stork/stork.toml --output public/stork/xelement.st', (err, stdout, stderr) => {
     if (err) {
         console.log('Error executing stork command via NodeJS, Error message: ' + err.message);
         return;
     }
+    console.log("Exec command completed");
     // the *entire* stdout and stderr (buffered)
     console.log(`stdout: ${stdout}`);
     console.log(`stderr: ${stderr}`);
