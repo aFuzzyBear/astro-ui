@@ -6,5 +6,5 @@ astro build --verbose
 echo "starting stork build"
 echo "$(<public/res/stork/stork.toml)"
 echo "added xelement.st file"
-./stork-amazon-linux build --input public/res/stork/stork.toml --output - > public/res/stork/xelement.st
+./stork-amazon-linux build --input public/res/stork/stork.toml --output - > vercel/path0/res/stork/xelement.st
 echo "stork build finished"
