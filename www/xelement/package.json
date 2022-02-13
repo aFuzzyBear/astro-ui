@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "stork":"./stork-ubuntu-20-04 build --input public/stork/stork.toml --output public/stork/xelement.st",
+    "stork":"'./stork-ubuntu-20-04' build --input ./public/stork/stork.toml --output ./public/stork/xelement.st",
     "prebuild":"npm run stork",
     "build": "astro build",
     "preview": "astro preview"
