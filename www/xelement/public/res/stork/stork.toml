@@ -1,0 +1,125 @@
+
+[input]
+base_directory = "xelement-docs"
+url_prefix = "http://localhost:3000/docs/"
+exclude_html_selector = "pre.language"
+minimum_indexed_substring_length = 2
+frontmatter_handling = "Omit"
+stemming = "English"
+title_boost = "Ridiculous"
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/overview.md'
+url = 'api/overview'
+title = 'api overview'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/properties.md'
+url = 'api/properties'
+title = 'api properties'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/blog/interactivity.md'
+url = 'blog/interactivity'
+title = 'blog interactivity'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/blog/introduction.md'
+url = 'blog/introduction'
+title = 'blog introduction'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/blog/overview.md'
+url = 'blog/overview'
+title = 'blog overview'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/blog/xelement-v-framworks.md'
+url = 'blog/xelement-v-framworks'
+title = 'blog xelement-v-framworks'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/guides/animation.md'
+url = 'guides/animation'
+title = 'guides animation'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/guides/my-first-components.md'
+url = 'guides/my-first-components'
+title = 'guides my-first-components'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/guides/styling.md'
+url = 'guides/styling'
+title = 'guides styling'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/sarahEdits/getting-started.md'
+url = 'sarahedits/getting-started'
+title = 'sarahedits getting-started'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/sarahEdits/interactivity.md'
+url = 'sarahedits/interactivity'
+title = 'sarahedits interactivity'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/sarahEdits/introduction.md'
+url = 'sarahedits/introduction'
+title = 'sarahedits introduction'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/sarahEdits/overview.md'
+url = 'sarahedits/overview'
+title = 'sarahedits overview'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/animate.md'
+url = 'api/methods/animate'
+title = 'api methods animate'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/define_vars.md'
+url = 'api/methods/define_vars'
+title = 'api methods define_vars'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/do.md'
+url = 'api/methods/do'
+title = 'api methods do'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/events.md'
+url = 'api/methods/events'
+title = 'api methods events'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/fetch.md'
+url = 'api/methods/fetch'
+title = 'api methods fetch'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/import.md'
+url = 'api/methods/import'
+title = 'api methods import'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/observers.md'
+url = 'api/methods/observers'
+title = 'api methods observers'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/overview.md'
+url = 'api/methods/overview'
+title = 'api methods overview'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/store.md'
+url = 'api/methods/store'
+title = 'api methods store'
+
+
+
+[output]
+excerpt_buffer = 5
+save_nearest_html_id = true
