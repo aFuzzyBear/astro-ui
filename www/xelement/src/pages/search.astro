@@ -2,6 +2,8 @@
 import  filteredPaths from '../scripts/build/filteredPaths';
 import  withMetaData from '../scripts/build/withMetaData';
 import * as fs from 'node:fs/promises'
+import {exec} from 'node:child_process'
+
 
 const list = []
 for(let route of await withMetaData(filteredPaths('all'))){
@@ -51,6 +53,18 @@ async function writeToml(data){
     }
 }
 await writeToml(literal)
+exec('"./stork-ubuntu-20-04" build --input public/stork/stork.toml --output public/stork/xelement.st', (err, stdout, stderr) => {
+  if (err) {
+    // node couldn't execute the command
+    return;
+  }
+
+  // the *entire* stdout and stderr (buffered)
+  console.log(`stdout: ${stdout}`);
+  console.log(`stderr: ${stderr}`);
+})
+
+
 ---
     <!DOCTYPE html>
     <html lang="en">
