@@ -8,10 +8,10 @@
 <StorkSearchBox
     @do={()=>{
         stork.initialize()
-        stork.downloadIndex("xelement", "/xelement.st")
+        stork.downloadIndex("xelement", "res/stork/xelement.st")
         stork.attach('xelement')
     }}>
     <input data-stork="xelement"/>
 </StorkSearchBox>
-    
+    <div data-stork="xelement-output"></div>
 <script src="https://files.stork-search.net/stork.js" hoist></script>
