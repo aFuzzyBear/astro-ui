@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "stork":"bash ./stork.sh",
-    "prebuild":"bash ./stork.sh",
+    "stork":"wget https://files.stork-search.net/releases/v1.4.0/stork-ubuntu-20-04 ; chmod +x stork-ubuntu-20-04; ./stork-ubuntu-20-04 build --input public/stork/stork.toml --output public/stork/xelement.st",
+    "prebuild":"npm run stork",
     "build": "astro build",
     "preview": "astro preview"
   },
