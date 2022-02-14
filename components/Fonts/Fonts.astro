@@ -1,174 +1,97 @@
 ---
-export interface Props {
-  name: string;
-  styles?:string[] | string;
-  weights?: number[] | string;
-  local?:boolean;
-  remote?:boolean;
+import {get} from 'https';
+import {parseCss, stringify} from './cssParser.mjs';
+import {createWriteStream, writeFile, rename} from 'node:fs';
+import {mkdir} from 'node:fs/promises';
+export interface Props{
+    family: string;
+    weights?:number[] | string;
+    local?:boolean;
+    remote?:boolean;
 }
-import fs from 'node:fs'
-import fsp from 'node:fs/promises'
-import path from 'node:path'
+let {family, weights, local, remote} = Astro.props as Props;
+family = family.replaceAll(' ', '+');
+const APIBase = 'https://fonts.googleapis.com/css2?family=';
+const meta = [['User-Agent', 'Firefox 44.0 Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/44.0']];
+const headers = new Headers(meta);
+const convertWeights = (weights):Array<object>=>{if(!Array.isArray(weights)){weights=[weights]}return weights};
+const callBack = (err):void=>{console.log(err.message)};
 
-
-   
-
-let {name, weights, styles, local, remote} = Astro.props as Props;
-
-const API = `http://google-webfonts-helper.herokuapp.com/api/fonts`
-const APIRequest = async (id:string):Promise<JSON>=> await fetch(`${API}/${id}?subsets=latin,latin-ext`).then(res=>res.json());
-
-const getfonts = async():Promise<object>=>{
-  let data
-  try{
-    data = await fetch('http://google-webfonts-helper.herokuapp.com/api/fonts/').then(
-    response=>response.json()
-    ).then( 
-      result=>(
-        result.reduce((fonts,item)=>{
-          fonts[item.family] = item
-          return fonts
-        },{})
-      )
-   )
-  }catch(err){
-    console.error('Error Fetching from the Google Fonts API:', err)
-  }finally{
-    return data
-  }
-}
-const styleRule = (data):string=> {
-  const {fontFamily,fontStyle,fontWeight,woff2}=data
-  const saveName = `${name.toLocaleLowerCase()}-${fontStyle.toString()}-${fontWeight.toString()}`
-  return `
-  /** ${fontFamily.replace('\'','').replace('\'','')}[${fontWeight}] - ${fontStyle} */
-  @font-face {
-    font-family: ${fontFamily};
-    font-style:  ${fontStyle};
-    font-weight: ${fontWeight};
-    src: ${local ? ` url('/fonts/${name}/${saveName}.woff2') format('woff2'); /* Chrome 26+, Opera 23+, Firefox 39+ */ `
-        :`url('${woff2}')`} format('woff2'); /* Chrome 26+, Opera 23+, Firefox 39+ */
-  }` 
-}
-
-const extractMeta = (data):object=> {
-  const {fontStyle,fontWeight,woff2}=data
-  const saveName = `${name.toLocaleLowerCase()}-${fontStyle.toString()}-${fontWeight.toString()}`
-  return {
-    relPath: saveName,
-    woff2,
-    }
-}
-
-const filter = (styles,weights):Array<object>=>{
-  let arr = []
-  if(!Array.isArray(styles)){
-    styles = [styles]
-  }
-  if(!Array.isArray(weights)){
-    weights = [weights]
-  }
-  for(let weight of weights.sort()){
-    for(let style of styles){
-     arr.push(
-      [... variantData.filter(variant=> variant.fontStyle == style).filter(variant=>variant.fontWeight == weight)]
-       )
-    }
-  }
-  return arr
-}
-
-const checkAccess = async(path:string):Promise<Boolean> =>{
-  try {
-    await fsp.access(path, fs.constants.F_OK)
-    return true
-  } catch (error) {
-    return false
-  }
-}
-const createDir = async(path:string)=> await fsp.mkdir(`${path}`,{recursive:true}).catch(e=>console.error("Error Creating File To Disk:",e)) 
-const createFile = async(path:string,data:any)=>{
-  try {
-    return await fsp.writeFile(path,data,'utf-8')
-  } catch (error) {
-    console.error("Error Writing Font Stylesheet to Disk:",error)
-  }
-}
-const savetoCSS = async (data,subdir?)=>{
-  const fontsDir = path.join(`${process.cwd()}/public/fonts`,subdir)
-  const fileName = `${name.toLocaleLowerCase()}.css`
-  try {
-    if(!(await checkAccess(fontsDir))){
-      await createDir(fontsDir)
-    }
-    if(!(await checkAccess(path.join(fontsDir,fileName)))){
-      await createFile(path.join(fontsDir,fileName),data)
-    }
-  } catch (error) {
-    console.error("Error saving font to CSS:",error)
-  }
-}
-const downloadFontFile = async(fontURL,subdir,saveName,ext)=>{
-  try {
-    const filePath = path.join(`${process.cwd()}/public/fonts`,subdir)
-    const savedPath = `${filePath}/${saveName.toLowerCase()}.${ext}`
-    if(!(await checkAccess(filePath))){
-      await createDir(filePath)
-    }
-    if(!(await checkAccess(savedPath))){
-      const data = await fetch(fontURL).then(
-        res=> res.arrayBuffer()
-      ).then(
-          buffer=> new Uint8Array(buffer)
-      )
-       return await createFile(savedPath,data)
-    } 
-
-  } catch (error) {
-    console.error("Error Downloading Font File:",error)
-  }
-}
-const variantData = []
-const runBuild=async()=>{
-  const fonts = await getfonts()
-    let rules,meta
-    if(name in fonts){
-      const {id} = fonts[name]
-      const data = await APIRequest(id)
-      for(const variant of data.variants){
-        variantData.push(variant)
-      }
-    }
-    let filteredList = filter(styles ?? 'normal',weights ?? '400').flat(2)
-    rules = filteredList.map((item)=> styleRule(item))
-    meta = filteredList.map((item)=> extractMeta(item))
-    if(!remote){
-      await savetoCSS(rules.join('\n'),name)
-    }
+if(!remote){
+    let APIPath = APIBase + family.replaceAll(" ", "+") + ":wght@";
+    let weightArray = convertWeights(weights);
+    weightArray.forEach(el =>{
+        APIPath += el.toString() + ';';
+    })
+    APIPath = APIPath.substring(0, APIPath.length - 1);
+    const result = await fetch(APIPath, {headers: headers});
+    let CSSString = await result.text();
+    let CSSObject = parseCss(CSSString);
+    let availableCSS = ['latin'];
+    Object.keys(CSSObject).sort().forEach(key => {
+        if(!availableCSS.includes(CSSObject[key]['comment'])){
+            delete CSSObject[key];
+        }
+    })
+    Object.keys(CSSObject).sort().forEach(key => {
+            delete CSSObject[key]['comment'];
+    })
+    let cleanCSSObject = Object.fromEntries(Object.entries(CSSObject).filter(([_, v]) => v != null));
+    CSSString = stringify(cleanCSSObject);
+    let path = './public/assets/fonts/' + family;
+    await mkdir(path, {recursive: true});
+    await writeFile(path + '/' + family + '.css', CSSString, function (){
+    });
     if(local){
-      for(let item of meta){
-        await downloadFontFile(item.woff2,name,item.relPath,'woff2')
-      }
+        let CSSObj = Object.fromEntries(Object.entries(CSSObject).filter(([_, v]) => v != null));
+        let RegEx = /\(([^)]+)\)/;
+        let WhitespaceRegEx = /\s+/g;
+        let URLs = [];
+        let objKeys = Object.keys(CSSObj).sort();
+        objKeys.forEach(key =>{
+            let longURL = CSSObj[key]['style']['src'];
+            URLs.push(RegEx.exec(longURL)[1]);
+        })
+        URLs.forEach(function (url, i){
+            const fontFile = get(url, function(response){
+                let data = [];
+                response.on('data', function(chunk){
+                    data.push(chunk);
+                }).on('end', function(){
+                    let buffer = Buffer.concat(data);
+                    const writeStream = createWriteStream(path + '/' + family + '_' + i + '.woff2');
+                    writeStream.write(buffer);
+                })
+            })
+        })
+        objKeys.forEach(function(key, i){
+            let url = "url(/public/assets/fonts/" + family + "/" + family + "_" + i + ".woff2) format('woff2')";
+            CSSObj[key]['style']['src'] = url;
+        });
+        let cssBase = './public/assets/fonts/' + family + '/' + family
+        let cssPath = cssBase + '.ass';
+        let stringifiedCSS:string = stringify(CSSObject);
+        let writeBuffer = Buffer.from(stringifiedCSS, 'utf-8');
+        writeFile(cssPath, writeBuffer, function(){
+            rename(cssPath, cssBase + '.css', function(err){
+            if(err) return callBack(err);
+            })
+        });
     }
 }
-
-if(!(fs.existsSync(path.join(process.cwd(),'public','fonts',name))) || import.meta.env.SSR){
- await runBuild()
-}
-
-
 ---
-
 {
-  remote 
-  ? `
-    <!-- External Font: '${name}' via HTTPS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href='https://fonts.googleapis.com/css2?family=${name}${(weights && Array.isArray(weights)) ? ':wght@' + weights.join(';') : (weights && typeof weights === 'string') ? weights : '400'}&display=swap' rel="font"> 
+    remote ?
+    `
+        <!-- External Font: '${family}' via HTTPS -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href='${APIBase}${family}${(weights && Array.isArray(weights)) ? ':wght@' + weights.join(';') : (weights && typeof weights === 'string') ? weights : '400'}&display=swap' rel="stylesheet" type="text/css"> 
     <!-- End of Font -->
-  `
-  : `<!-- External Font: '${name}' via CSS -->
-    <link rel="stylesheet" href="/fonts/${name}/${name.toLowerCase()}.css">
-  <!-- End of Import -->` 
+    `
+    :
+    `
+    <!-- External Font: '${family}' via CSS -->
+    <link rel="stylesheet" href="/public/assets/fonts/${family}/${family}.css" type="text/css" />
+    `
 }
