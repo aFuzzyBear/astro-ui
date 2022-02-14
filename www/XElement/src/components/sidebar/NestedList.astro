@@ -1,0 +1,24 @@
+---
+  import PrefetchLink from '../NavBar/PreFetchLink.astro'
+ Astro.self = $$Component
+---
+<ul class="sidebar__parent">
+  {
+    Astro.props.items.map(
+      item => (
+        <li>
+          {
+            item.href
+              ? <PrefetchLink src={item.href}>{item.name}</PrefetchLink>
+            : <h2>{item.name}</h2>
+          }
+          {
+            item.items && (
+              <Astro.self items={item.items} />
+            )
+          }
+        </li>
+      )
+    )
+  }
+</ul>
