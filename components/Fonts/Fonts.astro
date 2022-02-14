@@ -14,7 +14,7 @@ family = family.replaceAll(' ', '+');
 const APIBase = 'https://fonts.googleapis.com/css2?family=';
 const meta = [['User-Agent', 'Firefox 44.0 Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/44.0']];
 const headers = new Headers(meta);
-const convertWeights = (weights):Array<object>=>{if(!Array.isArray(weights)){weights=[weights]}return weights};
+const convertWeights = (weights):Array<number>=>{if(!Array.isArray(weights)){weights=[+weights]}return weights};
 const callBack = (err):void=>{console.log(err.message)};
 
 if(!remote){
