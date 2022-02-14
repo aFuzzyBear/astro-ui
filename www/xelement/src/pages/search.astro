@@ -13,9 +13,9 @@ for(let route of await withMetaData(filteredPaths('all'))){
         data:{title,astro:{html}
     }}}=route
     list.push({
-        url:`${directory}/${slug}/index.html`,
+        path,
+        url:`${directory}/${slug}`,
         title:`${directory} ${slug.split('/').join(' ')}`,
-        src_url:`docs/${directory}/${slug}/index.html`
         })
 }
 let reducing = list.reduce((result,current)=>{
@@ -59,8 +59,8 @@ async function writeToml(data){
         console.error("Error Writing the Toml File:",error);
     }
 }
-await createDir('public/res/stork');
-await writeToml(literal)
+// await createDir('public/res/stork');
+// await writeToml(literal)
 
 
 /*exec('echo "Executing curl download" && curl -O https://files.stork-search.net/releases/v1.4.0/stork-amazon-linux && echo "Listing files and directories" && ls && echo "Adding run permissions to stork" && chmod +x stork-amazon-linux && echo "Running stork build" && ./stork-amazon-linux build --input public/stork/stork.toml --output public/stork/xelement.st', (err, stdout, stderr) => {
