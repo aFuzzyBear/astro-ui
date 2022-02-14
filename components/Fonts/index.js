@@ -15,7 +15,8 @@
  *                          
  *              
  *                      Astro Font Component 
- * @description - A Specialised Font component which utilised the 'google-webfont-helper' to obtain font-files and information and to apply them into the project 
+ * @description - A Specialised Font component which utilise the 'google-font-API' to obtain font-files and other relevant information and applies them into the project 
+ * @author - Lostra01 - https://github.com/lostra01
  * @author - aFuzzyBear - https://github.com/aFuzzyBear
  * @copyright 2022
  * @licence - MIT
@@ -31,4 +32,4 @@
  *    `-'     `-' 
  *  aFuzzyBear Production
  */
-export {default as Font} from './Fonts.astro'
+export {default as Font}from './Fonts.astro'
