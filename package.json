@@ -23,9 +23,7 @@
   },
   "homepage": "https://github.com/aFuzzyBear/astro-ui#readme",
   "dependencies": {
-    "lerna": "^4.0.0",
-    "https": "^1.0.0",
-    "node-fetch": "^3.2.0"
+    "lerna": "^4.0.0"
   },
   "devDependencies": {
     "astro": "latest"
