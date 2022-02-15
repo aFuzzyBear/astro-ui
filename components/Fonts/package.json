@@ -1,7 +1,7 @@
 {
   "name": "astro-fonts",
-  "version": "0.2.1",
-  "description": "A Specialised Astro Font Component, letting you utilise any of the fonts availble to you using Google Fonts. This lets you to download font files to the local filesystem or use the fonts remotely. This Font component is your one-stop shop for all your Fonts. ",
+  "version": "0.2.2",
+  "description": "A Specialized Astro Font Component, letting you utilise any of the fonts availble to you using Google Fonts. This lets you to download font files to the local filesystem or use the fonts remotely. This Font component is your one-stop shop for all your Fonts. ",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
