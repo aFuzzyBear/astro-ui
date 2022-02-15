@@ -1,6 +1,6 @@
 {
   "name": "astro-fonts",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A Specialized Astro Font Component, letting you utilise any of the fonts availble to you using Google Fonts. This lets you to download font files to the local filesystem or use the fonts remotely. This Font component is your one-stop shop for all your Fonts. ",
   "type": "module",
   "scripts": {
@@ -23,9 +23,11 @@
     "url": "https://github.com/aFuzzyBear/astro-academy/issues"
   },
   "exports":{
-    ".":"./Fonts.astro"
+    ".":"./index.js",
+    "./fonts":"./Fonts.astro",
+    "./cssParser":"./cssParser.mjs",
   },
-  "files": ["index.js","Fonts.astro"],
+  "files": ["index.js","Fonts.astro","cssParser.mjs"],
   "dependencies": {
     "https": "^1.0.0",
     "node-fetch": "^3.2.0"
