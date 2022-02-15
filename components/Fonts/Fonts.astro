@@ -86,7 +86,7 @@ if(!remote){
     <!-- External Font: '${family}' via HTTPS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href='${APIBase}${family}${(weights && Array.isArray(weights)) ? ':wght@' + weights.join(';') : (weights && typeof weights === 'string') ? weights : '400'}&display=swap' rel="stylesheet" type="text/css"> 
+    <link href="${APIBase}${family}${(weights && Array.isArray(weights)) ? ':wght@' + weights.join(';') : (weights && typeof weights === 'string') ? weights : '400'}&display=swap" rel="stylesheet" type="text/css"> 
     <!-- End of Font -->
     `
     :
