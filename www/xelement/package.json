@@ -6,7 +6,7 @@
     "dev": "astro dev --verbose",
     "start": "astro dev --verbose",
     "storky": "node ./stork/storky.mjs",
-    "ignore": "bash ./stork/stork.sh",
+    "prebuild": "bash ./stork/stork.sh",
     "build": "astro build --verbose",
     "preview": "astro preview --verbose"
   },

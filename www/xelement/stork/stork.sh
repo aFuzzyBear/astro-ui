@@ -3,7 +3,7 @@
 # curl -O https://files.stork-search.net/releases/v1.4.0/stork-amazon-linux
 chmod +x ./stork/stork-amazon-linux
 echo "starting toml build"
-npm run storky
+# npm run storky
 echo "added toml to public"
 echo "starting stork build"
 # echo "$(<public/res/stork/stork.toml)"
