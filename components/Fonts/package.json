@@ -25,7 +25,7 @@
   "exports":{
     ".":"./index.js",
     "./fonts":"./Fonts.astro",
-    "./cssParser":"./cssParser.mjs",
+    "./cssParser":"./cssParser.mjs"
   },
   "files": ["index.js","Fonts.astro","cssParser.mjs"],
   "dependencies": {
