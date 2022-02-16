@@ -1,0 +1,34 @@
+{
+  "name": "astro-comparison",
+  "version": "0.0.1",
+  "description": "A specialized Astro component to generate an overlayed before/after comparison of videos, images or GIFs.",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aFuzzyBear/astro-academy.git"
+  },
+  "keywords": [
+    "astro",
+    "astro component",
+    "astro comparison component",
+    "astro before after component",
+    "before after",
+    "before after component"
+  ],
+  "contributors": ["lostra01","aFuzzyBear"],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aFuzzyBear/astro-academy/issues"
+  },
+  "exports":{
+    ".":"./index.js",
+    "./beforeAfter":"./BeforeAfter.astro"
+  },
+  "files": ["index.js","BeforeAfter.astro"],
+  "dependencies": {
+    "astro-xelement": "^3.1.0"
+  }
+}

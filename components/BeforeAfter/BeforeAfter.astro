@@ -1,0 +1,98 @@
+---
+import XElement from 'astro-xelement';
+
+export interface Props{
+    beforeType?: string;
+    beforeSource?: string;
+    afterType?: string;
+    afterSource?: string;
+    loadingMode?: string;
+    height?: string;
+    width?: string;
+}
+let {beforeType = "img", beforeSource, afterType = "img", afterSource, loadingMode = "eager", height = "720px", width = "1280px"} = Astro.props as Props;
+let lazyLoadBefore = (beforeType == "img" || beforeType == "iframe") ? loadingMode : null;
+let lazyLoadAfter = (afterType == "img" || afterType == "iframe") ? loadingMode : null;
+const adjustTypeAttrs = (tagType) => {
+    if(tagType == 'video'){
+        return {'autoplay': '', 'muted': '', 'loop': '', 'style': 'height: 100%;'};
+    } else {
+        return null;
+    }
+}
+
+---
+<div style=`position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: ${width}; height: ${height};`>
+<XElement @is="div" class="before-after-wrapper" @do={()=>{
+    comp_slider.value = "50";
+    comp_slider.addEventListener('input', function (e){
+        foreground.style.width = e.target.value + "%";
+    })
+}}>
+    <div class="ba-comp" id="background">
+        <XElement @is={beforeType} {...adjustTypeAttrs(beforeType)} class="before-after-comp" src={beforeSource} loading={lazyLoadBefore} id="background_image"></XElement>
+    </div>
+    <div class="ba-comp" id="foreground">
+        <XElement @is={afterType} {...adjustTypeAttrs(afterType)} class="before-after-comp" src={afterSource} loading={lazyLoadAfter} id="foreground_image"></XElement>
+    </div>
+    <input type="range" class="comp-slider" id="comp_slider" min='0' max='100' value='50'>
+</XElement>
+</div>
+<style define:vars={{height, width}}>
+*{box-sizing: border-box;}
+.before-after-wrapper{
+    height: var(--height);
+    width: var(--width);
+    position: relative;
+    overflow:hidden;
+}
+.ba-comp{
+    position: absolute;
+    width: auto;
+    height: 100%;
+    overflow: hidden;
+}
+.before-after-comp{
+    display: block;
+    vertical-align: middle;
+}
+#background{
+    z-index: 1;
+}
+#foreground{
+    z-index: 2;
+    width: 50%;
+}
+.comp-slider{
+    position: absolute;
+    z-index: 9;
+    cursor: ew-resize;
+    width:103%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    -webkit-appearance: none;
+    background: transparent;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.comp-slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #000;
+    border: 2px solid white;
+}
+.comp-slider::-moz-range-thumb{
+    -webkit-appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #000;
+    border: 2px solid white;
+}
+.comp-slider:focus{
+    outline: none;
+}
+</style>

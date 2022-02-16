@@ -1,9 +1,9 @@
 ---
  import Sidebar from '../../components/sidebar/Sidebar.astro'
-const {menu,dir}=Astro.props
+const {menu,dir,...attrs}=Astro.props
 
 ---
-<aside class=".grid-left .grid-sidebar sticky-leftbar">
+<aside class="leftbar  sticky-leftbar">
     <div class="sidebar__feature">
         <h3>
             <a href="/docs/api/overview">API</a>
