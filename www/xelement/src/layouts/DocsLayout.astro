@@ -27,19 +27,18 @@ const {
         }
     ]}
 >
-    <main class="layout">
-        <LeftSideBar menu={menu} dir={directory}/>
-        <div class="break__row"></div>
-        <Article >
+    <main class="container">
+        <div class="leftsidebar">
+            <LeftSideBar menu={menu} dir={directory}/>
+        </div>
+        <Article class="main" >
             {html}
         </Article>
-        <div class="break__row"></div>
-        <div class="break-row"></div>
+        <div class="rightbar">
             <RightSideBar headers={headers}/>
-        <div class="break-row"></div>
-    </main>
-        <Giscss/>    
-    <footer class="footer__wrapper">
+        </div>
+    </main>  
+    <footer class="footer">
     </footer>
 </BaseLayout>
 

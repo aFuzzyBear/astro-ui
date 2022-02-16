@@ -2,14 +2,28 @@
     Documentation Layout Stylesheet
 */
 
+.container {
+    height: 100%;
+    display: grid; 
+    grid-template-columns: 12em 76em 12em; 
+    grid-template-rows: 1fr; 
+    gap: 0px 1em; 
+    grid-template-areas: 
+      "leftbar main rightbar"; 
+  }
+  .leftbar { grid-area: leftbar; }
+  .main { grid-area: main; }
+  .rightbar { grid-area: rightbar; }
 
 main.layout{
     @apply flex flex-row flex-wrap md:flex-nowrap items-start content-center justify-between w-full gap-2 pl-8;
 }
 .documentation{
-    @apply w-[clamp(50%,60%,55%)]
+    @apply w-max
 }
+.footer{
 
+}
 
 /**
     ***Sticky Right Sidebar***
@@ -22,13 +36,13 @@ main.layout{
 }
 .sticky-rightbar {
     position:sticky;
-    top: 120px;
+    top:22%;
     padding-right: 1em;
 }
 
 .sticky-leftbar {
     position:sticky;
-    top: 120px;
+    top:22%;
 }
 
 .heading__icon {
