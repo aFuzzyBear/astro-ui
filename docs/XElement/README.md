@@ -22,7 +22,7 @@ The `api/` directory is XElement's main reference repository. Here you will find
 
 If you have any issues or require additional support when utilizing XElement, it is here within the `api/` directory you should be able find your answers.
 
-## Guides
+## [`guides/`](/guides)
 
 The [`guides/`](/guides/) directory is where we wish to provide you with supportive literature that would be able to help you get quickly up to speed with using XElement.
 
@@ -30,7 +30,7 @@ Creating components in Astro can be either daunting or exceedingly easy, and tha
 
 XElement aside, the methods we used can be used outwith XElement when it comes to writing Astro components and our examples would be in JavaScript, utilizing only standard and conventional methods that you will be able to find practiced elsewhere.
 
-## Blog
+## [`blog`](/blog/)
 
 Where the informal and the verbose is given space. Technical documentation is in respects aimed at providing a tasteless experience when you are consuming them. We feel that there is also space for more informal, less beige style of writing that could help explain XElement to others in a different light.
 
