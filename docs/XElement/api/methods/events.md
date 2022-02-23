@@ -1,9 +1,12 @@
 ---
 
+title: "XElement Event Handlers"
 api_title: "@events"
-page_title: "XElement Event Handlers"
-page_description: "Overview on XElement's Event Handlers, gain a better insight on how XElement lets you use any* Event Trigger that you wish your XElement to react to"
-
+meta_title: "XElement-@events"
+description: "Overview on XElement's Event Handlers, gain a better insight on how XElement lets you use any* Event Trigger that you wish your XElement to react to" 
+page_number: 3
+next_page: "/docs/api/methods/animate"
+previous_page: "/docs/api/methods/observers"
 ---
 # XElement Events
 
