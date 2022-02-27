@@ -62,7 +62,7 @@ if(!remote){
                     const writeStream = createWriteStream(path + '/' + family + '_' + i + '.woff2');
                     writeStream.write(buffer);
                 })
-            })
+            }).on('error',function(){})
         })
         objKeys.forEach(function(key, i){
             let url = "url(/public/assets/fonts/" + family + "/" + family + "_" + i + ".woff2) format('woff2')";
