@@ -21,7 +21,7 @@ The first method describes a list of actions to be performed, and the second met
 
 ### `@animate = {}`
 
-The `@animate` method accepts a series of key-frames (animation instructions) as either as one list of objects or as a record of objects using a `transform: "{transformation}"` key/value pair. These transformation define the actions to be performed.
+The `@animate` method accepts a series of key-frames (animation instructions) as either as a list of objects or as a record of objects using a `transform: "{transformation}"` key/value pair. These transformation define the actions to be performed.
 
 ```astro
 
@@ -84,7 +84,7 @@ Within `@timings` you can specify everything regarding the timing of your animat
 
 -----
 
-## Your first Animation
+## Examples
 
 Let's apply an animation to an `<h1>` element using XElement!
 
@@ -120,31 +120,31 @@ You can declare multiple animations that you wish to apply to your element, and 
 ---
 const { animate, length} = Astro.props
 const animations = {
-    fadeIn:[
+    "fadeIn":[
         {opacity:0},
         {opacity:1}
     ]
-    fadeout:[
-        {opacity:0},
-        {opacity:1}
+    "fadeout":[
+        {opacity:1},
+        {opacity:0}
     ]
 }
 const timeOptions = {
-    short:{ 
-        duration: 500, 
+    "short":{ 
+        duration: 1000, 
         fill:'forwards',
         easing:'ease-in'
     },
-    long:{
-        duration: 1500, 
+    "long":{
+        duration: 3000, 
         fill:'forwards',
         easing:'ease-in'
     },
 }
 ---
     <H1 
-        @animate={animations[`${animate}`]}
-        @timings={timeOptions[`${length}`]}
+        @animate={animations[animate]}
+        @timings={timeOptions[length]}
     >
         Have my Animation controlled externally
     <H1>
@@ -152,7 +152,7 @@ const timeOptions = {
 
 This method above demonstrates a heading component that has more than one animation option to choose from, depending on the specific properties passed to it.
 
-Let's now control this heading component from a parent component:
+Let's now control this 'Heading' component from a parent component:
 
 ```astro
 ---
@@ -179,8 +179,8 @@ Good news! You can import scripts into your XElement component. This separation 
     const {animate,length} = Astro.props
 ---
     <H1 
-        @animate={AnimationObject[`${animate}`]}
-        @timings={Timings[`${length}`]}
+        @animate={AnimationObject[animate]}
+        @timings={Timings[length]}
     >
         Have my Animations imported from another Library
     <H1>

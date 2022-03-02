@@ -1,9 +1,9 @@
 ---
 title: "@visible - "
 ---
-# XElement's Intersection Observer
+# `@visible`  XElement's Intersection Observer
 
-XElement has its own implementation of the the Browsers native [Intersection observer](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver), this is provided through the  `@visible` method. 
+XElement has its own implementation of the the Browsers native [Intersection observer](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver), this is provided through the  `@visible` method.
 
 `@visible` is the equivalent of Astro's `client:visible` partial hydration selector.
 
