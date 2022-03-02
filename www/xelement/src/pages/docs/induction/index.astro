@@ -3,7 +3,7 @@ import Layout from '../../../layouts/landingLayout.astro'
 import getDocsRoutes from '../../../scripts/build/filteredPaths'
 import withMetaData from '../../../scripts/build/withMetaData'
 let dataSet = []
-await withMetaData(getDocsRoutes('sarahedits')).then(res=>res.map(x=>dataSet.push({directory:x.props.directory, menu:x.props.menu})))
+await withMetaData(getDocsRoutes('induction')).then(res=>res.map(x=>dataSet.push({directory:x.props.directory, menu:x.props.menu})))
 ---
 <Layout content={dataSet[0]}>
 
