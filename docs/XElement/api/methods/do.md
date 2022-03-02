@@ -1,13 +1,24 @@
 ---
 api_title: "@do"
-title: "XElement - @do"
-meta_title: "Do something special"
-meta_description: "Each XElement lets you 'do' client-side interactivity. Here you can'do' whatever you wish, by writing simple vanilla JS/TS that gets scoped and encapsulated to only that XElement" 
-description: "XElement lets you take your HTML element and lets you 'do' things with it on the client. By passing through JS/TS to the client, we let you write client-side interactions without the need for an external UI framework in Astro"
+title: "Do Something Special"
+meta_title: "XElement: API/Method - @do"
+description: "XElement takes your HTML element and lets you 'do' things with it on the client. By passing through JS/TS to the client, we let you write client-side interactions without the need for an external UI framework in Astro"
 order: 1
 next_page: '/docs/api/methods/observers'
 ---
-# `@do` : Callback (element, store)
+
+# Do Anything
+
+XElement is a HTML component generator first, client side interactivity second type of component.
+
+With XElement you can choose what you wish to *do* with it, should you wish for it to dynamically fetch a post from a remote server, it can do that `asynchronously` for you. Interact and update the children on the client, it would also *do* that for you too.
+
+XElement when you *do* something, you are providing client-side interactivity in the form of either JavaScript or TypeScript, again, your choice.
+
+This page contains further information on the `@do` method, its arguments and how to use it so the genie inside, can grant your wishes.
+
+--------
+## `@do` : Callback (element, store)
 
 `@do` is the main entry point for applying your code to the top-level of the component.
 
@@ -48,6 +59,8 @@ Any `@event` handler would be executed only upon that event being triggered, but
 
 You cannot link-up multiple `@do's` together, an XElement can only **do** one thing in a sense, but it can *do many things* well.
 
+-------
+
 ## Arguments
 
 The `@do` method accepts only two optional arguments that can be passed through into the scope of function body.
@@ -66,13 +79,6 @@ The `@do` method accepts only two optional arguments that can be passed through 
  @do={(element)=>console.log(element,{element})}
 ```
 
-### `this`
-
-Refers to directly to the DOMElement, `this` is always available to you internally within the scope of the function. It is the same as passing through `element` into the function.
-
-```js
- @do={()=>console.log(this,{this})}
-```
 ### `store`
 
 Passing through the `store` as the second parameter, gives you access to XElements internal Data Object. This is a transient data object that which acts like a *global store* letting you pass through variables, functions, objects, etc. out from the scope of the method and into other elements.
@@ -80,6 +86,16 @@ Passing through the `store` as the second parameter, gives you access to XElemen
 ```js
  @do={(element,store)=>console.log(store)} //{}
 ```
+
+### `this`
+
+Refers to directly to the DOMElement, `this` is always available to you internally within the scope of the function. It is the same as passing through `element` into the function.
+
+```js
+ @do={()=>console.log(this,{this})}
+```
+
+------
 
 ### `@do` async
 
@@ -118,18 +134,20 @@ This would behave as if you had directly inlined it within the element:
  <Box @do={()=>console.log(42)}>
 ```
 
-If you wish to have your functions located off-site and somewhere else, import them directly into the frontmatter, then re-reference the import again. You cannot send the import in directly to the XElement, due to a limitation on Vite's behalf. However this is walk-around should be able to allow you to do so with little issue. 
+If you wish to have your functions located off-site and somewhere else, import them directly into the Frontmatter, then re-reference the import again. You cannot send the import in directly to the XElement, due to a limitation on Vite's behalf. However this is walk-around should be able to allow you to do so with little issue.
 
 ```astro
 ---
   import myFunction from './myFunction.js'
   // Declaring the contents of the function here inside Astro 
- const rereferncedFunction = myfunction()
+ const rereferencedFunction = myfunction()
 ---
 
  <Box @do={rereferencedFunction}> 
 
 ```
+
+------
 
 ## Notes on usage
 
@@ -143,6 +161,8 @@ You can write out the body of your payload inside the Astro front-matter and pas
 
 You can control children elements from within the `@do` method.
 
-### Error Handling
+------
+
+## Error Handling
 
 Just incase you begin to enter something incorrect into the `@do` method, such as an object or a string, XElement has some useful and explanatory error boundaries to help assist you as you program your `@do` method.

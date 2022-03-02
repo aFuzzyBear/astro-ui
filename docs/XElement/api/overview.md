@@ -3,42 +3,35 @@ page_title: "XElement API Overview"
 page_description: "Overview of all off XElement's API"
 
 ---
-# `XElement` API
+# XElement API Overview
 
-Welcome to our **API** section of the documentation, here you will find all you need to know about `XElement` API's, what they are, how they work and most importantly how to use it correctly.
+Welcome to our **API** section of the documentation, here you will find all you need to know about XElement API's, what they are, how they work and most importantly how to use each API correctly.
 
-The API that we have implemented into `XElement` is designed to be as intuitive as possible, without trying to impose any *new* forms of expression into your knowledge base.
+The API's that we have implemented into XElement is designed to be as intuitive as possible for the developer. Without trying to impose any *new* forms of expression or embed opinions or patterns into your existing knowledge base.
 
-There are a few rules in regards to the syntax and what goes in what and where. These will make sense when you come to using them. Otherwise you will be tripping up over `TypeErrors` and being flustered as a result.
+A key design decision was to allow developers to write **JavaScript** or **Typescript** that would work on the client. Allowing them to utilize all the DOM API's that they know so well, without hinderance or obstruction.
 
-This in our eyes is something that we really want to help prevent and provide you with an all round happy experience when you are using `XElement`
+There are a few rules in regards to the syntax about what goes in what and where. To this end we have given XElement very well supported Error boundaries to help keep the developer right as they write their components.
+
+All this will make sense to you over a very short period of time. Otherwise you will be tripping up over `TypeErrors` and being flustered as a result.
+
+This in our eyes is something that we really want to help prevent and provide you with an all round happy experience when you are using XElement
 
 For a happy developer is a productive developer.
 
-## Table of Contents
-
-- [Basic Properties](Properties)
-- [Methods](methods/overview)
-  - [define:vars](methods/define_vars)
-  - [@animate && @timings](methods/animate)
-  - [@do](methods/do)
-  - [@events](methods/events)
-  - [@observers](methods/observers)
-  - [Fetch](methods/fetch)
-  - [Import](methods/import)
-  - [Store](methods/store)
-
 ## How to use
 
-For each type of behaviour we use, we aim to have a separate set of pages to explain them in some more detail.
+We decided to spilt the documentation for XElement's API into a two forms. This we feel is to help provide information easily and make it more accessible to as many as we can.
 
-For **HTML Tags** and information relating to the types of elements you can make, you can find out more information here
+We have placed the API overview pages at the top level of this section, to help give developers a very brief albeit informative use of the methods.
 
-Information pertaining to `XElements` **Observers** is found here
+For each method we more detailed documentation which describes their individual behaviors and syntax inside the **Methods** section of these docs.
 
-Everything about Event Listeners and how to engage them with `XElement`, is located here
+All the examples provided are given in Javascript form, these can be easily type annotated and this would be supported in XElement.
 
-We will include any references to relevant external resource that we use at the bottom of each page, letting you explore in more detail and to get as much of the information that you need to you as possible.
+For properties bearing as titles, we will provide you with their type annotations also, to help give additional context to the properties and their respective types.
+
+We will try too include any references to relevant external resource that we use at the bottom of each page, letting you explore further, by giving you get as much information that you need to you as possible.
 
 ## Issues and Feedback
 

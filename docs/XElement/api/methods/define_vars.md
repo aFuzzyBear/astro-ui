@@ -139,6 +139,6 @@ You can use this to define local variables too for your element. This allows for
 
 ## Additional Notes
 
-`define:vars` is a very powerful addition to XElement, by scoping the variables into the head of your element, you have in effect your own private internal 'global' scope. 
+`define:vars` is a very powerful addition to XElement, by scoping the variables into the head of your element, you have in effect your own private internal 'global' scope.
 
 The variables are all set using `let` and so can be redefined. They are all scoped to the element, so they wont leak into other elements.

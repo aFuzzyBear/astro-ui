@@ -7,7 +7,7 @@ order: 4
 next_page: '/docs/api/methods/define_vars'
 previous_page: "/docs/api/methods/events"
 ---
-# Animate XElement
+# `@animate` with XElement
 
 XElement allows you to animate just about *any* element just by passing it a set of key-frames and timing instructions.
 
@@ -201,4 +201,4 @@ All these can be done using XElement and its `@animate` method.
 
 ### **Coming Soon**  
 
-Look for a complete guide to using the Web Animation API with XElement, including all the different ways you can control element animations using XElement.
+Look out for the complete guide to using the Web Animation API with XElement, including all the different ways you can control element animations using XElement.

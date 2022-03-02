@@ -6,11 +6,11 @@
 - [`@observe` : Mutation Observer](#observe)
 - [`@visible` : Intersection Observer](#visible)
 
-Each observer is already setup for you, you just need to provide it a function to execute on whatever condition you want to observe.
+Each observer is already setup for you, you just need to provide it a callback function to execute on whatever condition you wish to observe.
 
 They also come with their own set of options to provide an extra level of control over the observations made on the element.
 
-These `[options={}]` vary between observers, for instance, the  "Resize Observer" accepts no additional properties, where as the 'Mutation Observer'  can accept up to seven different configuration properties.
+These `[options={...}]` vary between observers, for instance, the  "Resize Observer" accepts no additional properties, where as the 'Mutation Observer'  can accept up to seven different configuration properties.
 
 There is more information on each observer and their respective properties together in their allotted sections.
 
@@ -19,7 +19,7 @@ There is more information on each observer and their respective properties toget
 Observers are written out in the manner displayed below.
 
 ```astro
-@Observation={(ObservableEvent?, store?, options={}?)=>{
+@Observation={(ObservableEvent, store, options={})=>{
     // Act upon an observation
 }}
 ```
@@ -28,7 +28,7 @@ Observers can accept the following optional arguments:
 
 - `Observation`: This is the observable `event` that is attached to the element.
 - [`store`](Store): Provides access to XElements internal data object `{}`
-- `options={...}`, To pass additional configuration details to the observation.
+- `options={...}`, Pass observational instruction to the observer.
 
 Each argument is optional, and each parameter passed **must** be in their respected format.
 
@@ -38,7 +38,7 @@ Ever Observation executes a callback function on the client in accordance to eac
 
 You would be interested to know that `this` when used for each observer returns only the element that it is targeted on.
 
-This makes it easier to access only `this` xelement DOM properties.
+This makes it easier to access `this` XElement DOM properties within each observation.
 
 -----
 
