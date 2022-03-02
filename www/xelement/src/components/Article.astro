@@ -17,7 +17,7 @@ const obeservations = (element)=>{
                
                 if(entry.intersectionRatio > 0){
                     const url = new window.URL(`${window.location.pathname}${link.hash}`,window.location)
-                    window.history.pushState({},'',url)
+                    window.history.replaceState({},'',url)
                 }
             }
         },{root: document.getElementById('.js-documentation'),rootMargin: '0% 0% -80% 0%',threshold:[0]})
