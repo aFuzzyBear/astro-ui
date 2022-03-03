@@ -1,5 +1,15 @@
 ---
-title: "@visible - "
+title:
+    page : "XElement/API-@visible"
+    api  : "@visible"
+    meta : "@visible Intersection Observer with XElement"
+description: 
+    page: "The `@visible` method allows you to observe for interactions between the XElement and its target element or the viewport. With full control over the application of the Intersection observer, you can control you Elements behavior on and off the screen"
+    meta: "XElements Intersection Observer, letting you control your XElements behavior, on and off the viewport."
+page: 
+    next     : "api/animate"
+    previous : "api/resize"
+
 ---
 # `@visible`  XElement's Intersection Observer
 

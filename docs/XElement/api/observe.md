@@ -1,4 +1,17 @@
-# `@observe` : XElement's Mutation Observer
+---
+title:
+    page : "XElement/API-@observe"
+    api  : "@observe"
+    meta : "@observe DOM Mutations with XElement"
+description: 
+    page: "The `@observe` method allows you to observe and react too changes being made to the XElement's DOM properties. With full granular control over the observations lets you create reactions for the XElement if anything does change"
+    meta: "Watch and react to changes on the XElement's DOM properties"
+page: 
+    next     : "api/animate"
+    previous : "api/resize"
+
+---
+# `@observe` XElement's Mutation Observer
 
 XElement has it's own implementation of the Browsers native [Mutation Observer](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
 

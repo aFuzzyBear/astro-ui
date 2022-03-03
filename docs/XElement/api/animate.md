@@ -1,19 +1,23 @@
 ---
-title: "@animate"
-meta_title: "Animate with XElement"
-description: "XElement has its very own way to help make it easy to utilise the Web Animation API. It allows you to animate any element just by providing a set of keyframes and timing instructions, similar to passing them in CSS-land. This way you can animate pretty much anything using XElement."
-meta_description: "XElement comes with native support over the Web Animation API, using @animate and @timings you can pass through your animation keyframes and its timings, and you are good to go."
-order: 4
-next_page: '/docs/api/methods/define_vars'
-previous_page: "/docs/api/methods/events"
----
-# `@animate` with XElement
+title:
+    page : "XElement/API-@animate"
+    api  : "@animate"
+    meta : "Animate with XElement"
+description: 
+    page: "XElement has its very own way to help make it easy to utilise the Web Animation API. It allows you to animate any element just by providing a set of key-frames and timing instructions, similar to passing them in CSS-land. This way you can animate pretty much anything using XElement."
+    meta: "XElement comes with native support over the Web Animation API, using @animate and @timings you can pass through your animation key-frames and its durations, and you are good to go."
+page: 
+    next     : "api/timings"
+    previous : "api/observe"
 
-XElement allows you to animate just about *any* element just by passing it a set of key-frames and timing instructions.
+---
+# `@animate`
+
+XElement allows you to **animate** just about *any* **element** just by passing it a set of key-frames and timing instructions.
 
 With XElement, animations that you would normally define with CSS are instead described directly *inside any element.* XElement employs the native [`Web Animation API`](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API) to make your HTML elements sing, dance, roll over, play dead... all sorts of crazy and wonderful things. Letting you bring your site and content to life.
 
-XElement uses two reserved `@` methods to pass through its animation instructions: `@animate:Record<Object>` and `@timings:Object`. Both are required in order to perform a transformation, as animations are a sequence of actions over time.
+XElement uses two reserved `@` methods to pass through its animation instructions: `@animate:Record<Object>` and its sister method `@timings:Object`. Both are required in order to perform a transformation, as animations are a sequence of actions over time.
 
 The first method describes a list of actions to be performed, and the second method describes the timing at which these transformations should occur.
 

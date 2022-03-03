@@ -1,4 +1,16 @@
+---
+title:
+    page : "XElement/API-@is"
+    api  : "@is"
+    meta : "XElement @is HTML first"
+description: 
+    page: "The `@is` method is how we inform XElement as to what HTMLElement we wish it to be. It can take the form of all 118 HTML elements and perform its methods ontop of each of them. It can also allow you to create your own semantically meaningful html elements."
+    meta: "The @is method is how we inform XElement as to what HTMLElement we wish from the 118 available Elements for it to be."
+page: 
+    next     : "api/properties"
+    previous : "api/do"
 
+---
 
 # `@is` : Tag
 

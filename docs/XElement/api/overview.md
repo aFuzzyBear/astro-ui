@@ -1,6 +1,13 @@
 ---
-page_title: "XElement API Overview"
-page_description: "Overview of all off XElement's API"
+title:
+    page : "XElement/API-Overview"
+    api  : "Overview"
+    meta : "Overview of XElement's API"
+description: 
+    page: "There are twelve distinct methods with XElement. For that many methods it only serves to have a general overview of all the methods. That is what the Api/Overview page serves to provide you with"
+    meta: "Overview of all 12 of XElements Methods"
+page: 
+    next     : "api/properties"
 
 ---
 # XElement API Overview

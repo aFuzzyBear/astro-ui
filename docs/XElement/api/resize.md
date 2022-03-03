@@ -1,9 +1,21 @@
+---
+title:
+    page : "XElement/API-@resize"
+    api  : "@resize"
+    meta : "XElement @resize Observation API"
+description: 
+    page: "The `@resize` method allow you to react to the XElement's dimensions changing. Have your component fully reactive to the viewport without any performance implications"
+    meta: "The @resize method allows you to react to changes to the XElement's size."
+page: 
+    next     : "api/observe"
+    previous : "api/visible"
 
-# XElement's Resize Observer
+---
+# `@resize`  XElement's Resize Observer
 
 The `@resize` is a `XElement`'s [Resize observer](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver) method.
 
-This allows you to preform interactions upon the element as its own dimensions change. 
+This allows you to preform interactions upon the element as its own dimensions change.
 
 Reacting to the changes in the dimensions lets you have control over the elements behavior at certain sizes. Changing the `font-size` of the elements content, its `background-color`, the options are endless.
 

@@ -1,3 +1,16 @@
+---
+title:
+    page : "XElement/API-@event"
+    api  : "@event"
+    meta : "Event Driven Execution with XElement"
+description: 
+    page: "The `@event` methods page . By letting you write your interactions in either JavaScript or Typescript you can do all sorts of wonderful and fully interactive user interactions."
+    meta: "XElement takes your HTML element and lets you 'do' things with it on the client. By passing through JS/TS to the client, we let you write client-side interactions without the need for an external UI framework or renderer in Astro"
+page: 
+    next     : "api/event"
+    previous : "api/is"
+---
+
 # `@event` : HTMLEventTarget
 
 

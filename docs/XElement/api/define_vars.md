@@ -1,19 +1,25 @@
 ---
-title: "define:vars"
-description: "Be able to pass through values from the server into the element, ready for it to be used on the Client. define:vars, is the bridge between the Astro world and the Client" 
-page_number: 5
-next_page: "/docs/api/methods/store"
-previous_page: "/docs/api/methods/animate"
+title:
+    page : "XElement API - define:vars"
+    api  : "define:vars"
+    meta : "Define Variables with XElement"
+description: 
+    page: "Have the ability to define variables from the server and have it serialized and available to be used anywhere within the scope of your XElement.`define:vars` also lets you hoist variables to the top of the XElement's block scope. It is a very powerful utility method that is available"
+    meta: "Be able to pass through values from the server into the element, ready for it to be used on the Client. define:vars, is the bridge between the Astro world and the Client"
+page: 
+    next     : "api/store"
+    previous : "api/timings"
+
 ---
-# define:vars
+# `define:vars`
 
 `define:vars` was a much requested community feature for Astro. Which managed to make its way in by `v0.21`.
 
 This powerful feature lets you pass variables from the Astro server-side code into the client facing `<script>` element by applying `<script define:vars={property}>`.
 
-This was extremely handy as a lot of Astro works at build time to generate your pages and assets. Here we are informing Astro at build time, to pass through a property coming from its server-side into the client and Astro will do so.
+This was extremely handy as a lot of Astro works at build time to generate your pages and assets. By using `define:vars` to inform Astro that build time, to pass through a property coming from its server-side into the client and Astro will do so.
 
-XElement leverages the same power to let you pass through variables of all manner; `strings`, `numbers`, `arrays`, `objects`, `functions`.
+XElement leverages the very same concept to let you pass through variables of all manner; `strings`, `numbers`, `arrays`, `objects`, `functions`. From the Astro front-matter into your client-facing XElement component.
 
 XElement serializes the data that you are sending into the client so its safe and applies it to a special place within the overall scope of the XElement. That is then accessible to all other XElement methods.
 

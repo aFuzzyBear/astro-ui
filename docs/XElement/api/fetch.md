@@ -1,17 +1,21 @@
 ---
-title: "XElement Fetch() API"
-api_title: "fetch()"
-meta_title: "XElement: API/Methods - Fetch() API"
-page_description: "You can utilize the browser native Fetch API to obtain data on the client and be able to use it directly within the XElement"
-page_number: 8
-previous_page: "/docs/api/methods/import"
+title:
+    page : "XElement/API-fetch()"
+    api  : "fetch()"
+    meta : "fetch() with XElement"
+description: 
+    page: "The `fetch()` method allows you to make full Fetch calls using any of XElements `@` methods. This lets you `GET` data from external API's, alternatively Create, Update, Read even Delete data to backend services."
+    meta: "The `fetch()` method lets you perform full client-side CRUD operations from within any XElement method"
+page: 
+    next     : "api/import"
+    previous : "api/store"
 
 ---
-# Fetching Data
+# `fetch()` Method
 
-XElement allows you to use the native `fetch()` API as one normally would, if they are using fetch elsewhere in Astro, since Astro has built `fetch()`, or jsut as one would within the browser.
+XElement allows you to use the native `fetch()` API that is available to you normally through the browser to external data API's.
 
-It allows you to make client-side data calls to remote servers and other external API's to get your data fed through dynamically, and have it update on the client.
+It allows you to make full CRUD operations on the client-side to remote servers and other external API's to get your data fed `asynchronously` and have it update on the client.
 
 You can use `fetch()` from inside anyone of XElements `@` methods.
 

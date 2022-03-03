@@ -1,13 +1,17 @@
 ---
-api_title: "@do"
-title: "Do Something Special"
-meta_title: "XElement: API/Method - @do"
-description: "XElement takes your HTML element and lets you 'do' things with it on the client. By passing through JS/TS to the client, we let you write client-side interactions without the need for an external UI framework in Astro"
-order: 1
-next_page: '/docs/api/methods/observers'
----
+title:
+    page : "XElement/API-@do"
+    api  : "@do"
+    meta : "Do More with XElement"
+description: 
+    page: "The `@do` method is the powerhouse that drives all creative expression and client side interactivity in XElement. By letting you write your interactions in either JavaScript or Typescript you can do all sorts of wonderful and fully interactive user interactions."
+    meta: "XElement takes your HTML element and lets you 'do' things with it on the client. By passing through JS/TS to the client, we let you write client-side interactions without the need for an external UI framework or renderer in Astro"
+page: 
+    next     : "api/event"
+    previous : "api/is"
 
-# Do Anything
+---
+# `@do` : Callback
 
 XElement is a HTML component generator first, client side interactivity second type of component.
 
@@ -162,7 +166,3 @@ You can write out the body of your payload inside the Astro front-matter and pas
 You can control children elements from within the `@do` method.
 
 ------
-
-## Error Handling
-
-Just incase you begin to enter something incorrect into the `@do` method, such as an object or a string, XElement has some useful and explanatory error boundaries to help assist you as you program your `@do` method.

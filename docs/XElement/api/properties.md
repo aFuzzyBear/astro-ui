@@ -1,3 +1,17 @@
+---
+title:
+    page : "XElement/API-Props"
+    api  : "Props"
+    meta : "XElement Props"
+description: 
+    page: "Every XElement has the same set of Properties that are passed through it. They might seem small but they are extremely powerful. This page serves to provide you with all you need to know about what Properties XElement accepts"
+    meta: "XElement Props page, here you will fins all the information pertaining to the Props that are accepted with each XElement"
+page: 
+    next     : "api/is"
+    previous : "api/overview"
+
+---
+
 # XElement Properties
 
 This page is setup to provide you with a higher overview to XElement's properties.

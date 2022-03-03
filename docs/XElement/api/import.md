@@ -1,18 +1,20 @@
 ---
-api_title: "import()"
-title: "XElement Dynamic Imports"
-meta_title: "Dynamically Import files on the client"
-page_description: "XElement allows you to dynamically call scripts from either internal or external scripts from anywhere"
-order: 7
-next_page: "/docs/api/methods/fetch"
-prev_page: "/docs/api/methods/store"
+title:
+    page : "XElement/API-import()"
+    api  : "import()"
+    meta : "Dynamically Import functionality with XElement"
+description: 
+    page: "XElement allows you to perform dynamic imports on the client to import ESM modules into the scope of your XElement's method. This lets you add additional interactions and functionality into your component creating a richer experience on the client."
+    meta: "XElement allows you to dynamically call scripts from either internal or external scripts from anywhere"
+page: 
+    previous : "api/fetch"
 ---
 
 # Dynamic Imports
 
 XElement allows you to dynamically import and utilize ESM modules from anywhere around the Internet.
 
-Similar to [`fetch()`](/docs/api/methods/fetch), you can dynamically import ESM-ready scripts on any XElement's `@` method.
+Similar to [`fetch()`](fetch), you can dynamically import ESM-ready scripts on any XElement's `@` method.
 
 This small yet really powerful feature of allowing files to be called only when needed or on-demand even. `import()` provides so many additional benefits to enhancing your components.
 
@@ -26,7 +28,7 @@ However we do recommend using [Skypack](https://www.skypack.dev/) to help obtain
 
 ```js
 
-@do={async ()=>{
+@do={()=>{
    import('https://...')
   .then((module) => {
       // Do Something with the module...
@@ -55,9 +57,10 @@ It really is that simple to dynamically import and execute JS modules from anywh
 Below are some working examples of the power of dynamic imports in XElement.
 
 Each of these examples are just simple extrapolations of what you can do with dynamically importing your modules with XElement on the client, to help enhance your components with some additional functionality.
+
 ### Confetti
 
-Let us demonstrate a Click event on a button, calling the `canvas-confetti` module from [jsdeliver]. When called it would execute with some confetti bursting on to the screen.
+Let us demonstrate a 'Click' event on a button, calling the `canvas-confetti` module from [jsdeliver]. When called it would execute with some confetti bursting on to the screen.
 
 ```astro
 ---

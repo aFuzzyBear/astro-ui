@@ -1,10 +1,15 @@
 ---
-api_title: "store"
-title: "XElement's Internal Data Store"
-description: "XElement provides a special type of data transient data objet for bi-directional data exchange between different XElements"
-order: 8
-next_page: "/docs/api/methods/define_vars"
-prev_page: "/docs/api/methods/import"
+title:
+    page : "XElement/API-store"
+    api  : "store"
+    meta : "XElement's Internal Data Store"
+description: 
+    page: "XElement has its own special type of data object which allows for bi-directional exchange of data between different XElements. The store is available as the second argument in all of XElements methods."
+    meta: "XElement provides a special type of transient data objet for bi-directional data exchange between different XElements"
+page: 
+    next     : "api/fetch"
+    previous : "api/define_vars"
+
 ---
 
 # XElement's Data `store`
