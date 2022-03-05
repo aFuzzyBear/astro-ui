@@ -12,7 +12,7 @@
     Have CSS turn off the HTML page in effect,
     Turn it back on as the last thing it does before closing the door
 */
-html,body{opacity: 0;visibility: hidden}
+html,body{opacity: 0;visibility: hidden; width: 100vw;}
 
 /**
     Tailwind Directives
