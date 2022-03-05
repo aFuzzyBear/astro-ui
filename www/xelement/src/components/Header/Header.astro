@@ -4,6 +4,7 @@
   import {Icon} from 'astro-icon'
 ---
 <header class="navbar navbar_header sticky-head">
+    <div class="one_line">
     <div class="navbar_logo">
         <Icon name="astro-ui"/>
     </div>
@@ -16,13 +17,19 @@
             <StorkSearch/>
         </div>
     </div>
+  
 </header>
 <style lang="scss">
     [astro-icon]{
         @apply  fill-current;
     }
+
+    .one_line {
+        display: flex;
+        flex-wrap: wrap;
+    }
     .navbar{
-        @apply flex flex-row flex-wrap content-center justify-between items-center;
+        @apply flex flex-row content-center justify-between items-center;
         &_header{
             @apply p-4 pb-4 h-[25%];
         };

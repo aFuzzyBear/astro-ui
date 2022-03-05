@@ -28,10 +28,6 @@ main.layout{
 }
 
 
-.footer{
-
-}
-
 /**
     ***Sticky Right Sidebar***
 */
@@ -104,5 +100,31 @@ footer {
     article {
         max-width:80vh;
       }
+
+    .navbar_right {
+        display:none;
+    }
+
+    .navbar {
+        flex-wrap: wrap;
+    }
   
   }
+
+  .navbar_search {
+      max-width: 15vh;
+      overflow:hidden;
+  }
+
+  @media (max-width: 581px) {
+    .navbar_themeToggle {
+        display: flex;
+        flex-wrap: nowrap;
+        padding: 0;
+       
+     
+    }
+
+ 
+  }
+ 
