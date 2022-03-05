@@ -47,7 +47,8 @@
     --tailwind-quotes: var(--base-color-purple) ;
     --tailwind-theme-captions: var(--base-color-purple) ;
     //Prism syntax highlighting
-    --prism-bg: ;
+    --prism-bg:var(--base-color-light-greyish-blue);
+    --prism-bg-shadow: 0px 4px 5px 0px rgb(137 137 157 / 50%), inset -2px -1px 8px 0px rgb(147 147 187 / 60%), inset 0px 0px 1px 0px #afa0a0; 
     --prism-base: ;
     --prism-comment: ;
     --prism-block-comment: ;
@@ -113,7 +114,8 @@
     --tailwind-theme-captions:var(--base-color-chocolate);
 
     //Prism syntax highlighting
-    --prism-bg: ;
+    --prism-bg:hsl(32deg 31% 74%) ;
+    --prism-bg-shadow:0px 4px 5px 0px rgb(95 63 26 / 56%), inset -2px -1px 8px 0px rgb(181 149 110 / 95%), inset 0px 0px 1px 0px #afa0a0 ;
     --prism-base: ;
     --prism-comment: ;
     --prism-block-comment: ;
@@ -194,7 +196,8 @@
     --tailwind-invert-quotes: green;
     --tailwind-invert-theme-captions: green;
     //Prism syntax highlighting
-    --prism-bg: hsla(259, 40%, 40%,0.75);
+    --prism-bg:hsl(263deg 91% 8% / 33%);
+    --prism-bg-shadow:0px 4px 5px -1px rgb(0 0 0 / 33%), inset -1px -1px 8px 0px rgb(0 0 0 / 32%), inset 0px 0px 0px 0px #2e2b46, 1px 1px 10px 3px rgb(9 15 30 / 80%);
     --prism-base: var(--base-snow) ;
     --prism-comment: ;
     --prism-block-comment: ;
