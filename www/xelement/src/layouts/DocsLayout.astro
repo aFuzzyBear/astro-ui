@@ -5,6 +5,7 @@ import StorkOutput from '../components/Stork/StorkOutput.astro'
 import Article from '../components/Article.astro'
 import RightSideBar from './components/RightSideBar.astro'
 import Giscss from '../components/Giscuss.astro'
+
 const {
     content:{menu, directory,
         data:{ 
@@ -27,7 +28,9 @@ const {
         }
     ]}
 >
+     
     <main class="container">
+       
         <div class="leftsidebar">
             <LeftSideBar menu={menu} dir={directory}/>
         </div>
