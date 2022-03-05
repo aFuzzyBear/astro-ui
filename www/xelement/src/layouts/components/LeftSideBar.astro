@@ -1,10 +1,14 @@
 ---
- import Sidebar from '../../components/sidebar/Sidebar.astro'
+ import Sidebar from '../../components/sidebar/Sidebar.astro';
+ import ThemeToggle from '../../components/Header/ThemeToggle.astro';
 const {menu,dir,...attrs}=Astro.props
 
 ---
 <aside class="leftbar  sticky-leftbar">
     <div class="sidebar__feature">
+    <div class="mobileToggle">
+            <ThemeToggle />
+        </div>
         <h3>
             <a href="/docs/induction/overview">Induction</a>
         </h3>

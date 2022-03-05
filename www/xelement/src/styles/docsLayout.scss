@@ -11,6 +11,10 @@
       "leftbar main"; 
   }
 
+  .mobileToggle {
+      display: none;
+  }
+  
   article {
     max-width:50vh;
   }
@@ -107,13 +111,16 @@ footer {
 
     .navbar {
         flex-wrap: wrap;
+        justify-content: flex-end;
+        margin-right: 5em;
+        min-width: 100vh;
     }
   
   }
 
   .navbar_search {
-      max-width: 15vh;
-      overflow:hidden;
+      max-width: 30vh;
+     
   }
 
   @media (max-width: 581px) {
@@ -125,6 +132,18 @@ footer {
      
     }
 
- 
+    .navbar {
+        height: 0;
+        display: none !important;
+    }
+
+    .navbar_header {
+        height: 0;
+        display:none !important;
+    }
+
+    .mobileToggle {
+        display: block;
+    }
   }
  
