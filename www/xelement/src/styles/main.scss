@@ -64,18 +64,10 @@ body {width: 98vw;}
         }
     }
     code{
-        @apply bg-[color:var(--color-bg-code)];
+        @apply bg-[color:var(--color-bg-code)] text-lg;
     }
-    pre{
-    }
-    .clay{
-        backdrop-filter: blur(5px);
-        
-        border-radius: 26px;
-        
-        box-shadow: 35px 35px 68px 0px hsl(33, 44%, 76%) , inset -8px -8px 16px 0px hsl(33, 44%, 76%) , inset 0px 11px 28px 0px rgb(255, 255, 255);
-        
-    }
+   
+ 
 }
     
 
