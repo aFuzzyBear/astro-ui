@@ -1,11 +1,34 @@
 ---
  import Sidebar from '../../components/sidebar/Sidebar.astro';
  import ThemeToggle from '../../components/Header/ThemeToggle.astro';
+  import {Icon} from 'astro-icon'
 const {menu,dir,...attrs}=Astro.props
 
 ---
+
+<style lang="scss">
+    [astro-icon]{
+        @apply  fill-current;
+    }
+    .navbar_feature_mobile {
+        font-size: 2em;
+        padding-right: 0.25em;
+    }
+
+    .navbar_logo_mobile {
+        width: 30px;
+    }
+</style>
+
 <aside class="leftbar  sticky-leftbar">
     <div class="sidebar__feature">
+    <div class="navbar_logo_mobile">
+        <Icon name="astro-ui"/>
+    </div>
+      <div class="navbar_feature_mobile">
+        XElement
+    </div>
+     <h3>~~~</h3>
     <div class="mobileToggle">
             <ThemeToggle />
         </div>

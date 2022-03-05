@@ -115,7 +115,12 @@ footer {
         margin-right: 5em;
         min-width: 100vh;
     }
-  
+    .navbar_feature_mobile {
+        display: none;
+    }
+    .navbar_logo_mobile {
+        display: none;
+    }
   }
 
   .navbar_search {
