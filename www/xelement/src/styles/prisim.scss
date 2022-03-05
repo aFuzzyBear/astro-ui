@@ -46,7 +46,7 @@
  
  :not(pre) > code[class*="language-"],
  pre[class*="language-"] {
-     background: var(--prism-bg);
+     background-color: var(--prism-bg);
  }
  
  /* Inline code */
