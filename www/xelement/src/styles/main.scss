@@ -66,6 +66,7 @@ html,body{opacity: 0;visibility: hidden; width: 100vw;}
         @apply bg-[color:var(--color-bg-code)];
     }
     pre{
+        z-index: -999;
     }
     .clay{
         backdrop-filter: blur(5px);
