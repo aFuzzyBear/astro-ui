@@ -5,22 +5,29 @@
 .container {
     height: 100%;
     display: grid; 
-    grid-template-columns: 12em 76em 12em; 
-    grid-template-rows: 1fr; 
-    gap: 0px 1em; 
+    grid-template-columns: 1fr 2fr; 
+    gap: 1px; 
     grid-template-areas: 
-      "leftbar main rightbar"; 
+      "leftbar main"; 
   }
+
+  article {
+    max-width:50vh;
+  }
+  
   .leftbar { grid-area: leftbar; }
-  .main { grid-area: main; }
+  .main { grid-area: main;}
   .rightbar { grid-area: rightbar; }
 
 main.layout{
-    @apply flex flex-row flex-wrap md:flex-nowrap items-start content-center justify-between w-full gap-2 pl-8;
+
+    max-width: 50vw;
 }
 .documentation{
     @apply w-max
 }
+
+
 .footer{
 
 }
@@ -34,11 +41,7 @@ main.layout{
     top: 0;
     @apply bg-[color:var(--theme-bg-color)]
 }
-.sticky-rightbar {
-    position:sticky;
-    top:22%;
-    padding-right: 1em;
-}
+
 
 .sticky-leftbar {
     position:sticky;
@@ -71,3 +74,31 @@ footer {
     margin: 0 auto;
     border-top: 2px solid black;
 }
+
+.leftsidebar {
+    margin-left: 1.5em;
+}
+
+@media (max-width: 719px){
+    .sticky-rightbar {
+        display: none;
+    }
+  }
+
+  @media (min-width: 720px) {
+    .container {
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr; 
+        grid-template-rows: 1fr; 
+        gap: 0px 1em; 
+        grid-template-areas: 
+          "leftbar main rightbar"; 
+      }
+      .sticky-rightbar {
+        position:sticky;
+        top:22%;
+        display: block;
+    }
+  
+  }
