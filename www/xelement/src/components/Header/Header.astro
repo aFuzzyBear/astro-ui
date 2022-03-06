@@ -4,7 +4,6 @@
   import {Icon} from 'astro-icon'
 ---
 <header class="navbar navbar_header sticky-head">
-    <div class="one_line">
     <div class="navbar_logo">
         <Icon name="astro-ui"/>
     </div>
@@ -13,9 +12,9 @@
     </div>
     <div class="navbar_right">
         <div class="navbar_themeToggle"><ThemeToggle/></div>
-        <div class="navbar_search">
+        <!-- <div class="navbar_search">
             <StorkSearch/>
-        </div>
+        </div> -->
     </div>
   
 </header>
@@ -23,15 +22,10 @@
     [astro-icon]{
         @apply  fill-current;
     }
-
-    .one_line {
-        display: flex;
-        flex-wrap: wrap;
-    }
     .navbar{
         @apply flex flex-row content-center justify-between items-center z-10;
         &_header{
-            @apply p-4 pb-4 h-[25%];
+            @apply w-full p-4 pb-4 h-[25%];
         };
         &_logo{
             @apply pl-4 w-[clamp(2rem,5rem,5rem)] transition-all;
