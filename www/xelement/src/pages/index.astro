@@ -1,36 +1,10 @@
 ---
-import Gallery from '../components/Gallery.astro'
+import XElement from 'astro-xelement'
+
+const {Button} = XElement
+
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>Welcome to Astro</title>
-		
-
-		<style>
-			/* scoped CSS styles go here: */
-			/* h1 { ... } */
-		</style>
-	</head>
-
-	<body>
-		<h1>Welcome to <a href="/docs/api/overview">Astro</a></h1>
-		<h2>Pick a card, any card . . . </h2>
-
-		<h3>
-			<a href="/docs/induction/overview">Induction</a>
-		</h3>
-		<h3>
-			<a href="/docs/api/overview">API</a>
-		</h3>
-		<h3>
-			<a href="/docs/blog/overview">Blog</a>
-		</h3>
-		<h3>
-			<a href="/docs/guides/myfirstcomponents">Guides</a>
-		</h3>
-		<Gallery/>
-	</body>
-</html>
+<script>
+	window.location.pathname = "/docs/induction/overview"
+</script>
