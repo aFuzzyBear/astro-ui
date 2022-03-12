@@ -8,6 +8,46 @@ stemming = "English"
 title_boost = "Ridiculous"
 
 [[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/animate.md'
+url = 'api/animate'
+title = 'api animate'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/define_vars.md'
+url = 'api/define_vars'
+title = 'api define_vars'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/do.md'
+url = 'api/do'
+title = 'api do'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/event.md'
+url = 'api/event'
+title = 'api event'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/fetch.md'
+url = 'api/fetch'
+title = 'api fetch'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/import.md'
+url = 'api/import'
+title = 'api import'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/is.md'
+url = 'api/is'
+title = 'api is'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/observe.md'
+url = 'api/observe'
+title = 'api observe'
+
+[[input.files]]
 path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/overview.md'
 url = 'api/overview'
 title = 'api overview'
@@ -16,6 +56,26 @@ title = 'api overview'
 path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/properties.md'
 url = 'api/properties'
 title = 'api properties'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/resize.md'
+url = 'api/resize'
+title = 'api resize'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/store.md'
+url = 'api/store'
+title = 'api store'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/timings.md'
+url = 'api/timings'
+title = 'api timings'
+
+[[input.files]]
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/visible.md'
+url = 'api/visible'
+title = 'api visible'
 
 [[input.files]]
 path = '/home/peter/dev/Astro/astro-ui/docs/XElement/blog/interactivity.md'
@@ -53,69 +113,44 @@ url = 'guides/styling'
 title = 'guides styling'
 
 [[input.files]]
-path = '/home/peter/dev/Astro/astro-ui/docs/XElement/sarahEdits/getting-started.md'
-url = 'sarahedits/getting-started'
-title = 'sarahedits getting-started'
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/induction/events.md'
+url = 'induction/events'
+title = 'induction events'
 
 [[input.files]]
-path = '/home/peter/dev/Astro/astro-ui/docs/XElement/sarahEdits/interactivity.md'
-url = 'sarahedits/interactivity'
-title = 'sarahedits interactivity'
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/induction/getting-started.md'
+url = 'induction/getting-started'
+title = 'induction getting-started'
 
 [[input.files]]
-path = '/home/peter/dev/Astro/astro-ui/docs/XElement/sarahEdits/introduction.md'
-url = 'sarahedits/introduction'
-title = 'sarahedits introduction'
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/induction/interactivity.md'
+url = 'induction/interactivity'
+title = 'induction interactivity'
 
 [[input.files]]
-path = '/home/peter/dev/Astro/astro-ui/docs/XElement/sarahEdits/overview.md'
-url = 'sarahedits/overview'
-title = 'sarahedits overview'
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/induction/introduction.md'
+url = 'induction/introduction'
+title = 'induction introduction'
 
 [[input.files]]
-path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/animate.md'
-url = 'api/methods/animate'
-title = 'api methods animate'
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/induction/methods.md'
+url = 'induction/methods'
+title = 'induction methods'
 
 [[input.files]]
-path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/define_vars.md'
-url = 'api/methods/define_vars'
-title = 'api methods define_vars'
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/induction/observations.md'
+url = 'induction/observations'
+title = 'induction observations'
 
 [[input.files]]
-path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/do.md'
-url = 'api/methods/do'
-title = 'api methods do'
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/induction/overview.md'
+url = 'induction/overview'
+title = 'induction overview'
 
 [[input.files]]
-path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/events.md'
-url = 'api/methods/events'
-title = 'api methods events'
-
-[[input.files]]
-path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/fetch.md'
-url = 'api/methods/fetch'
-title = 'api methods fetch'
-
-[[input.files]]
-path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/import.md'
-url = 'api/methods/import'
-title = 'api methods import'
-
-[[input.files]]
-path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/observers.md'
-url = 'api/methods/observers'
-title = 'api methods observers'
-
-[[input.files]]
-path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/overview.md'
-url = 'api/methods/overview'
-title = 'api methods overview'
-
-[[input.files]]
-path = '/home/peter/dev/Astro/astro-ui/docs/XElement/api/methods/store.md'
-url = 'api/methods/store'
-title = 'api methods store'
+path = '/home/peter/dev/Astro/astro-ui/docs/XElement/induction/polymorphism.md'
+url = 'induction/polymorphism'
+title = 'induction polymorphism'
 
 
 

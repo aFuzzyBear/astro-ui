@@ -4,8 +4,8 @@ api_title: "@events"
 meta_title: "XElement-@events"
 description: "Overview on XElement's Event Handlers, gain a better insight on how XElement lets you use any* Event behaviors that you wish your XElement to react to" 
 page_number: 3
-next_page: "/docs/api/methods/animate"
-previous_page: "/docs/api/methods/observers"
+next_page: "animate"
+previous_page: "observers"
 ---
 
 # XElement Events Handlers
@@ -20,7 +20,7 @@ Given that we wont restrict you from writing out all the 180+ different events k
 
 Any non applicable events themselves will fail silently.
 
-It is best to only apply events outside of any [`customEvent`](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events) that might be declared in the [`@do`](/docs/api/methods/do) method, to the right element that you are consuming.
+It is best to only apply events outside of any [`customEvent`](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events) that might be declared in the [`@do`](../api/do) method, to the right element that you are consuming.
 
 This would help you react to the right events on the element without to much difficulty.
 
@@ -53,17 +53,7 @@ Interacting with events that are located on the `window` or `document` it is as 
 
 The above example demonstrates using two different types of XElements the first being a standard html `<input>` and the other, an interactive `<button>`, that takes the contents of the input and copies it to the clipboard.
 
-As a general rule of thumb if its on the `document || window` you can use it as is.
+As a general rule of thumb if its on the `document || window` you can use it with XElement as you would normally expect.
 
 ------
 
-## Further Information
-
-To find out more about `Events` and the different ones you can interact and how to use them in more detail.
-
-- [MDN's Event Reference guide](https://developer.mozilla.org/en-US/docs/Web/Events)
-- Understand more about [EventTarget](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget)
-- Find out more about using [addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
-- Information about using [removeEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener)
-- Learn more about [`customEvent`](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events)
-- Understand [bubbling and capturing](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_bubbling_and_capture)

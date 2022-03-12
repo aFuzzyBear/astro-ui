@@ -43,19 +43,26 @@ That is it, you are now ready to start using XElement! Choose your next step...
 ## Induction
 
 Our Induction and Onboarding process is designed to be a high-level overview to XElement, giving insights on its various methods and behaviors. We highly endorse that you take the time to be familiar with the content provided within the Induction section of our Documentation.
+
+<button> [Go To: Induction](../induction/overview)</button>
+
 ## API reference
 
-Visit the API reference doc to find all the XElement API reference points and information on how to use each one correctly.
+XElements `api/` section provides all twelve off XElement's API reference points. With information on how to use each one in more detail.
+
+<button> [Go To: API's](../api/overview)</button>
 
 ## Guides
 
-Explore our guides to see common/popular ways to use XElement in your project.
+Guides is a living part of our documentation and over time would be filled with documents showing how to use XElement in Astro, creating truly fantastic components as a result.
+
+<button> [Go To: Guides](../guides/overview)</button>
 
 ## Showcase
 
-Show us your stuff! We'd love to see what you've made with XElement and Astro. Share your creations with the Astro Discord Community in the `#Showcase` channel, Tweet them at us, send them to us via Github or find us on Discord.
+Show us your stuff! We'd love to see what you've made with XElement and Astro. Share your creations with the Astro Discord Community in the `#Showcase` channel, Tweet them at us, send them to us via Github or find us on [Discord](https://discord.com/channels/830184174198718474/951614170351145010).
 
-As more people build web components with XElement, we will gather components from users and showcase them here. 
+As more people build web components with XElement, we will gather components from users and showcase them here.
 
 ----------
 
