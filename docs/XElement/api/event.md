@@ -32,10 +32,9 @@ We have created additional methods and exposed all the options on customizing th
 
 ## `@event`
 
-**Type** : `EventTarget` 
+**Type** : `EventTarget`
 
 **Params** : ` Callback(event,store,options={...}) `
-
 
 The `@event` method is indicates that XElement should listen for that given `Event` executing a callback function when triggered.
 
@@ -65,6 +64,7 @@ To direct for the propagation properties you can do by passing in the third opti
 You can apply as many events as you wish to on your element, you are not limited at all.
 
 -------
+
 ## Arguments
 
 Events accepts three optional arguments: `event`, [`store`](../api/store) and [`options`](#controls--options). It then executes a callback function on the `@event` being targeted.
@@ -83,6 +83,7 @@ Events accepts three optional arguments: `event`, [`store`](../api/store) and [`
     ...
     }}
 ```
+
 To obtain the XElement inside the scope of the event callback function, you can declare it simply by utilizing `this`
 
 ### `event`
@@ -106,6 +107,7 @@ Passing through the store as the second parameter, gives you access to XElements
 ```jsx
  @event={(element,store)=>console.log(store)} //{}
 ```
+
 ### `this`
 
 Normally inside an event `this` would infer the `global` context. However with XElement `this` would always return a reference to the XElement.
@@ -124,7 +126,7 @@ Certain Events have certain effects on the DOM, where one event might bubble up 
 
 To exert your own control over the event itself, you can pass in the third optional argument: `options={}`.
 
-Below describes the options that this can take and their respective inputs. For adding Event Listeners, this is the options that are available to you. 
+Below describes the options that this can take and their respective inputs. For adding Event Listeners, this is the options that are available to you.
 
 ```js
 options={
@@ -145,14 +147,13 @@ options={
 
 ------
 
-
 ## Additional Methods
 
 XElement provides you with extra levels of fine-grained control over your `@event` listener.
 
 ### `@event:remove`
 
-**Type** : `EventTarget` 
+**Type** : `EventTarget`
 
 **Params** : `Callback(event,store,options={...})`
 
