@@ -1,3 +1,14 @@
+---
+title:
+    page : "Observations in XElement"
+description: 
+    page : "Overview on using Observations with XElement."
+page: 
+    number   : 7
+    next     : "../induction/events"
+    prev     : "../induction/methods"
+
+---
 # Observations with XElement
 
 There are four `Observer` API's that were added to the browsers in recent history. These API's came about to address several problems that were becoming apparent with using `Events` to react to changes on the DOM.
@@ -6,21 +17,27 @@ The main problem was that as Web applications were becoming increasingly complex
 
 The need to avoid the cyclic dependencies and infinite loops that were caused by the `Observers` former counterparts were addressed by these newer `asynchronous` API's. Having received full browser support, these Observers have helped empower frameworks and developers to help manage the burden of performance in their applications with these controllable `async` observer API's.
 
-Of the four API's XElement gives you access to three of these API's. These are:
+Of the four Observer API's present in the Browser, XElement only gives you access to three of these API's. These are:
 
 - [`@resize` : Resize Observer](#resize)
 - [`@observe` : Mutation Observer](#observe)
 - [`@visible` : Intersection Observer](#visible)
 
-The remaining [Performance Observer](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver) we felt was not really needed with XElement, since all the execution times of XElement components are extremely infinitesimal. If demand requires, we can always seek to revisit this decision.
+The remaining [Performance Observer](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver) we felt was not really needed with XElement, since all the execution times of XElement components are extremely infinitesimal, and XElement runs at native JS speeds immediately once the DOM has loaded. Performance with XElement has been a very happy design outcome. However if demand requires, we can always seek to revisit this decision.
 
-Each Observer carries out their respective observation. The `@resize` observer focuses on the changing sizes to the Elements bounding box size. The `@visible` observer focuses on when the Element is intersecting with the target element. Lastly the `@observe` method is the DOM's mutation observer, this watches for changes being made to the element.
+Each Observer carries out their respective observation.
 
-All these observers execute your code in a non-blocking manner, keeping performance close to what the browsers provide. With each observation being made is an opportunity for you to determine what code you wish to execute and when. With XElement, liberty in your choice is at the core what XElement is about. This way you can create truly responsive, performant, components with little ease.  
+- `@resize` observer focuses on the changing sizes to the XElements bounding box size.
 
-Each observer is ready setup for you, you just need to provide it a callback function to execute on whatever condition you wish to observe.
+- `@visible` observer focuses on when the Element is intersecting with the target element.
 
-They also come with their own set of options to provide an extra level of control over the observations made on the element.
+- `@observe` method is the DOM's mutation observer, this watches for changes being made to the element.
+
+The observers execute your code in a non-blocking manner, keeping performance close to what the browsers provide. With each observation being made is an opportunity for you to determine what code you wish to execute and when. With XElement, liberty in your choice is at the core what XElement is about. This way you can create truly responsive, performant, components with little ease.  
+
+Each observer is all ready setup for use, it just needs to be provided a callback function to execute on whatever condition you wish to observe.
+
+They also come with their own set of options to provide an extra level of control over the observations made on that element.
 
 These `[options={...}]` vary between observers, for instance, the  "Resize Observer" accepts no additional properties, where as the 'Mutation Observer'  can accept up to seven different properties from which to cast your observations on.
 
@@ -28,14 +45,13 @@ There is more information on each observer and their respective properties toget
 
 -------
 
-## Overview
+## Oberservations Pattern
 
-This section seeks to give you a very broad understanding to using the observations and their API. Each API is of a similar implementation however there are differences which we do explore in more detail in their respective api pages.
+This section seeks to give you a very broad understanding to using the observations and their API. Each Observation API is of a similar implementation and share a common design pattern however, there are differences which are explored in more detail in their respective `api/` pages.
 
-Firstly each Observation accepts a callback function, which is executed solely on the client. These functions can be `asynchronous` letting you `await` promises within the function body to `import` or `fetch` data from external sources.
+Each Observation accepts a callback function, which is executed solely on the client. These functions can be `asynchronous` letting you `await` promises within the function body to `import` or `fetch` data from external sources.
 
-Each observation is written out in the a similar fashion.
-
+Every observation is written out in the a similar fashion.
 
 ```jsx
 @Observation={(ObservableEvent, store, options={})=>{
@@ -52,11 +68,11 @@ As you may noticed there are three arguments present, in the above example. Thes
 
 Observations can accept the following optional arguments:
 
-- `Observation`: This is the observable `event` that is attached to the element.
-- [`store`](): Provides access to XElements internal data object `{}`
-- `options={...}`, Pass observational instruction to the observer.
+- `ObservableEvent`: The most recent Observable Event Interface is returned.
+- [`store`](../api/store): Provides access to XElements internal data object `{}`
+- `options={...}`, Pass instructions to add control over the observation.
 
-Each argument is optional, and each parameter passed **must** be in their respected format.
+Each argument is optional, and the labels presented here are not deterministic. However their respected positions for each parameter must be correct.
 
 ### `this`
 
@@ -78,7 +94,7 @@ This indicates that the given function should only run when the element is visib
 }}
 ```
 
-<button>[More on `@visible` method]()</button>
+<button>[More on `@visible` method](../api/visible)</button>
 
 -----
 
@@ -96,7 +112,7 @@ Firing a callback when changes to either its content or border box sizes occurs.
 }}
 ```
 
-<button>[More on `@resize` method]()</button>
+<button>[More on `@resize` method](../api/resize)</button>
 
 -----
 
@@ -114,7 +130,7 @@ By default it would observe all the aforementioned attributes unless specified, 
 }}
 ```
 
-<button>[More on `@observe` method]()</button>
+<button>[More on `@observe` method](../api/observe)</button>
 
 -----
 

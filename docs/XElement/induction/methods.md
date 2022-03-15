@@ -19,13 +19,13 @@ This tells XElement what your element **is** exactly. Is it a HTML Element or a 
 
 XElement is polymorphic in its nature, meaning that there is more than one way to instruct XElement as to what it is exactly.
 
-We explore the `@is` in more detail [here](/docs/api/methods/is).
+We explore XElements polymorphism [here](polymorphism) and the `@is` in more detail [here](../api/is).
 
 -----
 
 ## `@do` : Callback ( element, store )
 
-What ever you wish your XElement to *do*, it will *do* so.
+What ever you wish your XElement to **do**, it will *do* so, obediently.
 
 ```js
 @do={(element,store) => {
@@ -33,7 +33,7 @@ What ever you wish your XElement to *do*, it will *do* so.
 }}
 ```
 
-You can find out more about XElement's `@do` method [here](/docs/api/methods/do)
+You can find out more about XElement's `@do` method [here](../api/do)
 
 -----
 

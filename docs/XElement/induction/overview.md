@@ -1,24 +1,24 @@
 ---
 title:
     page : "Home of XElement's Docs"
-    meta : "Home of XElement's Docs"
 description: 
     page: "The official home to XElement's documentation, this is where we keep the information pertaining to XElement, its api, methods, usages and guides. All located here."
-    meta: "The official home to XElement's documentation, where all the information pertaining to XElement is kept"
 page: 
     number   : 1
-    next     : "docs/induction/introduction"
+    next     : "../induction/introduction"
 
 ---
 # XElement
 
-Welcome to the home of XElement, **Astro's first and only* HTML Web Component Framework**
+Welcome to the home of XElement, **Astro's first and only\* HTML Web Component Framework**
 
-XElement allows you to create dynamic HTML elements with interactivity (e.g. animations, transitions, event listeners) natively in an Astro page or component... without the need for writing and importing a component in one of the many JavaScript frameworks Astro supports (React, Vue, Svelte, Solid, Preact).
+XElement lets you to create dynamic HTML elements in Astro and enhance them with client-side interactivity (e.g. animations, transitions, event listeners) natively in an Astro page or component... All without the using one of the many JavaScript frameworks Astro supports (React, Vue, Svelte, Solid, Preact).
 
-XElement creates web components. It also gives you the option to choose *when* and *how* to run **JavaScript** or **TypeScript**, client-side on a per-component basis. Very similar to the way Astro controls the hydration of framework components via `client:*` directives.
+XElement takes the HTML and makes them into interactive web components. It gives you the option to choose *when* and *how* to run your client-side interactions on a per-component basis.
 
-Unlike other framework components, XElement-generated components can even contain other framework components. This allows you to combine the outputs of otherwise isolated islands of interactivity.
+Since XElement is an *enhanced* Astro Component, it has no need for any hydration or `client:*` directives. It in-fact has no renderer, instead deferring to using vanilla JS on the client to achieve our interactions.
+
+And unlike other framework components, XElement-generated components can even contain other framework components. This allows you to combine the outputs of otherwise isolated islands of interactivity, augmenting the overall Island experience both for the client and the developer.
 
 ----------
 
@@ -34,17 +34,19 @@ npm i astro-xelement -D
 
 ```astro
 ---
-import XElement from 'astro-XElement'
+import XElement from 'astro-xelement'
 ---
 ```
 
-That is it, you are now ready to start using XElement! Choose your next step...
+That is it, you are now ready to start using XElement!
+
+We have taken some time to arrange the documentation in a manner that would allow you to get both the conceptual and the practical knowledge to use XElement efficiently in your projects.
 
 ## Induction
 
 Our Induction and Onboarding process is designed to be a high-level overview to XElement, giving insights on its various methods and behaviors. We highly endorse that you take the time to be familiar with the content provided within the Induction section of our Documentation.
 
-<button> [Go To: Induction](../induction/overview)</button>
+<button> [Go To: Introduction](../induction/introduction)</button>
 
 ## API reference
 
@@ -84,7 +86,7 @@ Our github repo is active and we welcome any issues or PR requests. This is the 
 
 This project owes a tremendous amount of gratitude and thanks to [jonathantneal](https://github.com/jonathantneal) for his continuous support, guidance and hacking away at the internet. Pivotal in turning this whimsical fantasy into creation.
 
-Special acknowledgement to the Astro Core team for their dedication and hard work towards building Astro as a fantastic framework for Frontend development.
+Special acknowledgement to the [Astro Core team](https://github.com/orgs/withastro/people) for their dedication and hard work towards building Astro as a fantastic framework for Frontend development.
 
 ### Further Mentions
 
@@ -100,7 +102,7 @@ Its only fair to those who have assisted in this project from their support and 
 Thank you all for being patient and brave when it came to testing and exploring XElement for us, and for helping us to realise its potential.
 
 ----------
-
+<!--TODO: Move this to the footer text
 XElement was built of the back of good old curiosity, off-world magic and Irn-bru.
 
-We assure you that no animals were harmed too seriously in the process.
+We assure you that no animals were harmed too seriously in the process. -->
