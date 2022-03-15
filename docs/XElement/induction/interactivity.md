@@ -1,8 +1,19 @@
+---
+title:
+    page : "Interactivity with XElement"
+description: 
+    page: "Discussing client-side interactivity with Astro, its UI Frameworks, and how it is done with XElement."
+page: 
+    number   : 3
+    next     : "../induction/methods"
+    prev     : "../induction/introduction"
+
+---
 # Client Side Interactivity
 
 Client side interactivity in Astro can be achieved in a number of ways, and when we talk about 'client-side interactivity', we are referring to using JS on the browser.
 
-Here we will be discussing how this is achieved in Astro presently, and how XElement helps to add to the existing developer experience to make this process of applying client-side interactions easier.
+Let's see how interactivity is currently achieved in Astro presently, and how XElement helps to add to the existing developer experience to make this process of applying client-side interactions easier.
 
 ## Astro & UI Frameworks
 
@@ -95,7 +106,7 @@ const answer = await fetch('deepthought.ai')
 
 Each XElement is rendered at build time, with a total cost of 98bytes per element of XElement boilerplate. Resulting in the page having perhaps one of the fastest fast time to interactivity comparative to the other UI frameworks as a result of our methods.
 
-All client-side code is packaged as independent, async `<script type="modules">` modules which are scoped directly to the element in question.
+All client-side code is packaged as independent, async modules `<script type="modules">` which are scoped directly to the element in question.
 
 This non-blocking, asynchronous approach allows the DOM and all of its contents to be loaded first, then the XElement client-side JS is executed directly afterwards, prior to any execution of partially hydrated content.
 
@@ -105,4 +116,4 @@ This is how XElement gives you the ability to create interactive, web standard, 
 
 XElement only has a dozen methods and API's in total that are setup to help provide performant mechanisms to help deliver the client-side interactions that is demanded of modern-day web applications.
 
-
+We explain more about XElement's methods API's on our next page where we also introduce you to the `@` decorator and how it instructs XElement with what too *do*.
