@@ -12,13 +12,11 @@ page:
 ---
 # Introducing XElement
 
-Astro's first and currently, only Web Component Framework.
+Welcome to Astro's first, and currently only, Web Component Framework.
 
-XElement is designed and created to help enhance the DX of other Astronauts, using Astro in their projects.
+XElement was designed to improve the DX for developers of Astro projects.
 
-A trusty and reliable swiss-army knife in their arsenal. Giving you additional superpowers to help make more of your `HTMLElements`.
-
-Letting you write good Astro and be super charged as you go.
+It is a trusty and reliable swiss-army knife that you can reach for that adds a wide variety of interactions to your HTML components in Astro.
 
 ## What is XElement?
 
@@ -46,46 +44,32 @@ Although dynamic, client-side interactivity can be achieved in Astro already thr
 
 ### Create Components intuitively
 
-XElement has a very simple and intuitive interface that aims to provide a very easy DX. Write your HTML as you normally would in Astro using its powerful, HTML & JSX syntax.
+- XElement has a very simple and intuitive interface. Write your HTML as you normally would in Astro using its powerful HTML & JSX syntax.
 
-XElement takes further advantage of this to allow you to collocate all of your client-side interactions directly within the HTML itself.
+- XElement takes further advantage of this to allow you to collocate all of your client-side interactions directly within the HTML itself.
 
-Letting you express your interactions in either **JavaScript** or **TypeScript** without any additional setup involved.
+- XElement lets you express your interactions in either **JavaScript** or **TypeScript** without any additional setup involved.
 
 ### Archipelagos for Islands Architecture
 
 Combine other UI frameworks for even more interactivity.
 
-Each framework component rendered individually in Astro creates its own, isolated “island of interactivity.”
+Each framework component rendered individually in Astro creates its own, isolated “island of interactivity” in a composition model wherein a React component can only have React children components; A Svelte component can only have Svelte children components...
 
-Framework components cannot "talk" to each other: they cannot share or pass data even when they are rendered in the same Astro component, layout or page. Furthermore, its child components must be components of the same framework.
-
-This results in a composition model where a React component can only have React children components; A Svelte component can only have Svelte children components...
-
-XElement can unite these separate components by providing a parent container element that can provide and execute dynamic, run-time actions based on data received from any and all child elements, even from multiple frameworks at the same time!
-
-And since XElement components are in effect HTML elements they can be used as children within these frameworks. Whereas you cant pass through Astro components into UI Frameworks, with XElement components you can!
+XElement can unite these separate components by providing a parent container element that can provide and execute dynamic, run-time actions based on data received from any and all child elements, even from multiple frameworks at the same time! And since XElement components are in effect HTML elements they can be used as children within these frameworks.
 
 ------------------
 
 ## How does it work?
 
-Each XElement component generates HTML elements first, whilst giving the option to also creating a dynamic region of interactive HTML elements on the page by producing its own `<script type="module">` element.
+Each XElement component generates HTML elements first, while giving the option to also create a dynamic region of interactive HTML elements on the page by producing its own `<script type="module">` element.
 
-This `<script>` is inserted at build time, It is read by the browser and is then immediately removed and made invisible to the DOM tree on the client.
+This `<script>` is inserted at build time, read by the browser, and is then immediately removed and made invisible to the DOM tree on the client.
 
 XElement requires no special DOM renderer is to do this.
 
-It provides pure *element encapsulation* where each XElement is self-contained, isolated from, but can interact with, each other.
+It provides pure *element encapsulation*: each XElement is self-contained, and isolated from, but can still interact with, each other.
 
-All methods are scoped to each element. So if one element decides not to work as intended, it will not interfere nor block any other element on the page.
+All methods are scoped to each element. So if one element does not work as intended, it will neither interfere with nor block any other element on the page.
 
 ------------------
-
-## Epilogue
-
-We have just introduced you to XElement, all the wonders it contains has yet to be truly explored. We have been documenting this really amazing tool for some time and still finding new ways to use XElement with Astro.
-
-Our Induction pages are here to provide you with theoretical information needed.
-
-We discuss [client-side interactivity](interactivity) along with introducing you the the [methods](methods) and [observations](observations) that can be implemented with XElement. We also delve into other concepts pertaining to XElement which we feel that for the user of our framework we should empower them with the both the conceptual and practical knowledge to get the most out of XElement.
