@@ -171,6 +171,6 @@ const populateSanitizer = async() =>{
 
 ---
     <!-- Stylesheets -->
-    {linkCSS}
-    {await populateSanitizer()}
+    <Fragment set:html={linkCSS} />
+    <Fragment set:html={await populateSanitizer()} />
     <!-- End of Stylesheets -->
