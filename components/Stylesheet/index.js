@@ -31,3 +31,7 @@
  */
 
 export {default as Stylesheet} from './Stylesheet.astro'
+
+export {default as Sanitizer} from './Sanitizer.astro'
+
+export {default as OpenProps} from './OpenProps.astro'

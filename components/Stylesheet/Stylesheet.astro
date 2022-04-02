@@ -1,4 +1,7 @@
 ---
+import {SanitizerProps,OpenProps} from './types'
+import SanitizerLink from './Sanitzer.astro'
+import OpenPropsLink from './OpenProps.astro'
 /**
  *  @function handleError
  *  @params err? - defaults to "No Stylesheets have been included"
@@ -9,21 +12,10 @@ function handelError(err){
 }
 
 /** Render Link Element */
-const renderLinkElement = ( path:string, media?:string, cors?:string, preload?:string, alternative?:boolean, title?:string ):HTMLLinkElement =>
+const renderLinkElement = ( path:string, media?:string, cors?:string, preload?:string, alternative?:boolean, title?:string ):string =>
 `<link ${preload ?`rel="preload stylesheet" as="style" ` : `rel=${alternative ? `"alternative stylesheet"` : `"stylesheet"`}`} type="text/css" href="${path}" ${media ? `media="${media}"`: ''} ${cors ? `crossorigin="${cors}"` : ''} ${title && alternative ? `title="${title}"`:''} />`
 
-type SanitizeList =
-        "all" |
-        "bare"|
-        "forms"|
-        "assets"|
-        "typography"|
-        "reducedMotion"|
-        "sysUI"|
-        "modern"|
-        "monoUI"
-
-interface PropsAttributes {
+interface StylesheetProps {
     /** HREF location of the file */
     href?: "npm:" | string ,
     /** Media type for the stylesheet */
@@ -37,27 +29,17 @@ interface PropsAttributes {
     /** CORS settings */
     cors?:'anonymous'|'use-credentials',
 }
-
-interface Props extends PropsAttributes {
-    list?: PropsAttributes[]
-    sanitize?: SanitizeList | 'none'
-}
-
-const sanitizerURLS = {
-    default:"https://cdn.skypack.dev/sanitize.css",
-    forms:"https://unpkg.com/sanitize.css/forms.css",
-    assets:"https://unpkg.com/sanitize.css/assets.css",
-    typography:"https://unpkg.com/sanitize.css/typography.css",
-    reducedMotion:"https://unpkg.com/sanitize.css/reduce-motion.css",
-    sysUI:"https://unpkg.com/sanitize.css/system-ui.css",
-    monoUI:"https://unpkg.com/sanitize.css/ui-monospace.css",
-    modern:"https://unpkg.com/modern-css-reset/dist/reset.min.css"
+interface Props extends StylesheetProps {
+    list?: StylesheetProps[]
+    sanitize?: SanitizerProps 
+    openProps?: OpenProps 
 }
 
 // Acquiring values from props
 const {
        list,
        sanitize="none",
+       openProps = "none",
        href: hrefValue,
        media: mediaValue,
        cors,
@@ -90,87 +72,42 @@ const linkCSS = attributesList.map(
             cors,
             preload,
             alternative,
-            title} = attribute
+            title
+            } = attribute
         let src = href.startsWith('npm:') && href.endsWith('.css')
                     ? 'https://cdn.skypack.dev/' + href.slice(4)
                     : href
-         return renderLinkElement(src,media,cors,preload,alternative,title)
+         return ({href:src,media,cors,preload,alternative,title})
     }
 )
 
 
-
-/**Global to place the sanitized links into */
-let sanitizedArray = []
-
-/**
- * @param input - Each value passed into the 'sanitize' prop
- * @returns Pushes rendered Link Element to the SanitizedArray Based on the Input
- */
-async function createSanitizerLink(input:string):Promise<T>{
-    const cors = 'anonymous'
-    if(input ===  "all"){
-        Object.entries(sanitizerURLS).forEach(link=>{
-                sanitizedArray.push(
-                    renderLinkElement(link[1],null,cors)
-                )
-        })
-        return
-    }
-    if(input ===  "bare"){
-       return sanitizedArray.push(
-        renderLinkElement(sanitizerURLS['default'],null,cors))
-    }
-    if( input ===  "forms" ||
-        input ===  "assets" ||
-        input ===  "typography" ||
-        input ===  "reducedMotion" ||
-        input ===  "modern" ||
-        input ===  "monoUI"
-        ){
-           return sanitizedArray.push(
-                renderLinkElement(sanitizerURLS[input],null,cors)
-            )
-    }
-
-}
-
-/**
- * @param entry - Sanitized Prop value
- */
-async function generateSanitizedLinks(entry:string):Promise<T>{
-    let terms = entry.split(',')
-    if(terms.includes('none')){
-        return
-    }
-    if(terms.length == 1){
-        await createSanitizerLink(entry)
-    }
-    if(terms.length > 1){
-        terms.forEach(async(term) => {
-            await createSanitizerLink(term)
-        });
-        if(terms.includes('bare') === false){
-            sanitizedArray.push(
-                renderLinkElement(sanitizerURLS['default'],null,'anonymous')
-            )
-        }
-    }
-
-}
-
-
-
-/**
- * Function to populate the list of sanitized links
- */
-const populateSanitizer = async() =>{
-    const worker = await generateSanitizedLinks(sanitize)
-    return sanitizedArray
-}
-
 ---
-    <!-- Stylesheets -->
-    {linkCSS}
-    {await populateSanitizer()}
+    <!-- Managed Stylesheets -->
+    {
+        linkCSS.map(({href,media,cors,preload,alternative,title})=>(
+            <link 
+                href={href} 
+                {media ?? `media="${media}"`} 
+                {preload 
+                    ?`rel="preload" as="style" ` 
+                    : `rel=${alternative 
+                            ? `"alternative stylesheet"` 
+                            : `"stylesheet"`}
+                `} 
+                {title && alternative ? `title="${title}"`:''} 
+                {cors ?? `crossorigin` } 
+                type="text/css" 
+                />
+
+        ))
+    }
+    {
+        sanitize &&
+         <SanitizerLink sanitize={sanitize} />
+    }
+    {
+        openProps &&
+         <OpenPropsLink props={OpenProps} />
+    }
     <!-- End of Stylesheets -->

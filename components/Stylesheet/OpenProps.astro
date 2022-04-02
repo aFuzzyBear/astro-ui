@@ -1,0 +1,93 @@
+---
+import {OpenProps} from './types'
+
+const {props} = Astro.props as OpenProps
+
+const openPropsURLS = {
+    "all":"https://unpkg.com/open-props@1.3.11/open-props.min.css"
+    "animations": "https://raw.github.com/argyleink/open-props/main/src/props.animations.css",
+    "aspects": "https://raw.github.com/argyleink/open-props/main/src/props.aspects.css",
+    "blue-hsl": "https://raw.github.com/argyleink/open-props/main/src/props.blue-hsl.css",
+    "blue": "https://raw.github.com/argyleink/open-props/main/src/props.blue.css",
+    "borders": "https://raw.github.com/argyleink/open-props/main/src/props.borders.css",
+    "colors-hsl": "https://raw.github.com/argyleink/open-props/main/src/props.colors-hsl.css",
+    "colors": "https://raw.github.com/argyleink/open-props/main/src/props.colors.css",
+    "cyan-hsl": "https://raw.github.com/argyleink/open-props/main/src/props.cyan-hsl.css",
+    "cyan": "https://raw.github.com/argyleink/open-props/main/src/props.cyan.css",
+    "easing": "https://raw.github.com/argyleink/open-props/main/src/props.easing.css",
+    "fonts": "https://raw.github.com/argyleink/open-props/main/src/props.fonts.css",
+    "gradients": "https://raw.github.com/argyleink/open-props/main/src/props.gradients.css",
+    "grape-hsl": "https://raw.github.com/argyleink/open-props/main/src/props.grape-hsl.css",
+    "grape": "https://raw.github.com/argyleink/open-props/main/src/props.grape.css",
+    "gray-hsl": "https://raw.github.com/argyleink/open-props/main/src/props.gray-hsl.css",
+    "gray": "https://raw.github.com/argyleink/open-props/main/src/props.gray.css",
+    "green-hsl": "https://raw.github.com/argyleink/open-props/main/src/props.green-hsl.css",
+    "green": "https://raw.github.com/argyleink/open-props/main/src/props.green.css",
+    "highlights": "https://raw.github.com/argyleink/open-props/main/src/props.highlights.css",
+    "indigo-hsl": "https://raw.github.com/argyleink/open-props/main/src/props.indigo-hsl.css",
+    "indigo": "https://raw.github.com/argyleink/open-props/src/props.indigo.css",
+    "layouts": "https://raw.github.com/argyleink/open-props/main/src/props.layouts.css",
+    "lime-hsl": "https://raw.github.com/argyleink/open-props/main/src/props.lime-hsl.css",
+    "lime": "https://raw.github.com/argyleink/open-props/main/src/props.lime.css",
+    "media": "https://raw.github.com/argyleink/open-props/main/src/props.media.css",
+    "orange-hsl": "https://raw.github.com/argyleink/open-props/main/src/props.orange-hsl.css",
+    "orange": "https://raw.github.com/argyleink/open-props/main/src/props.orange.css",
+    "pink-hsl": "https://raw.github.com/argyleink/open-props/main/src/props.pink-hsl.css",
+    "pink": "https://raw.github.com/argyleink/open-props/main/src/props.pink.css",
+    "red-hsl": "https://raw.github.com/argyleink/open-props/main/src/props.red-hsl.css",
+    "red": "https://raw.github.com/argyleink/open-props/main/src/props.red.css",
+    "shadows": "https://raw.github.com/argyleink/open-props/main/src/props.shadows.css",
+    "sizes": "https://raw.github.com/argyleink/open-props/main/src/props.sizes.css",
+    "supports": "https://raw.github.com/argyleink/open-props/main/src/props.supports.css",
+    "svg": "https://raw.github.com/argyleink/open-props/main/src/props.svg.css",
+    "teal-hsl": "https://raw.github.com/argyleink/open-props/main/src/props.teal-hsl.css",
+    "teal": "https://raw.github.com/argyleink/open-props/main/src/props.teal.css",
+    "violet-hsl": "https://raw.github.com/argyleink/open-props/main/src/props.violet-hsl.css",
+    "violet": "https://raw.github.com/argyleink/open-props/main/src/props.violet.css",
+    "yellow-hsl": "https://raw.github.com/argyleink/open-props/main/src/props.yellow-hsl.css",
+    "yellow": "https://raw.github.com/argyleink/open-props/main/src/props.yellow.css",
+    "zindex": "https://raw.github.com/argyleink/open-props/main/src/props.zindex.css"
+}
+
+const LinkDetails = (path)=>({path})
+
+let PropsList = []
+
+function createOPropLink(string){
+    if(openPropsURLS[string]){
+        const [name,path] = openPropsURLS[string]
+        PropsList.push(LinkDetails(path))
+    }
+}
+
+function generateProps(entry){
+    if(typeof entry ==='string'){
+        let list = [...entry.split(',')]
+        generateProps(list)
+    }
+    if( typeof entry === 'object'){
+        if(entry.includes('all')){
+            return createOPropLink('all')
+        }
+        entry.forEach((item:string) => {
+            createOPropLink(item)
+        });
+    }
+}
+if(!props){
+    generateProps('all')
+}
+generateProps(props)
+---
+    <!-- OpenProps Stylesheets -->
+    {
+        PropsList.map(({path})=>(
+            <link 
+                rel="preload" as="style"
+                type="text/css" 
+                href={path} 
+                crossorigin 
+                />
+        ))
+    }
+    <!-- End of Open Props -->
