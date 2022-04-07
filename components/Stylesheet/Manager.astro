@@ -1,0 +1,39 @@
+---
+import {SanitizerProps,OpenProps,StylesheetProps} from './types'
+import SanitizerLink from './Sanitzer.astro'
+import OpenPropsLink from './OpenProps.astro'
+import StylesheetLink from './Stylesheet.astro'
+
+interface Props extends StylesheetProps{
+    sanitizer?:SanitizerProps
+    OProps?:OpenProps
+    critical?:boolean
+}
+
+const {href,list,sanitizer,OProps, critical} = Astro.props as Props
+
+---
+    <!-- Managed Stylesheets -->
+    
+    {
+        critical &&
+        <StylesheetLink href={href ?? null}/>
+    }
+    {
+        sanitizer &&
+         <SanitizerLink sanitize={sanitizer} />
+    }
+    {
+        OProps &&
+         <OpenPropsLink props={OProps} />
+    }
+    {
+        href &&
+        <StylesheetLink  href={href ??null}/>
+    }
+    {
+         list &&
+        <StylesheetLink list={list ?? null}/>
+    }
+    
+    <!-- End of Stylesheets -->

@@ -1,176 +1,80 @@
 ---
-/**
- *  @function handleError
- *  @params err? - defaults to "No Stylesheets have been included"
- *  @throw Error to STDERR
- */
 function handelError(err){
     throw new ReferenceError(`❗ There is an Error with the <Stylesheet> component: \n${err}`)
 }
-
-/** Render Link Element */
-const renderLinkElement = ( path:string, media?:string, cors?:string, preload?:string, alternative?:boolean, title?:string ):HTMLLinkElement =>
-`<link ${preload ?`rel="preload stylesheet" as="style" ` : `rel=${alternative ? `"alternative stylesheet"` : `"stylesheet"`}`} type="text/css" href="${path}" ${media ? `media="${media}"`: ''} ${cors ? `crossorigin="${cors}"` : ''} ${title && alternative ? `title="${title}"`:''} />`
-
-type SanitizeList =
-        "all" |
-        "bare"|
-        "forms"|
-        "assets"|
-        "typography"|
-        "reducedMotion"|
-        "sysUI"|
-        "modern"|
-        "monoUI"
-
-interface PropsAttributes {
-    /** HREF location of the file */
-    href?: "npm:" | string ,
-    /** Media type for the stylesheet */
-    media?: string,
-    /** Preload the stylesheet */
-    preload?,
-    /** Alternative Stylesheet */
-    alternative?,
-    /** Alternative Stylesheet NAME */
-    title?:string,
-    /** CORS settings */
-    cors?:'anonymous'|'use-credentials',
+interface list{
+  href?:string,
+  media?:string,
+  preload?:boolean,
+  title?:string,
+  alternative?:boolean,
+  cors?:boolean | 'anonymous' | 'use-credentials'
+}
+interface Props extends list{
+  href?:string,
+  local?:string,
+  media?:string,
+  list?:list[],
 }
 
-interface Props extends PropsAttributes {
-    list?: PropsAttributes[]
-    sanitize?: SanitizeList | 'none'
+const {href,media,list, preload, title, alternative, cors} = Astro.props as Props
+console.log(Astro.props)
+
+let styleList = []
+
+const formatHref = (url:string) => {
+  const checkIfRelative = url.includes('src/') || url.includes('../')
+  const isNPM = url.startsWith('npm:') && url.endsWith('.css')
+  const isUnpkg = url.startsWith('unpkg:') && url.endsWith('.css')
+  if(checkIfRelative){
+    return handelError('Sorry this component does not support relative files from the \'src/\' directory')
+  }
+  if(isNPM && !isUnpkg){
+    return "https://cdn.skypack.dev/" + url.slice(4)
+  }
+  if(isUnpkg && !isNPM){
+    return "https://unpkg.com/" + url.slice(6)
+  }
+  return url
 }
-
-const sanitizerURLS = {
-    default:"https://cdn.skypack.dev/sanitize.css",
-    forms:"https://unpkg.com/sanitize.css/forms.css",
-    assets:"https://unpkg.com/sanitize.css/assets.css",
-    typography:"https://unpkg.com/sanitize.css/typography.css",
-    reducedMotion:"https://unpkg.com/sanitize.css/reduce-motion.css",
-    sysUI:"https://unpkg.com/sanitize.css/system-ui.css",
-    monoUI:"https://unpkg.com/sanitize.css/ui-monospace.css",
-    modern:"https://unpkg.com/modern-css-reset/dist/reset.min.css"
+if(href && !list) {
+  styleList.push({
+    href,
+    media,
+    preload,
+    alternative,
+    cors,
+    title
+  })
 }
-
-// Acquiring values from props
-const {
-       list,
-       sanitize="none",
-       href: hrefValue,
-       media: mediaValue,
-       cors,
-       preload,
-       alternative,
-       title
-       } = Astro.props as Props
-const attributesList = list || []
-
-if(!hrefValue && (!Array.isArray(list) || list.length === 0)){
-    handelError('No Stylesheets have been included!')
+if(list && !href){
+  styleList = list
 }
-
-if (hrefValue) {
-    attributesList.push({
-        href: hrefValue,
-        media: mediaValue,
-        cors,
-        preload,
-        alternative,
-        title
-        })
-}
-
-const linkCSS = attributesList.map(
-    (attribute) =>{
-        const {
-            href,
-            media,
-            cors,
-            preload,
-            alternative,
-            title} = attribute
-        let src = href.startsWith('npm:') && href.endsWith('.css')
-                    ? 'https://cdn.skypack.dev/' + href.slice(4)
-                    : href
-         return renderLinkElement(src,media,cors,preload,alternative,title)
-    }
-)
-
-
-
-/**Global to place the sanitized links into */
-let sanitizedArray = []
-
-/**
- * @param input - Each value passed into the 'sanitize' prop
- * @returns Pushes rendered Link Element to the SanitizedArray Based on the Input
- */
-async function createSanitizerLink(input:string):Promise<T>{
-    const cors = 'anonymous'
-    if(input ===  "all"){
-        Object.entries(sanitizerURLS).forEach(link=>{
-                sanitizedArray.push(
-                    renderLinkElement(link[1],null,cors)
-                )
-        })
-        return
-    }
-    if(input ===  "bare"){
-       return sanitizedArray.push(
-        renderLinkElement(sanitizerURLS['default'],null,cors))
-    }
-    if( input ===  "forms" ||
-        input ===  "assets" ||
-        input ===  "typography" ||
-        input ===  "reducedMotion" ||
-        input ===  "modern" ||
-        input ===  "monoUI"
-        ){
-           return sanitizedArray.push(
-                renderLinkElement(sanitizerURLS[input],null,cors)
-            )
-    }
-
-}
-
-/**
- * @param entry - Sanitized Prop value
- */
-async function generateSanitizedLinks(entry:string):Promise<T>{
-    let terms = entry.split(',')
-    if(terms.includes('none')){
-        return
-    }
-    if(terms.length == 1){
-        await createSanitizerLink(entry)
-    }
-    if(terms.length > 1){
-        terms.forEach(async(term) => {
-            await createSanitizerLink(term)
-        });
-        if(terms.includes('bare') === false){
-            sanitizedArray.push(
-                renderLinkElement(sanitizerURLS['default'],null,'anonymous')
-            )
-        }
-    }
-
-}
-
-
-
-/**
- * Function to populate the list of sanitized links
- */
-const populateSanitizer = async() =>{
-    const worker = await generateSanitizedLinks(sanitize)
-    return sanitizedArray
+if(list && href){
+  return handelError('Sorry you cannot have both props.href && props.list together')
 }
 
 ---
-    <!-- Stylesheets -->
-    {linkCSS}
-    {await populateSanitizer()}
-    <!-- End of Stylesheets -->
+
+  {
+    styleList &&
+      styleList.map(async ({href:path,media,preload,title,alternative,cors})=>(
+        <>
+          <link 
+            href  = { formatHref(path) }
+            rel={
+              preload 
+              ? "preload"
+              : alternative 
+              ? "alternative stylesheet"
+              : "stylesheet"
+            }
+            media = { media ?? null }
+            title = { title && alternative ? title : null }
+            as    = { preload && "style" }
+            type  = "text/css"
+            crossorigin = {cors ?? null}
+          />
+        </>
+      ))
+  }

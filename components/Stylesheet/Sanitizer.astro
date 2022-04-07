@@ -1,0 +1,88 @@
+---
+
+import {SanitizerProps} from './types'
+
+const {sanitize} = Astro.props as SanitizerProps
+
+
+const LinkDetails = (path: string,):object=> ({path})
+
+const sanitizerURLS = {
+    default:"https://cdn.skypack.dev/sanitize.css",
+    forms:"https://unpkg.com/sanitize.css/forms.css",
+    assets:"https://unpkg.com/sanitize.css/assets.css",
+    typography:"https://unpkg.com/sanitize.css/typography.css",
+    reducedMotion:"https://unpkg.com/sanitize.css/reduce-motion.css",
+    sysUI:"https://unpkg.com/sanitize.css/system-ui.css",
+    monoUI:"https://unpkg.com/sanitize.css/ui-monospace.css",
+    modern:"https://unpkg.com/modern-css-reset/dist/reset.min.css"
+}
+
+/**Global to place the sanitized links into */
+let sanitizedArray = []
+
+function createSanitizerLink(input:string):any{
+    const cors = 'anonymous'
+    switch (input) {
+        case 'all':
+        Object.entries(sanitizerURLS).forEach(link=>{
+            sanitizedArray.push(
+            LinkDetails(link[1])
+            )
+        })
+        break;
+        case 'bare':
+        sanitizedArray.push(
+            LinkDetails(sanitizerURLS['default']))
+        break
+        case 'forms':
+        case 'assets':
+        case 'typography':
+        case 'reducedMotion':
+        case 'modern':
+        case 'monoUI':
+            sanitizedArray.push(
+                LinkDetails(sanitizerURLS[input])
+            )
+        break
+        default:
+            break;
+    }
+}
+
+function generateSanitizedLinks(entry){
+    if(typeof entry ==='string'){
+        let list = [...entry.split(',')]
+        generateSanitizedLinks(list)
+    }
+    if( typeof entry === 'object'){
+        if(entry.includes('all')){
+            return createSanitizerLink('all')
+        }
+        entry.forEach((item:string) => {
+            if(item.includes('none')){
+                return
+            }
+            createSanitizerLink(item)
+        });
+    }
+}
+
+if(!sanitize){
+    generateSanitizedLinks('all')
+}
+generateSanitizedLinks(sanitize)
+
+---
+    <!-- CSS Sanitizer -->
+    {
+      sanitizedArray.map(({path})=>(
+        <link 
+            rel="preload" as="style"
+            type="text/css" 
+            href={path} 
+            crossorigin 
+            />
+      ))
+    }
+    <!-- End of Sanitizer -->
