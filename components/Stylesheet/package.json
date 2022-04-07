@@ -10,7 +10,7 @@
   ],
   "description": "Astro StyleSheet <link> Component, This single Component provides the interface to apply a single stylesheet or many stylesheets in one place, have it also apply relevant sanitize.css scripts through use of a single Prop",
   "license": "MIT",
-  "version": "3.0.8",
+  "version": "3.0.10",
   "homepage": "https://github.com/aFuzzyBear/astro-academy/tree/master/packages/astro-ui/head/stylesheet",
   "bugs": {
     "url": "https://github.com/aFuzzyBear/astro-academy/tree/master/packages/astro-ui/head/stylesheet/issues"
@@ -29,9 +29,11 @@
   },
   "files": [
     "index.ts",
+    "Stylesheet.astro",
     "Manager.astro",
     "Sanitizer.astro",
-    "OpenProps.astro"
+    "OpenProps.astro",
+    "types.ts"
   ],
   "types": "./types.d.ts"
 }
