@@ -43,7 +43,7 @@ export type OpenPropsList =
   | "zindex";
 
 export interface OpenProps {
-  props: OpenPropsList | OpenPropsList[] | string;
+  props: OpenPropsList | OpenPropsList[] ;
 }
 
 export type SanitizeList =
@@ -58,5 +58,19 @@ export type SanitizeList =
   | "monoUI";
 
 export interface SanitizerProps {
-  sanitize?: SanitizeList | string | SanitizeList[];
+  sanitize?: SanitizeList |  SanitizeList[];
+}
+
+export interface Stylesheet {
+  href?:string,
+  media?:string,
+  preload?:boolean,
+  title?:string,
+  alternative?:boolean,
+  cors?:boolean | 'anonymous' | 'use-credentials'
+}
+
+export type StylesheetList = Stylesheet[] 
+export interface StylesheetProps extends Stylesheet{
+    list?: StylesheetList[]
 }
