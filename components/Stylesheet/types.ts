@@ -70,7 +70,7 @@ export interface Stylesheet {
   cors?:boolean | 'anonymous' | 'use-credentials'
 }
 
-export type StylesheetList = Stylesheet[] 
+export type list = Stylesheet
 export interface StylesheetProps extends Stylesheet{
-    list?: StylesheetList[]
+    list?: list[]
 }

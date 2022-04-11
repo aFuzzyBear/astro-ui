@@ -8,7 +8,7 @@ interface list{
   preload?:boolean,
   title?:string,
   alternative?:boolean,
-  cors?:boolean | 'anonymous' | 'use-credentials'
+  cors?: 'anonymous' | 'use-credentials'
 }
 interface Props extends list{
   href?:string,
@@ -17,22 +17,23 @@ interface Props extends list{
   list?:list[],
 }
 
-const {href,media,list, preload, title, alternative, cors} = Astro.props as Props
-console.log(Astro.props)
+let {href,media, preload, title, alternative, cors, list} = Astro.props as Props
 
 let styleList = []
 
-const formatHref = (url:string) => {
-  const checkIfRelative = url.includes('src/') || url.includes('../')
+const formatHref = (url:string):string|URL => {
+  const checkIfRelative = url.includes('./') || url.includes('../')
   const isNPM = url.startsWith('npm:') && url.endsWith('.css')
   const isUnpkg = url.startsWith('unpkg:') && url.endsWith('.css')
   if(checkIfRelative){
-    return handelError('Sorry this component does not support relative files from the \'src/\' directory')
+     handelError(`In order to link to a stylesheet relative to the 'src/'\nYou need to statically import the stylesheet like so:\n import stylesHref from '${url}?url'\nThen apply 'stylesHref' as the value for 'href={stylesHref}'\nThis would allow the <Stylesheet/> component to obtain the right reference to the stylesheet `)
   }
   if(isNPM && !isUnpkg){
+    cors = 'anonymous'
     return "https://cdn.skypack.dev/" + url.slice(4)
   }
   if(isUnpkg && !isNPM){
+    cors = 'anonymous'
     return "https://unpkg.com/" + url.slice(6)
   }
   return url
@@ -51,18 +52,23 @@ if(list && !href){
   styleList = list
 }
 if(list && href){
-  return handelError('Sorry you cannot have both props.href && props.list together')
+  handelError('Sorry you cannot have both props.href && props.list together')
 }
 
 ---
-
   {
     styleList &&
-      styleList.map(async ({href:path,media,preload,title,alternative,cors})=>(
-        <>
+      styleList.map(({
+        href:path,
+        media,
+        preload,
+        title,
+        alternative,
+        cors
+      })=>(
           <link 
-            href  = { formatHref(path) }
-            rel={
+            href ={ formatHref(path) }
+            rel ={
               preload 
               ? "preload"
               : alternative 
@@ -75,6 +81,5 @@ if(list && href){
             type  = "text/css"
             crossorigin = {cors ?? null}
           />
-        </>
       ))
   }

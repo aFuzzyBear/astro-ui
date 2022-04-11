@@ -10,14 +10,18 @@ interface Props extends StylesheetProps{
     critical?:boolean
 }
 
-const {href,list,sanitizer,OProps, critical} = Astro.props as Props
+const {href,media,alternative,cors,preload,title,list,sanitizer,OProps, critical} = Astro.props as Props
 
 ---
     <!-- Managed Stylesheets -->
     
     {
-        critical &&
-        <StylesheetLink href={href ?? null}/>
+        critical && href &&
+        <StylesheetLink  href={href} media={media} alternative={alternative} cors={cors} preload={preload} title={title}/>
+    }
+    {
+        critical && list &&
+        <StylesheetLink  list={list}/>
     }
     {
         sanitizer &&
@@ -29,11 +33,11 @@ const {href,list,sanitizer,OProps, critical} = Astro.props as Props
     }
     {
         href &&
-        <StylesheetLink  href={href ??null}/>
+        <StylesheetLink  href={href} media={media} alternative={alternative} cors={cors} preload={preload} title={title}/>
     }
     {
          list &&
-        <StylesheetLink list={list ?? null}/>
+        <StylesheetLink list={list}/>
     }
     
     <!-- End of Stylesheets -->
