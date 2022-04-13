@@ -6,6 +6,7 @@ interface list{
   href?:string,
   media?:string,
   preload?:boolean,
+  async?:boolean,
   title?:string,
   alternative?:boolean,
   cors?: 'anonymous' | 'use-credentials'
@@ -17,7 +18,7 @@ interface Props extends list{
   list?:list[],
 }
 
-let {href,media, preload, title, alternative, cors, list} = Astro.props as Props
+let {href,media, preload, async, title, alternative, cors, list} = Astro.props as Props
 
 let styleList = []
 
@@ -42,7 +43,8 @@ if(href && !list) {
   styleList.push({
     href,
     media,
-    preload,
+    preload: async ? false : preload,
+    async,
     alternative,
     cors,
     title
@@ -62,6 +64,7 @@ if(list && href){
         href:path,
         media,
         preload,
+        async,
         title,
         alternative,
         cors
@@ -75,7 +78,8 @@ if(list && href){
               ? "alternative stylesheet"
               : "stylesheet"
             }
-            media = { media ?? null }
+            media = { async ? 'print' : media ?? null }
+            onload = { async ? 'this.media="all"' : null }
             title = { title && alternative ? title : null }
             as    = { preload && "style" }
             type  = "text/css"
