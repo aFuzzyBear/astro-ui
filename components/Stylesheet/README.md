@@ -28,6 +28,7 @@ import Manager  from 'astro-stylesheet/Manager'
   <!-- Manage individual stylesheets -->
   <Manager href="styles/main.css" critical/>
   <Manager href="styles/print.css" media="print" preload/>
+  <Manager href="styles/print.css" async/>
   <Manager href="styles/alternative.css" alternative title="An Alternative Stylesheet"/>
   <!-- Batch Manage the Stylesheets -->
   <Manager list={
@@ -84,6 +85,7 @@ import Stylesheet  from 'astro-stylesheet/Stylesheet'
   <!-- Manage individual stylesheets -->
   <Stylesheet href="styles/main.css" critical/>
   <Stylesheet href="styles/print.css" media="print" preload/>
+  <Stylesheet href="styles/other.css" async/>
   <Stylesheet href="styles/alternative.css" alternative title="An Alternative Stylesheet"/>
   <!-- Batch Manage the Stylesheets -->
   <Stylesheet list={
@@ -109,6 +111,7 @@ interface StylesheetProps{
     href?:string,
     media?:string,
     preload?:boolean,
+    async?:boolean,
     title?:string,
     alternative?:boolean,
     cors?: 'anonymous' | 'use-credentials',
@@ -145,6 +148,14 @@ This `preload` attribute allows you to stipulate if that particular stylesheet s
 
 ```astro
 <Stylesheet ... preload />
+```
+
+### `preload?`
+
+This `async` attribute allows you download a stylesheet asynchronously with `media="print" onload="this.media='all'"`
+
+```astro
+<Stylesheet ... async />
 ```
 
 ### `alternative?`
