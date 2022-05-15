@@ -149,7 +149,7 @@ if (!remote) {
 
 {remote ? (
   <Fragment>
-    {`<!-- External Font: '${family}' via HTTPS -->`}
+    <Fragment set:html={`<!-- External Font: '${family}' via HTTPS -->`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -167,7 +167,7 @@ if (!remote) {
   </Fragment>
 ) : (
   <Fragment>
-    {`<!-- External Font: '${family}' via CSS -->`}
+    <Fragment set:html={`<!-- External Font: '${family}' via HTTPS -->`} />
     <link
       rel="stylesheet"
       href="/public/assets/fonts/${family}/${family}.css"
