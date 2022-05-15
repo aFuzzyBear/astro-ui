@@ -1,97 +1,177 @@
 ---
-import {get} from 'https';
-import {parseCss, stringify} from './cssParser.mjs';
-import {createWriteStream, writeFile, rename} from 'node:fs';
-import {mkdir} from 'node:fs/promises';
-export interface Props{
-    family: string;
-    weights?:number[] | string;
-    local?:boolean;
-    remote?:boolean;
-}
-let {family, weights, local, remote} = Astro.props as Props;
-family = family.replaceAll(' ', '+');
-const APIBase = 'https://fonts.googleapis.com/css2?family=';
-const meta = [['User-Agent', 'Firefox 44.0 Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/44.0']];
-const headers = new Headers(meta);
-const convertWeights = (weights):Array<number>=>{if(!Array.isArray(weights)){weights=[+weights]}return weights};
-const callBack = (err):void=>{console.log(err.message)};
+import { get } from "https";
+import { parseCss, stringify } from "./cssParser.mjs";
+import { createWriteStream, writeFile, rename } from "node:fs";
+import { mkdir } from "node:fs/promises";
 
-if(!remote){
-    let APIPath = APIBase + family.replaceAll(" ", "+") + ":wght@";
-    let weightArray = convertWeights(weights);
-    weightArray.forEach(el =>{
-        APIPath += el.toString() + ';';
-    })
-    APIPath = APIPath.substring(0, APIPath.length - 1);
-    const result = await fetch(APIPath, {headers: headers});
-    let CSSString = await result.text();
-    let CSSObject = parseCss(CSSString);
-    let availableCSS = ['latin'];
-    Object.keys(CSSObject).sort().forEach(key => {
-        if(!availableCSS.includes(CSSObject[key]['comment'])){
-            delete CSSObject[key];
-        }
-    })
-    Object.keys(CSSObject).sort().forEach(key => {
-            delete CSSObject[key]['comment'];
-    })
-    let cleanCSSObject = Object.fromEntries(Object.entries(CSSObject).filter(([_, v]) => v != null));
-    CSSString = stringify(cleanCSSObject);
-    let path = './public/assets/fonts/' + family;
-    await mkdir(path, {recursive: true});
-    await writeFile(path + '/' + family + '.css', CSSString, function (){
+export interface Props {
+  family: string;
+  weights?: number[] | string;
+  local?: boolean;
+  remote?: boolean;
+}
+
+let { family, weights, local, remote } = Astro.props as Props;
+
+family = family.replaceAll(" ", "+");
+
+const APIBase = "https://fonts.googleapis.com/css2?family=";
+
+const meta = [
+  [
+    "User-Agent",
+    "Firefox 44.0 Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/44.0",
+  ],
+];
+
+const headers = new Headers(meta);
+
+const convertWeights = (weights): Array<number> => {
+  if (!Array.isArray(weights)) {
+    weights = [+weights];
+  }
+  return weights;
+};
+
+const callBack = (err): void => {
+  console.log(err.message);
+};
+
+if (!remote) {
+  let APIPath = APIBase + family.replaceAll(" ", "+") + ":wght@";
+
+  let weightArray = convertWeights(weights);
+
+  weightArray.forEach((el) => {
+    APIPath += el.toString() + ";";
+  });
+
+  APIPath = APIPath.substring(0, APIPath.length - 1);
+
+  const result = await fetch(APIPath, { headers: headers });
+
+  let CSSString = await result.text();
+
+  let CSSObject = parseCss(CSSString);
+
+  let availableCSS = ["latin"];
+
+  Object.keys(CSSObject)
+    .sort()
+    .forEach((key) => {
+      if (!availableCSS.includes(CSSObject[key]["comment"])) {
+        delete CSSObject[key];
+      }
     });
-    if(local){
-        let CSSObj = Object.fromEntries(Object.entries(CSSObject).filter(([_, v]) => v != null));
-        let RegEx = /\(([^)]+)\)/;
-        let WhitespaceRegEx = /\s+/g;
-        let URLs = [];
-        let objKeys = Object.keys(CSSObj).sort();
-        objKeys.forEach(key =>{
-            let longURL = CSSObj[key]['style']['src'];
-            URLs.push(RegEx.exec(longURL)[1]);
-        })
-        URLs.forEach(function (url, i){
-            const fontFile = get(url, function(response){
-                let data = [];
-                response.on('data', function(chunk){
-                    data.push(chunk);
-                }).on('end', function(){
-                    let buffer = Buffer.concat(data);
-                    const writeStream = createWriteStream(path + '/' + family + '_' + i + '.woff2');
-                    writeStream.write(buffer);
-                })
-            }).on('error',function(){})
-        })
-        objKeys.forEach(function(key, i){
-            let url = "url(/public/assets/fonts/" + family + "/" + family + "_" + i + ".woff2) format('woff2')";
-            CSSObj[key]['style']['src'] = url;
-        });
-        let cssBase = './public/assets/fonts/' + family + '/' + family
-        let cssPath = cssBase + '.ass';
-        let stringifiedCSS:string = stringify(CSSObject);
-        let writeBuffer = Buffer.from(stringifiedCSS, 'utf-8');
-        writeFile(cssPath, writeBuffer, function(){
-            rename(cssPath, cssBase + '.css', function(err){
-            if(err) return callBack(err);
-            })
-        });
-    }
+
+  Object.keys(CSSObject)
+    .sort()
+    .forEach((key) => {
+      delete CSSObject[key]["comment"];
+    });
+
+  let cleanCSSObject = Object.fromEntries(
+    Object.entries(CSSObject).filter(([_, v]) => v != null)
+  );
+
+  CSSString = stringify(cleanCSSObject);
+
+  let path = "./public/assets/fonts/" + family;
+
+  await mkdir(path, { recursive: true });
+
+  await writeFile(path + "/" + family + ".css", CSSString, function () {});
+
+  if (local) {
+    let CSSObj = Object.fromEntries(
+      Object.entries(CSSObject).filter(([_, v]) => v != null)
+    );
+
+    let RegEx = /\(([^)]+)\)/;
+
+    let URLs = [];
+
+    let objKeys = Object.keys(CSSObj).sort();
+
+    objKeys.forEach((key) => {
+      let longURL = CSSObj[key]["style"]["src"];
+      URLs.push(RegEx.exec(longURL)[1]);
+    });
+
+    URLs.forEach(function (url, i) {
+      get(url, function (response) {
+        let data = [];
+
+        response
+          .on("data", function (chunk) {
+            data.push(chunk);
+          })
+          .on("end", function () {
+            let buffer = Buffer.concat(data);
+
+            const writeStream = createWriteStream(
+              path + "/" + family + "_" + i + ".woff2"
+            );
+
+            writeStream.write(buffer);
+          });
+      }).on("error", function () {});
+    });
+
+    objKeys.forEach(function (key, i) {
+      let url =
+        "url(/public/assets/fonts/" +
+        family +
+        "/" +
+        family +
+        "_" +
+        i +
+        ".woff2) format('woff2')";
+      CSSObj[key]["style"]["src"] = url;
+    });
+
+    let cssBase = "./public/assets/fonts/" + family + "/" + family;
+
+    let cssPath = cssBase + ".ass";
+
+    let stringifiedCSS: string = stringify(CSSObject);
+
+    let writeBuffer = Buffer.from(stringifiedCSS, "utf-8");
+
+    writeFile(cssPath, writeBuffer, function () {
+      rename(cssPath, cssBase + ".css", function (err) {
+        if (err) return callBack(err);
+      });
+    });
+  }
 }
 ---
-{
-    remote ?
-    `
-    <!-- External Font: '${family}' via HTTPS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="${APIBase}${family}${(weights && Array.isArray(weights)) ? ':wght@' + weights.join(';') : (weights && typeof weights === 'string') ? weights : '400'}&display=swap" rel="stylesheet" type="text/css"> 
-    <!-- End of Font -->
-    `
-    :
-    `
-    <!-- External Font: '${family}' via CSS -->
-    <link rel="stylesheet" href="/public/assets/fonts/${family}/${family}.css" type="text/css" />
-    `
-}
+
+{remote ? (
+  <Fragment>
+    <Fragment set:html={`<!-- External Font: '${family}' via HTTPS -->`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href={`${APIBase}${family}${
+        weights && Array.isArray(weights)
+          ? ":wght@" + weights.join(";")
+          : weights && typeof weights === "string"
+          ? weights
+          : "400"
+      }&display=swap`}
+      rel="stylesheet"
+      type="text/css"
+    />
+    {`<!-- End of Font -->`}
+  </Fragment>
+) : (
+  <Fragment>
+    <Fragment set:html={`<!-- External Font: '${family}' via HTTPS -->`} />
+    <link
+      rel="stylesheet"
+      href="/public/assets/fonts/${family}/${family}.css"
+      type="text/css"
+    />
+  </Fragment>
+)}
