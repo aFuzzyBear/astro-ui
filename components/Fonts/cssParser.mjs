@@ -1,4 +1,4 @@
-export function parseCss(t){let to=/([\s\S]+?)\{([\s\S]*?)\}/gi,rs=[],r,tk;while((tk=to.exec(t))){st=pR(tk[2].trim());let c=tk[1].trim().split(' */')[0].split('/* ')[1];r={selector:tk[1].trim().replace(/\s*\,\s*/,', ').trim().replace(/\/\*[\s\S]*?\*\//g,'').replace(/\r?\n|\r/g,''),style:st,comment:c,};rs.push(r);}return rs;};
+export function parseCss(t){let to=/([\s\S]+?)\{([\s\S]*?)\}/gi,rs=[],r,tk, st;while((tk=to.exec(t))){st=pR(tk[2].trim());let c=tk[1].trim().split(' */')[0].split('/* ')[1];r={selector:tk[1].trim().replace(/\s*\,\s*/,', ').trim().replace(/\/\*[\s\S]*?\*\//g,'').replace(/\r?\n|\r/g,''),style:st,comment:c,};rs.push(r);}return rs;};
 export function stringify(c){let t='',k=Object.keys(c);for(let i=0; i<k.length;i++){let eO=Object.getOwnPropertyNames(c[k[i]]);eO.forEach(v=>{if(!(c[k[i]][v] instanceof Object)){t+=c[k[i]][v]+'{\n'}else{let iO = Object.getOwnPropertyNames(c[k[i]][v]);iO.forEach(v2=>{t+=' '+v2+': '+c[k[i]][v][v2]+';\n';});t+='}\n';}});}return t;};
 function pR(c){let tk = /\s*([a-z\-]+)\s*:\s*((?:[^;]*url\(.*?\)[^;]*|[^;]*)*)\s*(?:;|$)/gi,o={},t;while((t=tk.exec(c))){o[t[1].toLowerCase()]=t[2];}return o;}
 
