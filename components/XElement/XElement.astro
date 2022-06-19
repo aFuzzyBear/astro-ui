@@ -32,6 +32,8 @@ let listenerOfOnce: string = ''
 
 let defineVarsString: string = ''
 
+let defineStyleString: string = ''
+
 /** Returns the null-safe type of value. */
 const typeOf = (value: any) => value === null ? 'null' : typeof value
 
@@ -190,6 +192,18 @@ for (const name in attrs) {
 			}
 		
 	}
+
+	if(name.includes('define:style')){
+		const data = attrs['define:style']
+		if(typeOf(data) === 'object') {
+			defineStyleString = `this.style = ${
+				Object.entries(data).map(
+					([ name, value ]) => `${
+						serialize(value)}`
+				)};`
+		}
+		delete attrs['define:style']
+	}
 }
 
 			
@@ -212,9 +226,11 @@ const memo = async (code: string) => {
 }
 
 const onLoadString: string = (
-	listenerString || listenerOfOnce
+	listenerString || listenerOfOnce || defineStyleString
 		? await memo(
 			`(async function($$,$){$=this;$$=(await import($$.src)).default;${
+				defineStyleString ?? ''
+			}${	
 				defineVarsString ?? ''
 			}${
 				listenerOfOnce ?? ''
